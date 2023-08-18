@@ -1,0 +1,361 @@
+\documentclass[article]{beamer}% para se tiver muitas sections
+%\documentclass[11pt,compress,xcolor=dvipsnames]{beamer}
+%---------------------------------------------------------------------
+% Color and themes
+%---------------------------------------------------------------------
+\definecolor{ipb}{rgb}{0.36, 0.54,0.66}
+%\definecolor{royalazure}{rgb}{0.07, 0.04, 0.56}
+\definecolor{royalazure}{RGB}{8,71,155}
+\setbeamercolor{footline}{bg=ipb}
+\setbeamercolor{frametitle}{bg=ipb,fg=white}
+\setbeamercolor{title}{bg=ipb}
+\setbeamerfont{frametitle}{size=\large}
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{blocks}[rounded][shadow]
+\setbeamercolor{palette primary}{use=structure,fg=white,bg=structure.fg}
+\setbeamercolor{palette secondary}{use=structure,fg=white,bg=structure.fg!75!black}
+\setbeamercolor{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
+\setbeamercolor{palette quaternary}{fg=white,bg=structure.fg!50!black}
+\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
+\setbeamercolor{titlelike}{parent=palette primary}
+\setbeamercolor{block title}{bg=ipb,fg=white}
+\setbeamercolor*{block title example}{use={normal text,example text},bg=white,fg=ipb}
+\setbeamercolor{fine separation line}{}
+\setbeamercolor{item projected}{fg=black}
+\setbeamercolor{palette sidebar primary}{use=normal text,fg=normal text.fg}
+\setbeamercolor{palette sidebar quaternary}{use=structure,fg=structure.fg}
+\setbeamercolor{palette sidebar secondary}{use=structure,fg=structure.fg}
+\setbeamercolor{palette sidebar tertiary}{use=normal text,fg=normal text.fg}
+\setbeamercolor{palette sidebar quaternary}{fg=ipb}
+%\setbeamercolor{section in sidebar}{fg=brown}
+%\setbeamercolor{section in sidebar shaded}{fg=grey}
+\setbeamercolor{sidebar}{bg=ipb}
+\setbeamercolor{sidebar}{parent=palette primary}
+\setbeamercolor{structure}{fg=ipb}
+%\setbeamercolor{subsection in sidebar}{fg=brown}
+%\setbeamercolor{subsection in sidebar shaded}{fg=grey}
+\setbeamercolor{section in head/foot}{fg=white,bg=royalazure}
+%\setbeamercolor{subsection in head/foot}{fg=white,bg=royalazure}
+\usetheme{Warsaw}
+%---------------------------------------------------------------------
+% Footline
+%---------------------------------------------------------------------
+\setbeamertemplate{footline}
+ {\leavevmode
+\hbox{
+   \begin{beamercolorbox}[wd=0.49\paperwidth,ht=2.25ex,dp=1ex,leftskip=0.3cm]{author in head/foot}%
+     \usebeamerfont{author in head/foot}\textcolor{white}{\insertshortauthor}
+   \end{beamercolorbox}%
+   \begin{beamercolorbox}[wd=0.34\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}
+     \usebeamerfont{title in head/foot}\textcolor{white}{\insertshorttitle}
+   \end{beamercolorbox}%
+   \begin{beamercolorbox}[wd=0.17\paperwidth,ht=2.25ex,dp=1ex,leftskip=0.3cm,rightskip=0.3cm]{title in head/foot}%
+   \hfill\usebeamerfont{page number in head/foot}
+   \insertframenumber{} / \textcolor{white}{\inserttotalframenumber}
+   \end{beamercolorbox}}
+}
+%---------------------------------------------------------------------
+% Packages
+%---------------------------------------------------------------------
+\usefonttheme[]{serif}
+\usepackage{amsmath, latexsym, color, graphicx, amssymb, bm, here}
+\usepackage{epsf, epsfig, pifont,tikz,subfigure}
+\usepackage{graphics, calrsfs}
+\usepackage{times}
+\usepackage{fancybox,calc}
+\usepackage{palatino,mathpazo}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{sidecap}
+\usepackage{academicons}
+%\usepackage{pdfauthor}
+%\usepackage{pdfcreator}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[brazil]{babel}
+\usepackage{fourier}
+\usepackage{arabtex}
+\usepackage{utf8}
+\setcode{utf8}
+%---------------------------------------------------------------------
+% Definir
+%---------------------------------------------------------------------
+\def\inst#1{\unskip$^{#1}$}
+\def\orcidID#1{\unskip$^{[#1]}$}
+\def\fnmsep{\unskip$^,$}
+\def\email#1{{\tt#1}}
+
+
+%---------------------------------------------------------------------
+% Dados
+%---------------------------------------------------------------------
+\title{Monitoria Inicial de Álgebra Linear}
+%opçao para 1 autor
+\author{Luís Felipe Marques}
+%opçao para 2 autor
+%\author{Primeiro Autor~\orcidID{a12345} \and Segundo Autor~\orcidID{a12345}}
+%opcao para 3 autor
+%\author{Primeiro Autor~\orcidID{a12345}\\
+%        Segundo Autor~\orcidID{a12345}\\
+ %       Terceiro Autor~\orcidID{a12345}
+  %      }
+%\institute{Instituto Politécnico de Bragança- Escola Superior de Tecnologia e Gestão\\
+            %\vspace{0.3cm}
+            %Licenciatura em Curso}
+\institute{Fundação Getulio Vargas - Escola de Matemática Aplicada\\
+            \vspace{0.3cm}
+            Ciência de Dados
+            }
+\date{\vfill\scriptsize{18 de agosto de 2023}\\\vspace{0.2cm}\includegraphics[scale=0.5]{Imagens/emaplogo.png}}
+%---------------------------------------------------------------------
+% Index
+%---------------------------------------------------------------------
+\AtBeginSection[]
+{
+  \begin{frame}{Conteúdo}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+\definecolor{azuel}{rgb}{0.07, 0.04, 0.56}
+	\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+	\definecolor{codegreen}{rgb}{0,0.6,0}
+	\definecolor{mygreen}{RGB}{28,172,0}
+	\definecolor{mylilas}{RGB}{170,55,241}
+	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+	\definecolor{codepurple}{rgb}{0.58,0,0.82}
+	\lstdefinestyle{list2}{language=Matlab,% lst
+		basicstyle=\color{black},
+		backgroundcolor=\color{white},
+		breaklines=true,
+		breakatwhitespace=false,
+		keepspaces=true,
+		morekeywords={matlab2tikz},
+		showspaces=false, 
+		showtabs=false,
+		tabsize=2,
+		rulecolor=\color{black},
+		frame=single,
+		keywordstyle={\scriptsize\color{blue}},
+		morekeywords=[2]{1}, 
+		keywordstyle=[2]{\scriptsize\color{black}},
+		identifierstyle={\scriptsize\color{black}},%
+		stringstyle={\scriptsize\color{mylilas}},
+		commentstyle={\scriptsize\color{mygreen}},
+		showstringspaces=false,
+		numbers=left,%
+		numberstyle={\scriptsize\color{black}},
+		numbersep=10pt, 
+		emph=[1]{for,end,break},emphstyle=[1]\scriptsize\color{blue}, 
+	}
+	%\renewcommand{\lstlistingname}{Alg.}
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{frame}
+    \frametitle{Conteúdo}
+    \tableofcontents
+\end{frame}
+
+\section{Sobre o curso}
+
+
+\begin{frame}
+    \frametitle{Sobre o curso}
+\begin{itemize}[<+->]
+    \item Avaliação:
+    \begin{itemize}
+        \item primeira metade: um teste e uma prova.
+        \item segunda metade: um trabalho e uma prova.
+    \end{itemize}
+    \item Materiais de estudo:
+    \begin{itemize}
+        \item \href{https://eclass.fgv.br}{Playlist do Yuri}
+        \item \href{https://youtube.com/playlist?list=PL49CF3715CB9EF31D}{Playlist do Gil Strang}
+        \item \href{https://bit.ly/acervo-emap}{Acervo do DAMA}
+        \item \href{https://sb.fgv.br/catalogo/index.asp?codigo_sophia=117373
+}{Livro do Strang} (disponível na biblioteca)
+        \item \href{https://sb.fgv.br/catalogo/index.asp?codigo_sophia=130643
+}{\warning \hspace{3pt} Livro do Elon} (disponível na biblioteca)
+    \end{itemize}
+    \item Empenho e participação são a chave para o sucesso.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Frame 4
+\section{Contexto Histórico}
+\subsection{O que é álgebra?}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Frame 5
+
+\begin{frame}
+\frametitle{Etimologia e Origens Árabes}
+
+\begin{itemize}[<+->]
+    \item Álgebra vem do árabe \RL{الجبر} (al-jabr), e originalmente significava "união das partes quebradas".
+
+    \item Palavra usada no título original de "Livro Compêndio sobre Cálculo por Restauração e Balanceamento", tratado matemático escrito no século IX pelo matemático e astrônomo persa al-Khwarizmi.
+
+    \item No livro acima, al-Khwarizmi apresenta métodos resolutivos de equações de primeiro e segundo grau.
+
+    \item Em suma, podemos entender a palavra como "técnica de reorganização".
+\end{itemize}
+
+\end{frame}
+
+
+\subsection{Duelos}
+\begin{frame}{Álgebra na Itália}
+
+\begin{itemize}[<+->]
+    \item Na Alta Idade Média, entre os séculos XI e XIII, os métodos árabes tornaram-se conhecidos na Itália por uma tradução do trabalho de al-Khwarizmi em latim feita por Gerardo de Cremona e pelo trabalho de Leonardo de Pisa (o Fibonacci!).
+
+    \item Devido ao desenvolvimento do comércio, novas técnicas de cálculo são descobertas e aperfeiçoadas.
+
+    \item Em 1463, Benedetto de Florença completa seu renomado trabalho "Trattato di praticha d'arismetica", com mais de 500 páginas. Nos livros 13, 14, e 15, Benedetto trata de equações algébricas.
+
+    \item Inicialmente, ele replica o trabalho de al-Khwarizmi com equações de primeiro e segundo grau. Em seguida, Benedetto introduz a noção de cubo e quarta potência.
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{A cobiçada fórmula}
+
+\begin{itemize}[<+->]
+    \item No século XVI, Scipione del Ferro determina uma fórmula geral para resolver equações de terceiro grau do tipo $x^3+px=q$, com $p,q,x$ positivos.
+
+    \item Em 1535, Tartaglia também chega a essa fórmula, durante um duelo matemático contra Antonio Maria Fiore, pupilo de Scipione.
+
+    \item Já em 1539, a fórmula é revelada a Cardano, sob juramento de que nunca publicaria a descoberta. Cardano, então, extende a fórmula para equações do tipo $x^3=px+q$ e $x^3+q=px$. No processo, é o primeiro a usar números complexos $a+\sqrt{-b}$, mesmo apreensivo sobre essa "invenção".
+
+    \item Pouco depois, Lodovico Ferrari, servo e aprendiz de Cardano, usa a fórmula de Cardano para resolver equações gerais do quarto grau.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Um juramento fatal}
+
+\begin{itemize}[<+->]
+    \item Apesar da surpreendente descoberta, Cardano e Ferrari não podem publicá-la devido ao juramento de Cardano.
+
+    \item Assim, em 1543, eles vão a Bolonha encontrar-se com Annibale della Nave, genro de Scipione, para discutir se a solução de equações de terceiro grau já era conhecida antes de Tartaglia.
+
+    \item Após as verificações do trabalho póstumo de Scipione, Cardano publica as soluções gerais de equações do terceiro e quarto grau em seu livro "Ars Magna" (1545).
+
+    \item Tartaglia descobre e fica furioso, inclusive publicando o juramento feito por Cardano.
+\end{itemize}
+
+\end{frame}
+
+\subsection{O Último Duelo}
+\begin{frame}{Uma busca infindável}
+
+\begin{itemize}[<+->]
+    \item Nos anos seguintes, matemáticos como Waring, Vandermonde, Lagrange, Malfatti, Ruffini, Cauchy, Gauss e Abel se debruçaram sobre o problema da resolução de equações algébricas.
+
+    \item Em outubro de 1811, nasce Evariste Galois, matemático francês que em seus 20 anos de vida mudou tudo o que se conhecia por álgebra.
+
+    \item Galois provou que era impossível expressar uma fórmula geral de equações do quinto grau por radicais. Os argumentos e as técnicas usadas foram base para a Teoria de Galois.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Um trágico fim}
+
+\begin{itemize}[<+->]
+    \item As descobertas de Galois, em vida, não foram entendidas e deixadas de lado. Poisson, num relatório sobre o manuscrito de Galois, disse que "para formar uma opinião, seria necessário esperar o autor publicar sua obra integralmente".
+
+    \item Dezesseis meses depois, Galois é morto num duelo.
+
+    \item Na noite anterior, Galois escreve uma carta para seu amigo Auguste Chevalier explicando as ideias fundamentais de sua teoria.
+\end{itemize}
+
+\end{frame}
+\begin{frame}{Uma nova álgebra}
+% Slide 1
+\only<1>{\[ a \hspace{5pt} b \]}
+% Slide 2
+\only<2>
+{
+    \[ a\cdot b\]
+}
+% Slide 3
+\only<3>
+{
+    \[ a\cdot b=e\]
+}
+\end{frame}
+
+\subsection{Mas por que linear?}
+\begin{frame}{Linearidade}
+
+\begin{itemize}[<+->]
+    \item Entre 1844 e 1862, o matemático alemão Hermann Grassmann publicou uma série de livros chamada "Ausdehnungslehre" (lit. "Teoria da Extensão").
+
+    \item Nesses trabalhos, a partir de certas suposições a mais a partir de estruturas algébricas gerais (entre elas, a linearidade), Grassmann define conceitos como espaço vetorial, dimensão, produto interno, base, transformação linear e determinante.
+
+    \item Desde então, a álgebra linear se mostrou um campo onde ideias criativas e úteis surgem rotineiramente.
+\end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}{Fontes}
+
+\begin{itemize}
+    \item \href{https://sb.fgv.br/catalogo/index.asp?codigo_sophia=226637
+}{WAERDEN, B. L. Van der. A history of algebra : from al-Khwarizmi to Emmy Noether (1985)}
+
+    \item \href{https://www.jstor.org/stable/pdf/2320145.pdf}{Fearnley-Sander, Desmond, "Hermann Grassmann and the Creation of Linear Algebra", American Mathematical Monthly 86 (1979), pp. 809–817}
+\end{itemize}
+    
+\end{frame}
+
+\section{O que vamos ver nesse curso}
+
+\begin{frame}{Conteúdo}
+    \pause
+    \centering Muitas coisas!
+\end{frame}
+
+\begin{frame}{Teoremas}
+    \begin{block}{Método dos Mínimos Quadrados}
+    Permite fazer previsões e inferências sobre grandes bases de dados.
+\end{block}\pause
+
+\begin{block}{Teorema Espectral}
+    Permite fatorar matrizes simétricas de uma forma simples.
+\end{block}\pause
+
+\begin{block}{Fatoração SVD}
+    Permite fatorar \emph{qualquer} matriz de uma forma simples.
+\end{block}
+\end{frame}
+
+\begin{frame}{Aplicações}
+    \begin{itemize}[<+->]
+        \item Reconhecimento facial.
+
+        \item Resolução numérica de equações diferenciais.
+
+        \item Modelagem de epidemias.
+
+        \item Processamento de imagens.
+
+        \item Google.
+
+        \item Ranking esportivo.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Fim da Apresentação!}
+
+    \centering{\huge Bom curso!}
+\end{frame}
+
+\end{document}
