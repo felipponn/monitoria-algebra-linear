@@ -1,0 +1,233 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\newcommand{\ezvecbi}[2]{\begin{bmatrix}
+#1\\
+#2\\
+\end{bmatrix}}
+\newcommand{\ezvectri}[3]{\begin{bmatrix}
+#1\\
+#2\\
+#3\\
+\end{bmatrix}}
+\newcommand{\ezvecqua}[4]{\begin{bmatrix}
+#1\\
+#2\\
+#3\\
+#4\\
+\end{bmatrix}}
+\newcommand*{\horzbar}{\rule[0.5ex]{2.5ex}{0.5pt}}
+\DeclareMathOperator{\spn}{span}
+\newcommand{\pst}[1]{\text{posto}(#1)}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 7}
+\author{Luís Felipe Marques}
+\date{Setembro de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Se $AB = 0$, as colunas de $B$ estão em qual espaço fundamental de $A$? E as linhas de $A$ estão em qual espaço fundamental de $B$? E possível que $A$ e $B$ sejam $3\times3$ e com posto $2$?
+    
+    \textbf{Resolução:}
+    
+    Note o seguinte:
+
+    \begin{align*}
+        AB=\begin{bmatrix}
+            \horzbar \hspace{-0.2cm} & \textbf{a}_1^T & \hspace{-0.2cm} \horzbar\\
+            \horzbar \hspace{-0.2cm} & \vdots & \hspace{-0.2cm} \horzbar\\
+            \horzbar \hspace{-0.2cm} & \textbf{a}_m^T & \hspace{-0.2cm} \horzbar\\
+        \end{bmatrix}\begin{bmatrix}
+            \vert & \vert & \vert\\
+            \textbf{b}_1 & \cdots & \textbf{b}_p\\
+            \vert & \vert & \vert\\
+        \end{bmatrix}&=\textbf{0}\\
+        \iff \begin{bmatrix}
+            \horzbar \hspace{-0.2cm} & \textbf{a}_1^TB & \hspace{-0.2cm} \horzbar\\
+            \horzbar \hspace{-0.2cm} & \vdots & \hspace{-0.2cm} \horzbar\\
+            \horzbar \hspace{-0.2cm} & \textbf{a}_m^TB & \hspace{-0.2cm} \horzbar\\
+        \end{bmatrix}&=\textbf{0}\\
+        \iff \begin{bmatrix}
+            \vert & \vert & \vert\\
+            A\textbf{b}_1 & \cdots & A\textbf{b}_p\\
+            \vert & \vert & \vert\\
+        \end{bmatrix}&=\textbf{0}\\
+        \therefore \begin{cases}
+            A\textbf{b}_i=\textbf{0}\text{ }\forall\text{ }i\in\{1,\dots,p\}\\
+            \textbf{a}_j^TB=\textbf{0}^T\text{ }\forall\text{ }j\in\{1,\dots,m\}\\
+        \end{cases}
+    \end{align*}
+
+    Ou seja, as colunas de $B$ estão no núcleo de $A$, e as linhas de $A$ estão no núcleo à esquerda de $B$. Isso significa que $\begin{cases}
+        C(B)\subset N(A)\\
+        C(A^T)\subset N(B^T)\\
+    \end{cases}$.
+
+    Assim, podemos ver que não é possível que $\pst{A}=\pst{B}=2$ com $A_{3\times3}$ e $B_{3\times3}$, já que, pelo Teorema do posto e por propriedades do posto, temos:
+
+    \begin{align*}
+        \begin{cases}
+            \dim{C(A)}=\dim{C(B)}=\dim{C(A^T)}=\dim{C(B^T)}=2\\
+            \dim{N(A)}=\dim{N(B)}=\dim{N(A^T)}=\dim{N(B^T)}=1\\
+        \end{cases}\Rightarrow2=\dim{C(B)}&\leq\dim{N(A)}=1\\\iff 2&\leq1 \text{ Absurdo!}
+    \end{align*}
+
+    Dado que, se $X\subset Y$, então $\dim{X}\leq\dim{Y}$.
+    
+    \item Se $Ax=b$ e $A^Ty=0$, temos $y^Tx=0$ ou $y^Tb=0$?
+    
+    \textbf{Resolução:}
+
+    Perceba: $A^Ty=0\iff y^TA=0^T\iff y^TAx=0^Tx=0\iff y^T(Ax)=0\iff y^Tb=0$.
+    
+    \item O sistema abaixo não tem solução:
+    
+    \begin{align*}
+        \begin{cases}
+            x+2y+2z=5\\
+            2x+2y+3z=5\\
+            3x+4y+5z=9\\
+        \end{cases}
+    \end{align*}
+    
+    Ache números $y_1$, $y_2$, $y_3$ para multiplicar as equações acima para que elas somem $0=1$. Em qual espaço fundamental o vetor $y$ pertence? Verifique que $y^Tb=1$. O caso acima é típico e conhecido como a \textit{Alternativa de Fredholm}: ou $Ax=b$ ou $A^Ty=0$ com $y^Tb=1$.
+    
+    \textbf{Resolução:}
+    
+    Tome $y_1=y_2=1$ e $y_3=-1$. Daí, teríamos $(1+2-3)x+(2+2-4)y+(2+3-5)z=0=1=5+5-9$. Note que, se $v_x$, $v_y$ e $v_z$ são vetores com coordenadas iguais aos coeficientes de $x$, $y$ e $z$, respectivamente, então $v_x^Ty=v_y^Ty=v_z^Ty=0$. Assim, se o sistema se traduz como $Ax=b$, então temos que $A^Ty=0$. Supondo que $N(A^T)$ não é trivial, como é o caso de nosso sistema, temos que $y^\prime=\frac{y}{y^Tb}$ é tal que $y^{\prime T}b=1$.
+    
+    \item Mostre que se $A^TAx=0$, então $Ax=0$. O oposto é obviamente verdade e então temos $N(A^TA)=N(A)$.
+    
+    \textbf{Resolução:}
+    
+    Digamos que $Ax=b$ e que $A^Tb=0$. Como já vimos na questão 2, $b^Tb=0\iff b=0$. Logo, $A^TAx=0\iff Ax=0\Rightarrow N(A)=N(A^TA)$.
+    
+    \item Seja $A$ uma matriz $3\times4$ e $B$ uma $4\times5$ tais que $AB=0$. Mostre que $C(B)\subset N(A)$. Além disso, mostre que $\pst{A}+\pst{B}\leq4$.
+    
+    \textbf{Resolução:}
+    
+    \begin{align*}
+        AB=A\begin{bmatrix}
+            \vert & \vert & \vert\\
+            \textbf{b}_1 & \cdots & \textbf{b}_5\\
+            \vert & \vert & \vert\\
+        \end{bmatrix}=\begin{bmatrix}
+            \vert & \vert & \vert\\
+            A\textbf{b}_1 & \cdots & A\textbf{b}_5\\
+            \vert & \vert & \vert\\
+        \end{bmatrix}=0\iff\begin{cases}
+            A\textbf{b}_1=0\\
+            \dots\\
+            A\textbf{b}_5=0\\
+        \end{cases}
+    \end{align*}
+    
+    Ou seja, as colunas de $B$ estão em $N(A)\Rightarrow$ a base de $C(B)$ está em $N(A)\Rightarrow$ $C(B)\subset N(A)$.
+    
+    Seja $r$ igual a $\pst{A}\Rightarrow$ $4-r$ é a dimensão de $N(A)\Rightarrow$ $\pst{B}\leq 4-r$ (já que é um subespaço de $N(A)$) $\Rightarrow$ $\pst{A}+\pst{B}\leq r+4-r=4$.
+    
+    \item Sejam $\textbf{a}$, $\textbf{b}$, $\textbf{c}$, $\textbf{d}$ vetores não-zeros de $\mathbb{R}^2$.
+    
+    \begin{enumerate}
+        \item Quais são as condições sobre esses vetores para que cada um possa ser, respectivamente, base dos espaços $C(A^T)$, $N(A)$, $C(A)$ e $N(A^T)$ para uma dada matriz $A$ que seja $2\times2$. \textit{Dica: cada espaço fundamental vai ter somente um desses vetores como base.}
+        
+        \item Qual seria uma matriz $A$ possível?
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Sem perda de generalidade, digamos que $\begin{cases}
+            \spn{\textbf{a}}=C(A^T)\\
+            \spn{\textbf{b}}=N(A)\\
+            \spn{\textbf{c}}=C(A)\\
+            \spn{\textbf{d}}=N(A^T)\\
+        \end{cases}$. Assim, temos $\textbf{a}\perp \textbf{b}$ e $\textbf{c}\perp\textbf{d}$.
+        
+        \item Seja $A=\begin{bmatrix}1 & 3\\2 & 6\\\end{bmatrix}$. Assim, $\textbf{a}=(1,3)$, $\textbf{b}=(3,-1)$, $\textbf{c}=(1,2)$ e $\textbf{d}=(2,-1)$.
+    \end{enumerate}
+    
+    \item Ache $S^{\perp}$ para os seguintes conjuntos:
+    
+    \begin{enumerate}
+        \item $S=\{0\}$
+        \item $S=\spn{\{[1,1,1]\}}$
+        \item $S=\spn{\{[1,1,1],[1,1,-1]\}}$
+        \item $S=\{[1,5,1],[2,2,2]\}$. Note que $S$ não é um subespaço, mas $S^{\perp}$ é.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Assumindo, que estamos tratando do $\mathbb{R}^3$, $S^{\perp}=\mathbb{R}^3$, já que $x^T0=0$ $\forall$ $x$ $\in$ $\mathbb{R}^3$.
+        
+        \item Como $\dim S = 1$, $\dim S^{\perp}=2$, assim basta achar dois vetores L.I. ambos ortogonais a $[1,1,1]$. Basta notar que $\textbf{a}=[1,0,-1]$ e $\textbf{b}=[0,1,-1]$ são tais  que $\textbf{a}^T[1,1,1]=\textbf{b}^T[1,1,1]=0$ e que $\{\textbf{a},\textbf{b}\}$ é L.I. já que um não é múltiplo do outro ($\frac{0}{1}\neq\frac{-1}{-1}$). Assim, $S^{\perp}=\spn{\{\textbf{a},\textbf{b}\}}$.
+        
+        \item Como $\dim S=2$, $\dim S^{\perp}=1$, ou seja, basta achar um vetor ortogonais a ambos. Note que $\textbf{x}=[1,-1,0]$ satisfaz essas condições, temos que $S^{\perp}=\spn{\textbf{x}}$.
+        
+        \item Note que, se $\textbf{x}\in\spn{S}$, sendo da forma $a[1,5,1]+b[2,2,2]$, então $x^T[1,5,1]=27a+14b$ e $x^T[2,2,2]=14a+12b$, e, assim, $x^T[1,5,1]=x^T[2,2,2]=0\iff a=b=0$. Ou seja, nenhum elemento de $\spn{S}$ está em $S^{\perp}$. Assim, $S^{\perp}=(\spn{S})^{\perp}$. Como $\dim \spn{S}=2$, então $\dim S^{\perp}=1$. Basta achar um vetor ortogonal aos dois elementos de $S$. Note que $[1,0,-1]$ satisfaz às condições, então $S^{\perp}=\spn{\{[1,0,-1]\}}$.
+    \end{enumerate}
+    
+    \item Seja $A$ uma matriz $4\times3$ formada pelas primeiras 3 colunas da matriz identidade $4\times4$. Projeta o vetor $b=[1,2,3,4]$ no espaço coluna de $A$. Ache a matriz de projeção $P$.
+    
+    \textbf{Resolução:}
+    
+    Temos:
+    
+    \begin{align*}
+        P=A(A^TA)^{-1}A^T=A\begin{bmatrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & 1\end{bmatrix}^{-1}A^T=\begin{bmatrix}1 & 0 & 0 & 0\\0 & 1 & 0 & 0\\0 & 0 & 1 & 0\\0 & 0 & 0 & 0\end{bmatrix}
+    \end{align*}
+    
+    Assim, a projeção de $b$ em $A$ $b_A=Pb=[1,2,3,0]$.
+    
+    \item Se $P^2=P$, mostre que $(I-P)^2=I-P$. Para a matriz $P$ do exercício anterior, em qual subespaço a matriz $I-P$ projeta?
+    
+    \textbf{Resolução:}
+    
+    $(I-P)^2=I^2-IP-PI+P^2=I-2P+P=I-P$. Note que $I-P=\begin{bmatrix}0 & 0 & 0 & 0\\0 & 0 & 0 & 0\\0 & 0 & 0 & 0\\0 & 0 & 0 & 1\end{bmatrix}$, assim, $I-P$ projeta no subespaço de $\mathbb{R}^4$ caracterizado por vetores da forma $[0,0,0,x]$.
+    
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

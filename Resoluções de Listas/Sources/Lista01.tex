@@ -1,0 +1,520 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+
+\title{Álgebra Linear - Lista de Exercícios 1 (RESOLUÇÃO)}
+\author{Luís Felipe Marques}
+\date{Agosto de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Quais condições para $y_1$, $y_2$ e $y_3$ fazem com que os pontos $(0, y_1)$, $(1, y_2)$ e $(2, y_3)$ caiam numa reta?
+    
+    \textbf{Resolução:}
+
+    Definamos os pontos $A(0,y_1)$, $B(1,y_2)$ e $C(2,y_3)$. Assim, $\Vec{AB}=(1,y_2-y_1)$ e $\Vec{AC}=(2,y_3-y_1)$. Note que os pontos $A$, $B$ e $C$ serão colineares se, e só se, os vetores $\Vec{AB}$ e $\Vec{AC}$ tiverem mesma direção, ou seja, um for múltiplo do outro.
+    
+    Desta forma, $\dfrac{1}{2}=\dfrac{y_2-y_1}{y_3-y_1}\iff y_3-y_1=2(y_2-y_1)\iff y_2=\dfrac{y_1+y_3}{2}$, que é a condição suficiente e necessária.
+    
+    \item Se $(a, b)$ é um múltiplo de $(c, d)$ e são todos não-zeros, mostre que $(a, c)$ é um múltiplo de $(b, d)$. O que isso nos diz sobre a matriz
+    $$\begin{bmatrix}a&b\\c&d\\ \end{bmatrix}\text{?}$$
+    
+    \textbf{Resolução:}
+
+    $(a,b)$ múltiplo de $(c,d)$ $\Rightarrow$ $\dfrac{a}{c}=\dfrac{b}{d}\iff \dfrac{a}{b}=\dfrac{c}{d}\Rightarrow$ $(a,c)$ múltiplo de $(b,d)$. A partir disso, podemos concluir que $\begin{bmatrix}a & b\\c & d\\ \end{bmatrix}$ tem posto 1, já que uma linha é múltipla da outra, o que também implica que ela é singular.
+    
+    \item Se $\textbf{w}$ e $\textbf{v}$ são vetores unitários, calcule os produtos internos de (a) $\textbf{v}$ e $-\textbf{v}$; (b) $\textbf{v} + \textbf{w}$ e $\textbf{v} - \textbf{w}$; (c) $\textbf{v} -2\textbf{w}$ e $\textbf{v} + 2\textbf{w}$.
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item $\textbf{v}\cdot(-\textbf{v})=-(\textbf{v}\cdot\textbf{v})=-\lVert \textbf{v}\rVert^2=-1$
+        
+        \item $(\textbf{v}+\textbf{w})\cdot(\textbf{v}-\textbf{w})=\textbf{v}\cdot\textbf{v}-\textbf{v}\cdot\textbf{w}+\textbf{w}\cdot\textbf{v}-\textbf{w}\cdot\textbf{w}=\lVert\textbf{v}\rVert^2-\cancel{\textbf{v}\cdot\textbf{w}}+\cancel{\textbf{v}\cdot\textbf{w}}-\lVert\textbf{w}\rVert^2=1-1=0$
+        
+        \item $(\textbf{v}-2\textbf{w})\cdot(\textbf{v}+2\textbf{w})=\textbf{v}\cdot\textbf{v}+2\textbf{v}\cdot\textbf{w}-2\textbf{w}\cdot\textbf{v}-4\textbf{w}\cdot\textbf{w}=\lVert\textbf{v}\rVert^2+\cancel{2\textbf{v}\cdot\textbf{w}}-\cancel{2\textbf{v}\cdot\textbf{w}}-4\lVert\textbf{w}\rVert^2=1-4=-3$
+    \end{enumerate}
+    
+    \item Se $\lVert v\rVert = 5$ e $\lVert w\rVert = 3$, quais são o menor e maior valores possíveis para $\lVert v - w\rVert$? E para $\lVert v \cdot w\rVert$?
+    
+    \textbf{Resolução:}
+    
+    Pela desigualdade triangular, temos $\lVert\textbf{v}-\textbf{w}\rVert=\lVert\textbf{v}+(-\textbf{w})\rVert\leq\lVert\textbf{v}\rVert+\lVert-\textbf{w}\rVert=5+3=8$. Por outro lado, também temos que $\lVert\textbf{w}+(\textbf{v}-\textbf{w})\rVert\leq\lVert\textbf{w}\rVert+\lVert\textbf{v}-\textbf{w}\rVert\iff\lVert\textbf{v}-\textbf{w}\rVert\geq\lVert\textbf{v}\rVert-\lVert\textbf{w}\rVert=5-3=2$. Logo, $$2\leq\lVert\textbf{v}-\textbf{w}\rVert\leq8\text{.}$$
+    Note que os valores mínimos e máximos podem ser obtidos por $(\textbf{v},\textbf{w})=\left(\begin{bmatrix}5\\0\\ \end{bmatrix},\begin{bmatrix}3\\0\\ \end{bmatrix}\right)$ e $(\textbf{v},\textbf{w})=\left(\begin{bmatrix}5\\0\\ \end{bmatrix},\begin{bmatrix}-3\\0\\ \end{bmatrix}\right)$, respectivamente.
+    
+    Usando a desigualdade de Cauchy-Schwarz, temos que $$|\textbf{v}\cdot\textbf{w}|\leq\lVert\textbf{v}\rVert\lVert\textbf{w}\rVert=5\cdot3=15 \iff-15\leq\textbf{v}\cdot\textbf{w}\leq15\text{.}$$
+    Note que o exemplo de diferença com módulo mínimo pode ser usado para obter o produto interno máximo, assim como o exemplo de módulo máximo da diferença resulta no produto interno mínimo.
+    
+    \newpage
+    
+    \item Considere o desenho dos vetores $\textbf{w}$ e $\textbf{v}$ abaixo. Hachure as regiões definidas pelas combinações lineares $c\textbf{v} + d\textbf{w}$ considerando as seguintes restrições: $c + d = 1$ (não necessariamente positivos), $c$, $d$ $\in$ $[0, 1]$ e $c$, $d$ $\geq 0$ (note que são três regiões distintas).
+    
+    \begin{center}
+    
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.5pt,y=0.5pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp7520183732514782] 
+\draw  (216,242.3) -- (415,242.3)(235.9,56) -- (235.9,263) (408,237.3) -- (415,242.3) -- (408,247.3) (230.9,63) -- (235.9,56) -- (240.9,63)  ;
+%Straight Lines [id:da4001729861361931] 
+\draw [line width=1.5]    (235.9,242.3) -- (270.04,103.88) ;
+\draw [shift={(271,100)}, rotate = 103.86] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Straight Lines [id:da2065913349307562] 
+\draw [line width=1.5]    (235.9,242.3) -- (409.33,166.6) ;
+\draw [shift={(413,165)}, rotate = 156.42] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+
+% Text Node
+\draw (326.45,206.65) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \mathbf{v}$};
+% Text Node
+\draw (251.45,167.75) node [anchor=south east] [inner sep=0.75pt]    {$\mathbf{w}$};
+
+
+\end{tikzpicture}
+
+    \end{center}
+    
+    \textbf{Resolução:}
+    \begin{enumerate}
+        \item $c+d=1$
+        
+        $c\textbf{v}+d\textbf{w}=c\textbf{v}+(1-c)\textbf{w}=\textbf{v}+(c-1)\textbf{v}+(1-c)\textbf{w}=\textbf{v}+(1-c)(\textbf{w}-\textbf{v})$ (uma reta que passa por $\textbf{v}$ e $\textbf{w}$)
+        
+        \begin{center}
+            
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp7520183732514782] 
+\draw  (216,242.3) -- (415,242.3)(235.9,56) -- (235.9,263) (408,237.3) -- (415,242.3) -- (408,247.3) (230.9,63) -- (235.9,56) -- (240.9,63)  ;
+%Straight Lines [id:da4001729861361931] 
+\draw [line width=1.5]    (235.9,242.3) -- (270.04,103.88) ;
+\draw [shift={(271,100)}, rotate = 103.86] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Straight Lines [id:da2065913349307562] 
+\draw [line width=1.5]    (235.9,242.3) -- (409.33,166.6) ;
+\draw [shift={(413,165)}, rotate = 156.42] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Straight Lines [id:da16698466608887075] 
+%\draw    (413,165) -- (271,100) ;
+%Straight Lines [id:da8423732818376162] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (342,132.5) -- (200,67.5) ;
+%Straight Lines [id:da32841599375125363] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (484,197.5) -- (342,132.5) ;
+
+% Text Node
+\draw (326.45,206.65) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \mathbf{v}$};
+% Text Node
+\draw (251.45,167.75) node [anchor=south east] [inner sep=0.75pt]    {$\mathbf{w}$};
+
+
+\end{tikzpicture}
+
+        \end{center}
+        
+        \item $c$, $d$ $\in$ $[0,1]$
+        
+        $\forall$ $c$ $\in$ $[0,1]$ $c\textbf{v}+d\textbf{w}$ $\forall$ $d$ $\in$ $[0,1]$ corresponde à toda a extensão do vetor $\textbf{w}$ partindo de um ponto da extensão do vetor $\textbf{v}$. Assim, todos esses vetores formam um paralelogramo de lados $\textbf{v}$ e $\textbf{w}$.
+        
+        \begin{center}
+            
+
+% Pattern Info
+ 
+\tikzset{
+pattern size/.store in=\mcSize, 
+pattern size = 5pt,
+pattern thickness/.store in=\mcThickness, 
+pattern thickness = 0.3pt,
+pattern radius/.store in=\mcRadius, 
+pattern radius = 1pt}
+\makeatletter
+\pgfutil@ifundefined{pgf@pattern@name@_1b7cy4cst}{
+\pgfdeclarepatternformonly[\mcThickness,\mcSize]{_1b7cy4cst}
+{\pgfqpoint{0pt}{0pt}}
+{\pgfpoint{\mcSize}{\mcSize}}
+{\pgfpoint{\mcSize}{\mcSize}}
+{
+\pgfsetcolor{\tikz@pattern@color}
+\pgfsetlinewidth{\mcThickness}
+\pgfpathmoveto{\pgfqpoint{0pt}{\mcSize}}
+\pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{-\mcThickness}}
+\pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+\pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+\pgfusepath{stroke}
+}}
+\makeatother
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.5pt,y=0.5pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp7520183732514782] 
+\draw  (216,242.3) -- (415,242.3)(235.9,56) -- (235.9,263) (408,237.3) -- (415,242.3) -- (408,247.3) (230.9,63) -- (235.9,56) -- (240.9,63)  ;
+%Straight Lines [id:da4001729861361931] 
+\draw [line width=1.5]    (235.9,242.3) -- (270.04,103.88) ;
+\draw [shift={(271,100)}, rotate = 103.86] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Straight Lines [id:da2065913349307562] 
+\draw [line width=1.5]    (235.9,242.3) -- (409.33,166.6) ;
+\draw [shift={(413,165)}, rotate = 156.42] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Straight Lines [id:da7894833885273373] 
+\draw [line width=1.5]    (413,165) -- (447.14,26.58) ;
+\draw [shift={(448.1,22.7)}, rotate = 103.86] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Straight Lines [id:da9982036538516654] 
+\draw [line width=1.5]    (271,100) -- (444.43,24.3) ;
+\draw [shift={(448.1,22.7)}, rotate = 156.42] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Shape: Polygon [id:ds548825466474252] 
+\draw  [pattern=_1b7cy4cst,pattern size=9pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 208; green, 2; blue, 27}] (413,165) -- (235.9,242.3) -- (271,100) -- (448.1,22.7) -- cycle ;
+
+% Text Node
+\draw (326.45,206.65) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \mathbf{v}$};
+% Text Node
+\draw (251.45,167.75) node [anchor=south east] [inner sep=0.75pt]    {$\mathbf{w}$};
+% Text Node
+\draw (357.55,58.35) node [anchor=south east] [inner sep=0.75pt]   [align=left] {$\displaystyle \mathbf{v}$};
+% Text Node
+\draw (432.55,97.25) node [anchor=north west][inner sep=0.75pt]    {$\mathbf{w}$};
+
+
+\end{tikzpicture}
+
+        \end{center}
+        
+        \newpage
+        
+        \item $c$, $d$ $\geq0$
+        
+        Bem similar ao item (b), com exceção de que não nos restringirmos às extensões dos vetores, mas também inclusos os múltiplos positivos de cada vetor, praticamente criando um "paralelogramo infinito" entre os vetores.
+        
+        \begin{center}
+            
+
+% Pattern Info
+ 
+\tikzset{
+pattern size/.store in=\mcSize, 
+pattern size = 5pt,
+pattern thickness/.store in=\mcThickness, 
+pattern thickness = 0.3pt,
+pattern radius/.store in=\mcRadius, 
+pattern radius = 1pt}
+\makeatletter
+\pgfutil@ifundefined{pgf@pattern@name@_ft3ms6rcz}{
+\pgfdeclarepatternformonly[\mcThickness,\mcSize]{_ft3ms6rcz}
+{\pgfqpoint{0pt}{0pt}}
+{\pgfpoint{\mcSize}{\mcSize}}
+{\pgfpoint{\mcSize}{\mcSize}}
+{
+\pgfsetcolor{\tikz@pattern@color}
+\pgfsetlinewidth{\mcThickness}
+\pgfpathmoveto{\pgfqpoint{0pt}{\mcSize}}
+\pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{-\mcThickness}}
+\pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+\pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+\pgfusepath{stroke}
+}}
+\makeatother
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp7520183732514782] 
+\draw  (216,242.3) -- (415,242.3)(235.9,56) -- (235.9,263) (408,237.3) -- (415,242.3) -- (408,247.3) (230.9,63) -- (235.9,56) -- (240.9,63)  ;
+%Straight Lines [id:da4001729861361931] 
+\draw [line width=1.5]    (235.9,242.3) -- (270.04,103.88) ;
+\draw [shift={(271,100)}, rotate = 103.86] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Straight Lines [id:da2065913349307562] 
+\draw [line width=1.5]    (235.9,242.3) -- (409.33,166.6) ;
+\draw [shift={(413,165)}, rotate = 156.42] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (13.4,-6.43) -- (0,0) -- (13.4,6.44) -- (8.9,0) -- cycle    ;
+%Shape: Polygon [id:ds5660677880413687] 
+\draw  [draw opacity=0][pattern=_ft3ms6rcz,pattern size=9pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 208; green, 2; blue, 27}][line width=0.75]  (501.55,126.35) -- (413,165) -- (235.9,242.3) -- (288.55,28.85) -- (503,29) -- cycle ;
+
+% Text Node
+\draw (326.45,206.65) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \mathbf{v}$};
+% Text Node
+\draw (251.45,167.75) node [anchor=south east] [inner sep=0.75pt]    {$\mathbf{w}$};
+
+
+\end{tikzpicture}
+
+        \end{center}
+        
+    \end{enumerate}
+    
+    \item É possível que três vetores em $\mathbb{R}^2$ tenham $\textbf{u}\cdot \textbf{v} < 0$, $\textbf{v}\cdot \textbf{w} < 0$ e $\textbf{u}\cdot\textbf{w} < 0$? Argumente.
+    
+    \textbf{Resolução:}
+    
+    Sim, é possível.
+    
+    Supondo que os vetores sejam normais (tenham norma 1), o produto interno de dois vetores em $\mathbb{R}^2$ passa a ser apenas o cosseno do ângulo entre eles (tomando sempre o menor ângulo entre os vetores).
+    
+    Assim, se $\theta$ for esse ângulo, $\textbf{a}\cdot\textbf{b}<0\iff \cos(\theta)<0\iff \theta \in \left(\dfrac{\pi}{2},\dfrac{3\pi}{2}\right)$. Como nos restringimos aos ângulos não superiores a $\pi$, temos que $\theta \in \left(\dfrac{\pi}{2},\pi\right]$.
+    
+    Imaginando que os três vetores partirão da origem, podemos definir que os ângulos entre cada par de vetores será o mesmo, $\dfrac{2\pi}{3}\in\left(\dfrac{\pi}{2},\pi\right]$, garantindo que os três produtos internos serão negativos.
+    
+    Exemplo:
+    $
+    \begin{cases}
+    \textbf{u}=(1,0)\\
+    \textbf{v}=\left(-\dfrac{1}{2},\dfrac{\sqrt{3}}{2}\right)\\
+    \textbf{w}=\left(-\dfrac{1}{2},-\dfrac{\sqrt{3}}{2}\right)
+    \end{cases}
+    $
+    
+    \item Sejam $x$, $y$, $z$ satisfazendo $x + y + z = 0$. Calcule o ângulo entre os vetores $(x, y, z)$ e $(z, x, y)$.
+    
+    \textbf{Resolução:}
+    
+    Generalizando a noção de ângulo, o ângulo $\theta$ entre $\textbf{u}=(x,y,z)$ e $\textbf{v}=(z,x,y)$ será tal que:
+    $$\cos(\theta)=\dfrac{\textbf{u}\cdot\textbf{v}}{\lVert\textbf{u}\rVert\lVert\textbf{v}\rVert}=\dfrac{xy+yz+zx}{x^2+y^2+z^2}\text{.}$$
+    
+    Porém, note o seguinte:
+    \begin{align*}
+        x+y+z&=0\\
+        \iff (x+y+z)^2&=0\\
+        \iff x^2+y^2+z^2&=-2(xy+yz+zx)\\
+        \iff -\dfrac{1}{2}&=\dfrac{xy+yz+zx}{x^2+y^2+z^2}=\cos(\theta)
+    \end{align*}
+    
+    Assim, $\theta=\dfrac{2\pi}{3}$.
+    
+    \item Resolva o sistema linear abaixo:
+    $$\begin{bmatrix}
+    1 & 0 & 0\\
+    1 & 1 & 0\\
+    1 & 1 & 1\\
+    \end{bmatrix}\begin{bmatrix}
+    x_1\\
+    x_2\\
+    x_3\\
+    \end{bmatrix}=\begin{bmatrix}
+    b_1\\
+    b_2\\
+    b_3\\
+    \end{bmatrix}\text{.}$$
+    
+    Escreva a solução $\textbf{x}$ como uma matriz $A$ vezes o vetor $\textbf{b}$.
+    
+    \textbf{Resolução:}
+    
+    Seja a equação matricial dada $B\textbf{x}=\textbf{b}$. Vamos fazer uma eliminação gaussiana na matriz $B$ em sua forma aumentada $[B|I]$.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    1 & 0 & 0 & \bigm| & 1 & 0 & 0\\
+    1 & 1 & 0 & \bigm| & 0 & 1 & 0\\
+    1 & 1 & 1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{L_2-L_1}\begin{bmatrix}
+    1 & 0 & 0 & \bigm| & 1 & 0 & 0\\
+    0 & 1 & 0 & \bigm| & -1 & 1 & 0\\
+    1 & 1 & 1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}\xrightarrow{L_3-L_1}\\
+    \begin{bmatrix}
+    1 & 0 & 0 & \bigm| & 1 & 0 & 0\\
+    0 & 1 & 0 & \bigm| & -1 & 1 & 0\\
+    0 & 1 & 1 & \bigm| & -1 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{L_3-L_2}\begin{bmatrix}
+    1 & 0 & 0 & \bigm| & 1 & 0 & 0\\
+    0 & 1 & 0 & \bigm| & -1 & 1 & 0\\
+    0 & 0 & 1 & \bigm| & 0 & -1 & 1\\
+    \end{bmatrix}\\
+    \end{align*}
+    
+    Desta forma, pelo uso sucessivo de operações elementares, a matriz $A=\begin{bmatrix}
+    1 & 0 & 0\\
+    -1 & 1 & 0\\
+    0 & -1 & 1
+    \end{bmatrix}$ é tal que $AB=I$. Assim,
+    $$B\textbf{x}=\textbf{b}\Rightarrow AB\textbf{x}=A\textbf{b}\Rightarrow\textbf{x}=A\textbf{b}=\begin{bmatrix}
+    b_1\\
+    b_2-b_1\\
+    b_3-b_2
+    \end{bmatrix}\text{.}$$
+    
+    \item Repita o problema acima para a matriz:
+    $$\begin{bmatrix}
+    -1 & 1 & 0\\
+    0 & -1 & 1\\
+    0 & 0 & -1\\
+    \end{bmatrix}\text{.}$$
+    
+    \textbf{Resolução:}
+    
+    Fazendo o mesmo processo de eliminação com $[B|I]$.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    -1 & 1 & 0 & \bigm| & 1 & 0 & 0\\
+    0 & -1 & 1 & \bigm| & 0 & 1 & 0\\
+    0 & 0 & -1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{L_2+L_3}\begin{bmatrix}
+    -1 & 1 & 0 & \bigm| & 1 & 0 & 0\\
+    0 & -1 & 0 & \bigm| & 0 & 1 & 1\\
+    0 & 0 & -1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}\xrightarrow{L_1+L_2}\\
+    \begin{bmatrix}
+    -1 & 0 & 0 & \bigm| & 1 & 1 & 1\\
+    0 & -1 & 0 & \bigm| & 0 & 1 & 1\\
+    0 & 0 & -1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{-L_i}\begin{bmatrix}
+    1 & 0 & 0 & \bigm| & -1 & -1 & -1\\
+    0 & 1 & 0 & \bigm| & 0 & -1 & -1\\
+    0 & 0 & 1 & \bigm| & 0 & 0 & -1\\
+    \end{bmatrix}\\
+    \end{align*}
+    
+    Assim, $A=\begin{bmatrix}
+    -1 & -1 & -1\\
+    0 & -1 & -1\\
+    0 & 0 & -1\\
+    \end{bmatrix}$, e
+    
+    $$B\textbf{x}=\textbf{b}\Rightarrow AB\textbf{x}=A\textbf{b}\Rightarrow\textbf{x}=A\textbf{b}=\begin{bmatrix}
+    -b_1-b_2-b_3\\
+    -b_2-b_3\\
+    -b_3\\
+    \end{bmatrix}$$
+    
+    \newpage
+    
+    \item Considere a equação de recorrência $-x_{i+1} + 2x_i -x_{i-1} = i$ para $i = 1, 2, 3, 4$ com $x_0 = x_5 = 0$. Escreva essas equações em notação matricial $A\textbf{x} = \textbf{b}$ e ache $\textbf{x}$.
+    
+    \textbf{Resolução:}
+    
+    A recorrência nos dá:
+    $\begin{cases}
+    -x_2+2x_1=1\\
+    -x_3+2x_2-x_1=2\\
+    -x_4+2x_3-x_2=3\\
+    2x_4-x_3=4\\
+    \end{cases}$.
+    
+    Assim, temos:
+    
+    $$\underbrace{\begin{bmatrix}
+    2 & -1 & 0 & 0\\
+    -1 & 2 & -1 & 0\\
+    0 & -1 & 2 & -1\\
+    0 & 0 & -1 & 2\\
+    \end{bmatrix}}_A\underbrace{\begin{bmatrix}
+    x_1\\
+    x_2\\
+    x_3\\
+    x_4
+    \end{bmatrix}}_\textbf{x}=\underbrace{\begin{bmatrix}
+    1\\
+    2\\
+    3\\
+    4
+    \end{bmatrix}}_\textbf{b}\text{.}$$
+    
+    Finalmente, podemos resolver o sistema usando uma eliminação de Gauss-Jordan na matriz $A$ usando sua aumentada $[A|\textbf{b}]$:
+    
+    \begin{align*}
+    \begin{bmatrix}
+    2 & -1 & 0 & 0 & \bigm| & 1\\
+    -1 & 2 & -1 & 0 & \bigm| & 2\\
+    0 & -1 & 2 & -1 & \bigm| & 3\\
+    0 & 0 & -1 & 2 & \bigm| & 4\\
+    \end{bmatrix}&\xrightarrow{L_2+\frac{1}{2}L_1}\begin{bmatrix}
+    2 & -1 & 0 & 0 & \bigm| & 1\\
+    0 & \frac{3}{2} & -1 & 0 & \bigm| & \frac{5}{2}\\
+    0 & -1 & 2 & -1 & \bigm| & 3\\
+    0 & 0 & -1 & 2 & \bigm| & 4\\
+    \end{bmatrix}\xrightarrow{L_3+\frac{2}{3}L_2}\\
+    \begin{bmatrix}
+    2 & -1 & 0 & 0 & \bigm| & 1\\
+    0 & \frac{3}{2} & -1 & 0 & \bigm| & \frac{5}{2}\\
+    0 & 0 & \frac{4}{3} & -1 & \bigm| & \frac{14}{3}\\
+    0 & 0 & -1 & 2 & \bigm| & 4\\
+    \end{bmatrix}&\xrightarrow{L_4+\frac{3}{4}L_3}\begin{bmatrix}
+    2 & -1 & 0 & 0 & \bigm| & 1\\
+    0 & \frac{3}{2} & -1 & 0 & \bigm| & \frac{5}{2}\\
+    0 & 0 & \frac{4}{3} & -1 & \bigm| & \frac{14}{3}\\
+    0 & 0 & 0 & \frac{5}{4} & \bigm| & \frac{15}{2}\\
+    \end{bmatrix}\xrightarrow{L_3+\frac{4}{5}L_4}\\
+    \begin{bmatrix}
+    2 & -1 & 0 & 0 & \bigm| & 1\\
+    0 & \frac{3}{2} & -1 & 0 & \bigm| & \frac{5}{2}\\
+    0 & 0 & \frac{4}{3} & 0 & \bigm| & \frac{32}{3}\\
+    0 & 0 & 0 & \frac{5}{4} & \bigm| & \frac{15}{2}\\
+    \end{bmatrix}&\xrightarrow{L_2+\frac{3}{4}L_3}\begin{bmatrix}
+    2 & -1 & 0 & 0 & \bigm| & 1\\
+    0 & \frac{3}{2} & 0 & 0 & \bigm| & \frac{21}{2}\\
+    0 & 0 & \frac{4}{3} & 0 & \bigm| & \frac{32}{3}\\
+    0 & 0 & 0 & \frac{5}{4} & \bigm| & \frac{15}{2}\\
+    \end{bmatrix}\xrightarrow{L_1+\frac{2}{3}L_2}\\
+    \begin{bmatrix}
+    2 & 0 & 0 & 0 & \bigm| & 8\\
+    0 & \frac{3}{2} & 0 & 0 & \bigm| & \frac{21}{2}\\
+    0 & 0 & \frac{4}{3} & 0 & \bigm| & \frac{32}{3}\\
+    0 & 0 & 0 & \frac{5}{4} & \bigm| & \frac{15}{2}\\
+    \end{bmatrix}&\xrightarrow{\frac{i}{i+1}L_i}\begin{bmatrix}
+    1 & 0 & 0 & 0 & \bigm| & 4\\
+    0 & 1 & 0 & 0 & \bigm| & 7\\
+    0 & 0 & 1 & 0 & \bigm| & 8\\
+    0 & 0 & 0 & 1 & \bigm| & 6\\
+    \end{bmatrix}
+    \end{align*}
+    
+    Portanto,
+    
+    $$\textbf{x}=\begin{bmatrix}
+    4\\
+    7\\
+    8\\
+    6
+    \end{bmatrix}\text{.}$$
+    
+    \newpage
+    
+    \item (Bônus) Use o seguinte código em \texttt{numpy} para gerar um vetor aleatório $\textbf{v} =$ \texttt{numpy.random.normal(size=[3,1])} em $\mathbb{R}^3$. Fazendo $\textbf{u} = \textbf{v}/\lVert\textbf{v}\rVert$ criamos então um vetor unitário aleatório. Crie 30 outros vetores unitários aleatórios $\textbf{u}_j$ (use \texttt{numpy.random.normal(size=[3,30])}). Calcule a média dos produtos internos $|\textbf{u} \cdot \textbf{u}_j|$ e compare com o valor exato $\frac{1}{\pi}\int_0^{\pi}|\cos\theta|d\theta=\frac{2}{\pi}$.
+    
+    \textbf{Resolução:}
+    
+    Usando o seguinte código:
+    
+    \begin{minted}{python}
+    import numpy as np
+
+    v = np.random.normal(size=[1,3])
+    v = v/np.linalg.norm(v)
+
+    u = [np.random.normal(size=[1,3]) for _ in range(30)]
+    for i in range(30):
+    u[i] = u[i]/np.linalg.norm(u[i])
+
+    media = sum([abs(np.inner(v,u[i]))/30 for i in range(30)])
+    print(media)
+    print(2/np.pi)
+    \end{minted}
+    
+    Obtive \texttt{media=0.57981756} e $\frac{2}{pi}=$ \texttt{0.6366197723675814}, o que mostra que esse valor médio que varia entre $0$ e $1$ tende a ficar próximo do valor da integral, o que condiz com o fato de estarmos tirando a média de vários cossenos (produto interno de vetores unitários) e comparando-a a uma "média contínua" (valor da área dividido por extensão dos limites de integração) de valores absolutos da função cosseno.
+    
+\end{enumerate}
+
+ 
+\end{document}

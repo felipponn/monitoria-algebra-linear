@@ -1,0 +1,275 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 11}
+\author{Luís Felipe Marques}
+\date{Novembro de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Verdadeiro ou falso (prove ou dê um contra-exemplo):
+    
+    \begin{enumerate}
+        \item Se $A$ é singular, então $AB$ também é singular.
+        
+        \item O determinante de $A$ é sempre o produto de seus pivôs.
+        
+        \item O determinante de $A-B$ é $\det A - \det B$.
+        
+        \item $AB$ e $BA$ tem o mesmo determinante.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+
+    \begin{enumerate}
+        \item Verdadeiro. Note que uma matriz $X$ é singular se, e só se, $\det X=0$. Assim, $\det A=0\Rightarrow \det A\cdot\det B=0\Rightarrow$ $AB$ é singular.
+        
+        \item Falso. Observe a matriz $\begin{bmatrix}1 & 3\\
+        2 & 6\end{bmatrix}$. Seu único pivô é $1$, mas seu determinante é $6-6=0$.
+        
+        \item Falso. Sejam as matrizes $A=\begin{bmatrix}1 & 2\\
+        3 & 4\end{bmatrix}$ e $B=\begin{bmatrix}1 & 2\\
+        2 & 4\end{bmatrix}$. Assim, $A-B=\begin{bmatrix}0 & 0\\
+        1 & 0\end{bmatrix}$, com determinante $0$, mas $\det A-\det B=-2-0=-2\neq0$.
+        
+        \item Verdadeiro caso $A$ e $B$ sejam quadradas. Se $A$ e $B$ são matrizes $n$ por $n$, então $\det AB=\det A\cdot\det B=\det B\cdot\det A=\det BA$. Agora, para $A_{n\times m}$ e $B_{m\times n}$, com $n\neq m$, temos, por exemplo, $A=\begin{bmatrix}1 & 0 & 0\\
+        0 & 1 & 0\end{bmatrix}$ e $B=\begin{bmatrix}1 & 0\\
+        0 & 1\\
+        0 & 0\end{bmatrix}$, onde $\det AB = 1$ e $\det BA = 0$.
+    \end{enumerate}
+    
+    \item Sejam $u$ e $v$ vetores ortonormais em $\mathbb{R}^2$ e defina $A=uv^T$. Calcule $A^2$ para descobrir os autovalores de $A$. Verifique que o traço de $A$ é $\lambda_1+\lambda_2$.
+    
+    \textbf{Resolução:}
+
+    Digamos que $u=(a,b)$ e $v=(b,-a)$. Assim,
+
+    \begin{align*}
+        A&=\begin{bmatrix}
+        ab & -a^2\\
+        b^2 & -ab
+        \end{bmatrix}\\
+        \Rightarrow A^2&=\begin{bmatrix}
+        a^2b^2-a^2b^2 & -a^3b+a^3b\\
+        ab^3-ab^3 & -a^2b^2+a^2b^2
+        \end{bmatrix}\\
+        &=\begin{bmatrix}
+        0 & 0\\
+        0 & 0\\
+        \end{bmatrix}
+    \end{align*}
+    
+    Como $0$ é único autovalor de $A^2$, $0$ é também único autovalor de $A$. Note também que $\text{Tr }A=ab-ab=0$, soma dos autovalores.
+    
+    \item A matriz $B$ tem autovalores $1$ e $2$, $C$ tem autovalores $3$ e $4$ e $D$ tem autovalores $5$ e $7$ (todas são matrizes $2\times2$). Ache os autovalores de $A$:
+    
+    $$A=\begin{bmatrix}
+    B & C\\
+    0 & D\\
+    \end{bmatrix}\text{.}$$
+    
+    \textbf{Resolução:}
+    
+    Provaremos que $1$, $2$, $5$ e $7$ são os autovalores de $A$. Para $x$ $\in$ $\{1,2\}$, note que $\det(B-xI)=0$, ou seja, possui colunas LD. Da mesma forma, as duas primeiras colunas de $A-xI$ serão LD, já que são as mesmas colunas de $B-xI$ com coordenadas nulas a mais. Assim, $\det(A-xI)=0$.
+    
+    Da mesma forma, note que as linhas de $D-yI$ para $y$ $\in$ $\{5,7\}$. Assim, como as últimas linhas de $A-yI$ são concatenções de $(0,0)^T$ e linhas de $D-yI$, temos de $\det(A-yI)=0$.
+    
+    Assim, como $A$ tem no máximo 4 autovalores, já encontrados, temos que os autovalores de $A$ são $1$, $2$, $5$ e $7$.
+    
+    \item Seja $D$ uma matriz $n\times n$ só com $1$'s em suas entradas. Procure a inversa da matriz $A=I+D$ dentre as matrizes $I+cD$ e ache o número $c$ correto.
+    
+    \textbf{Resolução:}
+    
+    Perceba que:
+    
+    \begin{align*}
+    I=(I+D)(I+cD)=I^2+DI+cID+cD^2=I+(c+1)D+cD^2\\
+    \Rightarrow (c+1)D+cD^2=0
+    \end{align*}
+    
+    Note que $D^2$ é uma matriz com $n$ em todas as suas entradas. Assim, $(c+1)D+cD^2$ é uma matriz com $nc+c+1$ em todas as suas entradas. Assim, para $(I+cD)=(I+D)^{-1}$, temos que ter $c(n+1)+1=0\iff c=-\frac{1}{n+1}$.
+    
+    
+    \item Vamos resolver uma EDO de segunda ordem usando o que aprendemos. Considere $y''=5y'+4y$ com $y(0)=C_1$ e $y'(0)=C_2$. Defina $u_1=y$ e $u_2=y'$. Escreva $\textbf{u}'(t)=A\textbf{u}(t)$ e ache a solução da equação.
+    
+    \textbf{Resolução:}
+    
+    Seja $\textbf{u}'(t)=(y',y'')$. Assim,
+    
+    \begin{align*}
+        \textbf{u}'(t)=\underbrace{\begin{bmatrix}0 & 1\\
+        4 & 5\end{bmatrix}}_A\textbf{u}(t)\\
+        \Rightarrow e^{-At}\textbf{u}'(t)-e^{-At}A\textbf{u}(t)=0\\
+        \Rightarrow (e^{-At}\textbf{u}(t))'=0\\
+        \Rightarrow e^{-At}\textbf{u}(t)=\textbf{c}_0\\
+        \Rightarrow \textbf{u}(t)=e^{At}\textbf{c}_0
+    \end{align*}
+    
+    Note que $\textbf{u}(0)=\begin{bmatrix}C_1\\
+    C_2\end{bmatrix}$. Dessa forma, concluímos que $\textbf{c}_0=\begin{bmatrix}C_1\\
+    C_2\end{bmatrix}$. Agora, perceba o seguinte:
+    
+    \begin{align*}
+        p_A(x)=x^2-5x-4\Rightarrow \lambda_{+,-}=\frac{5\pm\sqrt{41}}{2}\\
+        (\text{seja $d=\lambda_+-\lambda_-$})\\
+        \Rightarrow A=\underbrace{\begin{bmatrix}-\frac{d+5}{8} & \frac{d-5}{8}\\
+        1 & 1\end{bmatrix}}_S\underbrace{\begin{bmatrix}\lambda_- & 0\\
+        0 & \lambda_+\end{bmatrix}}_{\Lambda}\underbrace{\begin{bmatrix}-\frac{4}{d} & \frac{d-5}{2d}\\
+        \frac{4}{d} & \frac{5+d}{2d}\end{bmatrix}}_{S^{-1}}\\
+        \Rightarrow e^{At}=\sum_{k=0}^{\infty}\frac{(At)^k}{k!}=\sum_{k=0}^{\infty}\frac{t^kS\Lambda^kS^{-1}}{k!}=S\left(\sum_{k=0}^{\infty}\frac{(t\Lambda)^k}{k!}\right)S^{-1}=S\begin{bmatrix}e^{t\lambda_-} & 0\\
+        0 & e^{t\lambda_+}\end{bmatrix}S^{-1}\\
+        \Rightarrow e^{At}=\begin{bmatrix}-e^{t\lambda_-}\frac{d+5}{8} & e^{t\lambda_+}\frac{d-5}{8}\\
+        e^{t\lambda_-} & e^{t\lambda_+}\end{bmatrix}S^{-1}\\
+        \Rightarrow e^{At}=\begin{bmatrix}\frac{1}{2d}(e^{t\lambda_-}(d+5)+e^{t\lambda_+}(d-5)) & \frac{d^2-25}{16d}(e^{t\lambda_+}-e^{t\lambda_-})\\
+        \frac{4}{d}(e^{t\lambda_+}-e^{t\lambda_-}) & \frac{1}{2d}(e^{t\lambda_+}(d+5)+e^{t\lambda_-}(d-5))\\
+        \end{bmatrix}\\
+        \text{(seja $e^{\lambda_+}=A$ e $e^{\lambda_-}=B$)}\\
+        \Rightarrow e^{At}=\frac{1}{\sqrt{41}}\begin{bmatrix}B^t\lambda_+-A^t\lambda_- & A^t-B^t\\
+        4(A^t-B^t) & A^t\lambda_+-B^t\lambda_-\\
+        \end{bmatrix}\\
+        \Rightarrow \textbf{u}(t)=\frac{1}{\sqrt{41}}\begin{bmatrix}B^t\lambda_+-A^t\lambda_- & A^t-B^t\\
+        4(A^t-B^t) & A^t\lambda_+-B^t\lambda_-\\
+        \end{bmatrix}\begin{bmatrix}C_1\\
+        C_2\end{bmatrix}\\
+        \Rightarrow y(t)=\frac{C_1(B^t\lambda_+-A^t\lambda_-) + C_2(A^t-B^t)}{\sqrt{41}}
+    \end{align*}
+    
+    \item Se $A$ é simétrica e todos seus autovalores são iguais a $\lambda$. O que podemos dizer sobre $A$?
+    
+    \textbf{Resolução:}
+    
+    Pelo teorema espectral, existe uma matriz ortogonal $Q$ tal que $A=Q\Lambda Q^T$, sendo $\Lambda$ uma matriz diagonal com os autovalores de $A$ na diagonal. Assim, $A=Q\Lambda Q^T=\lambda QIQ^T=\lambda QQ^T=\lambda I$, ou seja, $A$ é múltipla da identidade.
+
+    \item Suponha que $C$ é positiva definida e que $A$ tenha as colunas $LI$. Mostre que $A^TCA$ é positiva definida.
+    
+    \textbf{Resolução:}
+    
+    Primeiro, note que $(A^TCA)^T=A^T(A^TC)^T=A^TC^TA=A^TCA$, ou seja, $A^TCA$ é simétrica.
+    
+    Seja
+    
+    $$A=\begin{bmatrix}
+    | & \dots & |\\
+    \textbf{a}_1 & \dots & \textbf{a}_n\\
+    | & \dots & |\end{bmatrix}$$
+    
+    sendo $\textbf{a}_i$ vetores de $\mathbb{R}^m$, colunas de $A$. Seja $\textbf{x}$ um vetor não-nulo qualquer de $\mathbb{R}^n$, então $A\textbf{x}=\textbf{y}$, e $(A\textbf{x})^T=\textbf{x}^TA^T=\textbf{y}^T$, sendo $\textbf{y}$ um certo vetor de $\mathbb{R}^m$. Assim, para qualquer vetor não-nulo $\textbf{x}$ de $\mathbb{R}^n$, $\textbf{x}^TA^TCA\textbf{x}=\textbf{y}^TC\textbf{y}$ que, por $C$ ser positiva definida, é maior que $0$, já que $\textbf{y}$ é não-nulo (já que $A$ tem colunas LI, ou seja, tem núcleo trivial).
+    
+    \item Quais são os autovalores de $A$ se ela for similar a $A^{-1}$?
+    
+    \textbf{Resolução:}
+    
+    Pela proposição, existe uma matriz invertível $S$ tal que $A=SA^{-1}S^{-1}$. Note que, sendo $p_A$ o polinômio característico de $A$, $p_A(x)=\det (A-xI)=\det(SA^{-1}S^{-1}-xI)=\det(S(A^{-1}-xI)S^{-1})=\det S\cdot\det S^{-1}\det(A^{-1}-xI)=p_{A^{-1}}(x)$, ou seja, $A$ e $A^{-1}$ possuem mesmo polinômio característico e, consequentemente, mesmos autovalores.
+    
+    Agora, seja $\lambda$ um autovalor de $A$ associado ao autovetor $\textbf{v}$. Então, $A\textbf{v}=\lambda\textbf{v}\Rightarrow A^{-1}A\textbf{v}=\lambda A^{-1}\textbf{v}\Rightarrow A^{-1}\textbf{v}=\frac{1}{\lambda}\textbf{v}$, ou seja, se $x$ é autovalor de $A$, $x^{-1}$ será de $A^{-1}$.
+    
+    Juntando esses dois fatos, temos que os autovalores formam um conjunto $\Lambda$ tal que, se $x$ $\in$ $\Lambda$, $x^{-1}$ $\in$ $\Lambda$. Assim, podemos concluir que o produto dos autovalores, isto é, o determinante de $A$, é $1$.
+    
+    \item Suponha que $A$ é quadrada, mostre que $\sigma_1\geq|\lambda|$, para qualquer autovalor $\lambda$ de $A$, onde $\sigma_1$ é o primeiro valor singular de $A$.
+    
+    \textbf{Resolução:}
+    
+    Digamos que a decomposição SVD de $A$ seja $U\Sigma V^T$. Note que, sendo $\textbf{v}_j$ coluna de $V$, $A\textbf{v}_i=U\Sigma (\textbf{v}_1^T\textbf{v}_i,\dots,\textbf{v}_n^T\textbf{v}_i)=U(0,\dots,\sigma_i,\dots,0)=\sigma_i\textbf{u}_i$, sendo $\textbf{u}_i$ coluna de $U$.
+    
+    Assim, sendo $\lambda$ e $\textbf{x}$ autovalor e autovetor de $A$, temos que $|A\textbf{x}|^2=|\lambda\textbf{x}|^2=\lambda^2|\textbf{x}|^2$. Por outro lado, como $V$ é ortogonal, suas colunas formam base ortonormal, assim, existem $c_1$, $\dots$, $c_n$ tais que $\textbf{x}=\sum_i c_i\textbf{v}_i$.
+    
+    Assim, $A\textbf{x}=\sum_iAc_1\textbf{v}_1=\sum_ic_i\sigma_i\textbf{u}_i\Rightarrow |A\textbf{x}|^2=(A\textbf{x})^2(A\textbf{x})=\sum_ic_i\sigma_i\textbf{u}_i^T\sum_ic_i\sigma_i\textbf{u}_i=\sum_ic_i^2\sigma_i^2$. Note também que $|x|^2=\sum_ic_iv_i^T\sum_ic_iv_i=\sum_ic^2_i$. Logo, $|A\textbf{x}|^2\leq\sigma_1^2(\sum_ic_i^2)=\sigma_1^2|\textbf{x}|^2$. Como $|A\textbf{x}|^2=\lambda^2|\textbf{x}|^2$, temos que $\lambda^2\leq\sigma^2_1$, ou seja, $|\lambda|\leq\sigma_1$.
+    
+    \item Ache a decomposição SVD da matriz
+    
+    $$A=\begin{bmatrix}
+    1 & 0 & 1 & 0\\
+    0 & 1 & 0 & 1\\
+    \end{bmatrix}\text{.}$$
+    
+    \textbf{Resolução:}
+    
+    Note que $A^T=\begin{bmatrix}
+    1 & 0\\
+    0 & 1\\
+    1 & 0\\
+    0 & 1\\
+    \end{bmatrix}$. Então,
+    
+    \begin{align*}
+        C=A^TA=\begin{bmatrix}
+            1 & 0 & 1 & 0\\
+            0 & 1 & 0 & 1\\
+            1 & 0 & 1 & 0\\
+            0 & 1 & 0 & 1\\
+        \end{bmatrix}\\
+        \Rightarrow p_C(x)=x^2(x-2)^2\Rightarrow\lambda\in\{0,2\}\\
+        \Rightarrow V=\begin{bmatrix}
+            \sfrac{1}{\sqrt{2}} & 0 & -\sfrac{1}{\sqrt{2}} & 0\\
+            0 & \sfrac{1}{\sqrt{2}} & 0 & -\sfrac{1}{\sqrt{2}}\\
+            \sfrac{1}{\sqrt{2}} & 0 & \sfrac{1}{\sqrt{2}} & 0\\
+            0 & \sfrac{1}{\sqrt{2}} & 0 & \sfrac{1}{\sqrt{2}}\\
+        \end{bmatrix}\\
+        \Rightarrow \Sigma=\begin{bmatrix}
+    \sqrt{2} & 0 & 0 & 0\\
+    0 & \sqrt{2} & 0 & 0\\
+    \end{bmatrix}\\
+    \Rightarrow U=\begin{bmatrix}
+            1 & 0\\
+            0 & 1\\
+        \end{bmatrix}\\
+    A=\begin{bmatrix}
+    1 & 0 & 1 & 0\\
+    0 & 1 & 0 & 1\\
+    \end{bmatrix}=\begin{bmatrix}
+            1 & 0\\
+            0 & 1\\
+        \end{bmatrix}\begin{bmatrix}
+    \sqrt{2} & 0 & 0 & 0\\
+    0 & \sqrt{2} & 0 & 0\\
+    \end{bmatrix}\begin{bmatrix}
+            \sfrac{1}{\sqrt{2}} & 0 & \sfrac{1}{\sqrt{2}} & 0\\
+            0 & \sfrac{1}{\sqrt{2}} & 0 & \sfrac{1}{\sqrt{2}}\\
+            -\sfrac{1}{\sqrt{2}} & 0 & \sfrac{1}{\sqrt{2}} & 0\\
+            0 & -\sfrac{1}{\sqrt{2}} & 0 & \sfrac{1}{\sqrt{2}}\\
+        \end{bmatrix}\\
+    \end{align*}
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

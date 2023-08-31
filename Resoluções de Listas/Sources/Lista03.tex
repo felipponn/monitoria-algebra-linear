@@ -1,0 +1,475 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 3 (RESOLUÇÃO)}
+\author{Luís Felipe Marques}
+\date{Agosto de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Ache a decomposição LU da matriz:
+    
+    $$A=\begin{bmatrix}
+    1 & 3 & 0\\
+    3 & 4 & 0\\
+    2 & 0 & 1\\
+    \end{bmatrix}\text{.}$$
+    
+    \textbf{Resolução:}
+
+    Eliminaremos a matriz aumentada $[A|I]$ para chegar a $[U|E]$.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    1 & 3 & 0 & \bigm| & 1 & 0 & 0\\
+    3 & 4 & 0 & \bigm| & 0 & 1 & 0\\
+    2 & 0 & 1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{L_2-3L_1}\begin{bmatrix}
+    1 & 3 & 0 & \bigm| & 1 & 0 & 0\\
+    0 & -5 & 0 & \bigm| & -3 & 1 & 0\\
+    2 & 0 & 1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}\xrightarrow{L_3-2L_1}\\
+    \begin{bmatrix}
+    1 & 3 & 0 & \bigm| & 1 & 0 & 0\\
+    0 & -5 & 0 & \bigm| & -3 & 1 & 0\\
+    0 & -6 & 1 & \bigm| & -2 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{L_3-\sfrac{6}{5}L_2}\begin{bmatrix}
+    1 & 3 & 0 & \bigm| & 1 & 0 & 0\\
+    0 & -5 & 0 & \bigm| & -3 & 1 & 0\\
+    0 & 0 & 1 & \bigm| & \sfrac{8}{5} & -\sfrac{6}{5} & 1\\
+    \end{bmatrix}\\
+    \Rightarrow U&=\begin{bmatrix}
+    1 & 3 & 0\\
+    0 & -5 & 0\\
+    0 & 0 & 1\\
+    \end{bmatrix}
+    \end{align*}
+    
+    A partir disso, invertemos $E$ para obter $U$.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    1 & 0 & 0\\
+    -3 & 1 & 0\\
+    \sfrac{8}{5} & -\sfrac{6}{5} & 1\\
+    \end{bmatrix}^{-1}=\begin{bmatrix}
+    1 & 0 & 0\\
+    3 & 1 & 0\\
+    -\sfrac{8}{5} & \sfrac{6}{5} & 1\\
+    \end{bmatrix}=L
+    \end{align*}
+    
+    \item Ache a decomposição LU da matriz simétrica:
+    
+    $$A=\begin{bmatrix}
+    a & a & a & a\\
+    a & b & b & b\\
+    a & b & c & c\\
+    a & b & c & d\\
+    \end{bmatrix}\text{.}$$
+    
+    Qual condição para $a,b,c,d$ para que $A$ ter quatro pivots?
+    
+    \textbf{Resolução:}
+
+    Eliminemos normalmente $[A|I]$ até chegarmos a $[U|E]$ e depois analisar o que obtemos.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    a & a & a & a & \bigm| & 1 & 0 & 0 & 0\\
+    a & b & b & b & \bigm| & 0 & 1 & 0 & 0\\
+    a & b & c & c & \bigm| & 0 & 0 & 1 & 0\\
+    a & b & c & d & \bigm| & 0 & 0 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow[i=2,3,4]{L_i-L_1}\begin{bmatrix}
+    a & a & a & a & \bigm| & 1 & 0 & 0 & 0\\
+    0 & b-a & b-a & b-a & \bigm| & -1 & 1 & 0 & 0\\
+    0 & b-a & c-a & c-a & \bigm| & -1 & 0 & 1 & 0\\
+    0 & b-a & c-a & d-a & \bigm| & -1 & 0 & 0 & 1\\
+    \end{bmatrix}\xrightarrow[i=3,4]{L_i-L_2}\\\begin{bmatrix}
+    a & a & a & a & \bigm| & 1 & 0 & 0 & 0\\
+    0 & b-a & b-a & b-a & \bigm| & -1 & 1 & 0 & 0\\
+    0 & 0 & c-b & c-b & \bigm| & 0 & -1 & 1 & 0\\
+    0 & 0 & c-b & d-b & \bigm| & 0 & -1 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{L_4-L_3}\begin{bmatrix}
+    a & a & a & a & \bigm| & 1 & 0 & 0 & 0\\
+    0 & b-a & b-a & b-a & \bigm| & -1 & 1 & 0 & 0\\
+    0 & 0 & c-b & c-b & \bigm| & 0 & -1 & 1 & 0\\
+    0 & 0 & 0 & d-c & \bigm| & 0 & 0 & -1 & 1\\
+    \end{bmatrix}\\
+    \end{align*}
+    
+    Assim, $a$, $b-a$, $c-b$, e $d-c$ são os candidatos a pivot. Para realmente o serem, devemos ter $\begin{cases}a\neq0\\b-a\neq0\\c-b\neq0\\d-c\neq0\\\end{cases}\iff\begin{cases}a\neq0\\b\neq a\\c\neq b\\d\neq c\end{cases}$, que são as condições para $A$ ter quatro pivots.
+    
+    \item Ache a uma matriz de permutação $P$ tal que:
+    
+    \begin{enumerate}
+        \item $P$ é $3\times3$, $P\neq I$ e $P^3=I$.
+        \item $S$ é $4\times4$ e $S^4\neq I$
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Seja $P=\begin{bmatrix}
+        0 & 1 & 0\\
+        1 & 0 & 0\\
+        0 & 0 & 1\\
+        \end{bmatrix}$. Note:
+        
+        \begin{align*}
+            P^2&=\begin{bmatrix}
+            1 & 0 & 0\\
+            0 & 1 & 0\\
+            0 & 0 & 1\\
+            \end{bmatrix}\\
+            P^3&=\begin{bmatrix}
+            0 & 1 & 0\\
+            1 & 0 & 0\\
+            0 & 0 & 1\\
+            \end{bmatrix}\neq I\text{.}
+        \end{align*}
+        
+        \item Considere $S=\begin{bmatrix}
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        1 & 0 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        \end{bmatrix}$. Perceba que:
+        
+        \begin{align*}
+            S^2&=\begin{bmatrix}
+            0 & 0 & 1 & 0\\
+            1 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 0 & 1\\
+            \end{bmatrix}\\
+            S^3&=\begin{bmatrix}
+            1 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 1 & 0\\
+            0 & 0 & 0 & 1\\
+            \end{bmatrix}\\
+            S^4&=\begin{bmatrix}
+            0 & 1 & 0 & 0\\
+            0 & 0 & 1 & 0\\
+            1 & 0 & 0 & 0\\
+            0 & 0 & 0 & 1\\
+            \end{bmatrix}\neq I\text{.}
+        \end{align*}
+    \end{enumerate}
+    
+    \item Seja $A$ uma matriz $4\times4$. Quantas entradas de $A$ podem ser escolhidas independentemente caso $A$ seja
+    
+    \begin{enumerate}
+        \item simétrica ($A^T=A$)?
+        \item anti-simétrica ($A^T=-A$)?
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item \begin{align*}
+        \begin{bmatrix}
+            a_1 & a_2 & a_3 & a_4\\
+            a_5 & a_6 & a_7 & a_8\\
+            a_9 & a_{10} & a_{11} & a_{12}\\
+            a_{13} & a_{14} & a_{15} & a_{16}\\
+        \end{bmatrix}^T=\begin{bmatrix}
+            a_1 & a_5 & a_9 & a_{13}\\
+            a_2 & a_6 & a_{10} & a_{14}\\
+            a_3 & a_7 & a_{11} & a_{15}\\
+            a_4 & a_8 & a_{12} & a_{16}\\
+        \end{bmatrix}
+        \end{align*}
+        Assim, temos $$\begin{cases}a_2=a_5\\a_3=a_9\\a_4=a_{13}\\a_7=a_{10}\\a_8=a_{14}\\a_{12}=a_{15}\end{cases}\text{.}$$
+        
+        Ou seja, 6 das 16 entradas são dependentes, logo podemos escolher no máximo 10 entradas.
+        
+        \item Note que se $A$ é anti-simétrica, então $A=-A^T$.
+        \begin{align*}
+            -\begin{bmatrix}
+            a_1 & a_2 & a_3 & a_4\\
+            a_5 & a_6 & a_7 & a_8\\
+            a_9 & a_{10} & a_{11} & a_{12}\\
+            a_{13} & a_{14} & a_{15} & a_{16}\\
+        \end{bmatrix}^T=\begin{bmatrix}
+            -a_1 & -a_5 & -a_9 & -a_{13}\\
+            -a_2 & -a_6 & -a_{10} & -a_{14}\\
+            -a_3 & -a_7 & -a_{11} & -a_{15}\\
+            -a_4 & -a_8 & -a_{12} & -a_{16}\\
+        \end{bmatrix}
+        \end{align*}
+        
+        Assim, temos:
+        $$\begin{cases}a_2=a_5\\a_3=a_9\\a_4=a_{13}\\a_7=a_{10}\\a_8=a_{14}\\a_{12}=a_{15}\end{cases}\begin{cases}a_1=-a_1\\a_6=-a_6\\a_{11}=-a_{11}\\a_{16}=-a_{16}\end{cases}\iff\begin{cases}a_1=0\\a_6=0\\a_{11}=0\\a_{16}=0\end{cases}\text{.}$$
+        
+        Dessa forma, as entradas da diagonal principal já são definidos. Assim, temos apenas 6 entradas livres para escolha.
+        
+    \end{enumerate}
+    
+    \item Suponha que $A$ já é triangular inferior com 1's na diagonal. Mostre que $U=I$.
+    
+    \textbf{Resolução:}
+    
+    Note que $I$ é uma matriz diagonal superior.
+    
+    Provaremos que a decomposição LU é única. Digamos que hajam matrizes triangulares inferiores de diagonal unitária $L_1$ e $L_2$ e matrizes triangulares superiores $U_1$ e $U_2$ tais que $A=L_1U_1=L_2U_2$. Note que toda matriz triangular $T$ pode ser escalonada por uma matriz de eliminação $E$ (seja por Gauss ou Gauss-Jordan) de tal forma que $ET=I$. Assim, $E=T^{-1}$, o que prova que toda matriz triangular é invertível. Assim,
+    \begin{align*}
+        L_1U_1&=L_2U_2\\
+        L_2^{-1}L_1&=U_2U_1^{-1}
+    \end{align*}
+    Como o produto de matrizes triangulares inferiores é também triangular inferior (e o mesmo se aplica às triangulares superiores), a última equação indica que temos uma triangular inferior igual a uma triangular superior, o que só é possível se ambas forem diagonais. Porém, como $L_1$ e $L_2$ têm diagonais unitárias, ambas as matrizes diagonais também têm diagonais unitárias, ou seja, são a identidade.
+    
+    Assim, $U_2U_1^{-1}=I\iff U_2=U_1$ e $L_1=L_2$. Logo, toda decomposição LU é única.
+    
+    Para a matriz $A$ do enunciado, tome $L=A$ e $U=I$, que satisfazem $A=LU$. Como $A$ já é triangular inferior de diagonal unitária, ela satisfaz os requisitos de $L$, o que prova que toda decomposição LU de $A$ tem $U$ como $I$.
+    
+    \item Seja
+    
+    $$A=\begin{bmatrix}
+    1 & c & 0\\
+    2 & 4 & 1\\
+    3 & 5 & 1\\
+    \end{bmatrix}\text{.}$$
+    
+    \begin{enumerate}
+        \item Qual é o número $c$ que leva o segundo pivô a ser $0$? O que podemos fazer para resolver tal problema? Ainda é válido $A=LU$?
+        \item Qual é o número $c$ que leva o terceiro pivô a ser $0$? É possível resolver esse problema?
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Inicialmente, faremos a eliminação de $A$.
+        \begin{align*}
+            \begin{bmatrix}
+            1 & c & 0\\
+            2 & 4 & 1\\
+            3 & 5 & 1\\
+            \end{bmatrix}&\xrightarrow{L_2-2L_1}\begin{bmatrix}
+            1 & c & 0\\
+            0 & 4-2c & 1\\
+            3 & 5 & 1\\
+            \end{bmatrix}\xrightarrow{L_3-3L_1}\\
+            \begin{bmatrix}
+            1 & c & 0\\
+            0 & 4-2c & 1\\
+            0 & 5-3c & 1\\
+            \end{bmatrix}&\xrightarrow{L_3-\frac{5-3c}{4-2c}L_2}\begin{bmatrix}
+            1 & c & 0\\
+            0 & 4-2c & 1\\
+            0 & 0 & \frac{-1+c}{4-2c}\\
+            \end{bmatrix}
+        \end{align*}
+        
+        Para não termos o segundo pivô, é necessário $4-2c=0\iff c=2$.
+        
+        Para resolvermos esse problema, precisamos permutar as linhas da matriz. Na terceira matriz, após o segundo passo de eliminação, por exemplo, precisamos trocar as segunda e terceira linhas. Veja:
+        
+        \begin{align*}
+            \begin{bmatrix}
+            1 & 2 & 0\\
+            0 & 0 & 1\\
+            0 & -1 & 1\\
+            \end{bmatrix}&\xrightarrow{L_2\leftrightarrow L_3}\begin{bmatrix}
+            1 & 2 & 0\\
+            0 & -1 & 1\\
+            0 & 0 & 1\\
+            \end{bmatrix}
+        \end{align*}
+        
+        Dessa forma, $A=LU$ já não é mais válido, sendo $PA=LU$ ainda válido na situação.
+        
+    \end{enumerate}
+
+    \item Se $A$ e $B$ são simétricas, quais dessas matrizes são também simétricas:
+        
+    \begin{enumerate}
+        \item $A^2-B^2$;
+        \item $(A+B)(A-B)$;
+        \item $ABA$;
+        \item $ABAB$.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Seja $C=A^2$.
+        $$c_{ij}=\sum_{k=1}^n a_{ik}a_{kj}=\sum_{k=1}^n a_{ki}a_{jk}=\sum_{k=1}^n a_{jk}a_{ki}=c_{ji}$$
+        Assim, o quadrada de uma matriz simétrica é também simétrica. Assim, como a combinação linear de matrizes simétricas é também simétrica, $A^2-B^2$ \textbf{é simétrica}.
+        
+        \item Como $(A+B)(A-B)=A^2-B^2+BA-AB$ e $A^2-B^2$ é simétrica, basta verificar se $BA-AB$ é simétrica.
+        
+        $(BA-AB)^T=(BA)^T-(AB)^T=A^TB^T-B^TA^T=AB-BA$. Ou seja, $BA-AB$ é anti-simétrica. Assim, $(A+B)(A-B)$ \textbf{não é sempre simétrica}. Como exemplo, podemos ter $A=\begin{bmatrix}
+        0 & 1 & 0\\
+        1 & 0 & 1\\
+        0 & 1 & 0\\
+        \end{bmatrix}$ e $B=\begin{bmatrix}
+        0 & 1 & 1\\
+        1 & 0 & 1\\
+        1 & 1 & 0\\
+        \end{bmatrix}$, onde $(A+B)(A-B)=\begin{bmatrix}
+        -1 & 0 & 0\\
+        -2 & 0 & -2\\
+        0 & 0 & -1\\
+        \end{bmatrix}$.
+        
+        \item Sejam $C=BA$ e $D=AC$. Assim:
+        \begin{align*}
+            c_{ij} &= \sum_{k=1}^n b_{ik}a_{kj}\\
+            d_{ij} &= \sum_{m=1}^n a_{im}c_{mj}\\
+            &= \sum_{m=1}^n a_{im}\sum_{k=1}^n b_{mk}a_{kj}\\
+            &= \sum_{m=1}^n \sum_{k=1}^n a_{im}b_{mk}a_{kj}\\
+            &= \sum_{m=1}^n \sum_{k=1}^n a_{mi}b_{km}a_{jk}\\
+            &= \sum_{m=1}^n \sum_{k=1}^n a_{jk}b_{km}a_{mi}\\
+            &= \sum_{k=1}^n \sum_{m=1}^n a_{jk}b_{km}a_{mi}\\
+            &= d_{ji}\text{.}\\
+        \end{align*}
+        
+        Ou seja, $ABA$ \textbf{é simétrica}.
+        
+        
+        \item Tome $A=\begin{bmatrix}
+        0 & 1 & 0\\
+        1 & 0 & 1\\
+        0 & 1 & 0\\
+        \end{bmatrix}$ e $B=\begin{bmatrix}
+        1 & 1 & 0\\
+        1 & 0 & 1\\
+        0 & 1 & 1\\
+        \end{bmatrix}$. Assim, $ABAB=\begin{bmatrix}
+        2 & 0 & 2\\
+        4 & 4 & 4\\
+        2 & 0 & 2\\
+        \end{bmatrix}$, que não é simétrica. Assim, $ABAB$ \textbf{não é sempre simétrica}.
+    \end{enumerate}
+    
+    
+    
+    \item Prove que é sempre possível escrever $A=B+C$, onde $B$ é simétrica e $C$ anti-simétrica. \textit{Dica: $B$ e $C$ são combinações simples de $A$ e $A^T$.}
+    
+    \textbf{Resolução:}
+    
+    Tome $B=\frac{A+A^T}{2}$ e $C=\frac{A-A^T}{2}$. Assim, $B^T=\frac{A^T+A}{2}=B$ e $C^T=\frac{A^T-A}{2}=-C$, o que implica que $B$ é simétrica e $C$ é anti-simétrica. Além disso, $B+C=\frac{A+A^T+A-A^T}{2}=\frac{2A}{2}=A$.
+    
+    \item Seja $A$ uma matriz em blocos:
+    
+    $$A=\begin{bmatrix}
+    A_{11} & A_{12}\\
+    A_{21} & A_{22}\\
+    \end{bmatrix}$$
+    
+    onde cada $A_{ii}$ é quadrada $n\times n$ com $A_{11}$ invertível. Ache $L$ e $U$ em blocos tal que $A=LU$:
+    
+    $$L=\begin{bmatrix}
+    L_{11} & L_{12}\\
+    L_{21} & L_{22}\\
+    \end{bmatrix}\text{ e }\begin{bmatrix}
+    U_{11} & U_{12}\\
+    U_{21} & U_{22}
+    \end{bmatrix}\text{,}$$
+    
+    onde $L_{11}$, $L_{22}$ são triangulares inferiores com 1's na diagonal e $U_{11}$, $U_{22}$ são triangulares superiores.
+    
+    \textbf{Resolução:}
+    
+    Primeiro, notamos que pelas definições dadas, todos os blocos são da forma $n\times n$, ou seja, podemos multiplicá-las e somá-las sem grandes preocupações. Para seguir, precisamos supor que $A_{11}$ e $A_{22}-A_{21}A_{11}^{-1}A_{12}$ podem ser decompostos em LU, digamos $A_{11}=L_1U_1$ e $A_{22}-A_{21}A_{11}^{-1}A_{12}=L_2U_2$.
+    
+    Começemos eliminando $A$:
+    
+    \begin{align*}
+        \begin{bmatrix}
+        A_{11} & A_{12}\\
+        A_{21} & A_{22}\\
+        \end{bmatrix}&\xrightarrow{L_2-A_{21}A_{11}^{-1}L_1}\begin{bmatrix}
+        A_{11} & A_{12}\\
+        \textbf{0} & A_{22}-A_{21}A_{11}^{-1}A_{12}\\
+        \end{bmatrix}
+    \end{align*}
+    
+    Portanto:
+    
+    \begin{align*}
+        A&=\begin{bmatrix}
+        I & \textbf{0}\\
+        A_{21}A_{11}^{-1} & I\\
+        \end{bmatrix}\begin{bmatrix}
+        A_{11} & A_{12}\\
+        \textbf{0} & A_{22}-A_{21}A_{11}^{-1}A_{12}\\
+        \end{bmatrix}\\
+        &=\begin{bmatrix}
+        I & \textbf{0}\\
+        A_{21}A_{11}^{-1} & I\\
+        \end{bmatrix}\begin{bmatrix}
+        L_1U_1 & A_{12}\\
+        \textbf{0} & L_2U_2\\
+        \end{bmatrix}\\
+        &=\begin{bmatrix}
+        I & \textbf{0}\\
+        A_{21}A_{11}^{-1} & I\\
+        \end{bmatrix}\begin{bmatrix}
+        L_1 & \textbf{0}\\
+        \textbf{0} & L_2\\
+        \end{bmatrix}\begin{bmatrix}
+        U_1 & L_1^{-1}A_{12}\\
+        \textbf{0} & U_2\\
+        \end{bmatrix}\\
+        &=\begin{bmatrix}
+        L_1 & \textbf{0}\\
+        A_{21}(L_1U_1)^{-1}L_1 & L_2\\
+        \end{bmatrix}\begin{bmatrix}
+        U_1 & L_1^{-1}A_{12}\\
+        \textbf{0} & U_2\\
+        \end{bmatrix}\\
+        &=\underbrace{\begin{bmatrix}
+        L_1 & \textbf{0}\\
+        A_{21}U_1^{-1} & L_2\\
+        \end{bmatrix}}_{L}\underbrace{\begin{bmatrix}
+        U_1 & L_1^{-1}A_{12}\\
+        \textbf{0} & U_2\\
+        \end{bmatrix}}_{U}
+    \end{align*}
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

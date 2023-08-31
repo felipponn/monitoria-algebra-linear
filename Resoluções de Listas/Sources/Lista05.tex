@@ -1,0 +1,351 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\newcommand*{\horzbar}{\rule[0.5ex]{2.5ex}{0.5pt}}
+\DeclareMathOperator{\spn}{span}
+\newcommand{\pst}[1]{\text{posto}(#1)}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 5}
+\author{Luís Felipe Marques}
+\date{Agosto de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Explique porque essas afirmações são falsas
+    
+    \begin{enumerate}
+        \item A solução completa é qualquer combinação linear de $x_p$ e $x_n$.
+        
+        \item O sistema $Ax=b$ tem no máximo uma solução particular.
+        
+        \item Se $A$ é inversível, não existe nenhuma solução $x_n$ no núcleo.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+
+    \begin{enumerate}
+        \item No sistema $A\textbf{x}=\textbf{b}$, caso $\textbf{b}\neq\textbf{0}$, já não será verdade a afirmação. Tome, por exemplo, a compinção linear $\textbf{x}_q=3\textbf{x}_p+\textbf{x}_n$. Assim, $A\textbf{x}_q=3A\textbf{x}_p+A\textbf{x}_n=3\textbf{b}\neq\textbf{b}$. Ou seja, essa combinação linear não é solução, como queríamos demonstrar.
+        
+        \item Se $\textbf{x}_\textbf{b}$ é solução particular de $A\textbf{x} = \textbf{b}$, então todo elemento de $\textbf{x}_\textbf{b}+N(A)$ é também solução particular.
+        
+        \item $\textbf{x}=\textbf{0}$ é sempre solução de $A\textbf{x}=\textbf{0}$.
+    \end{enumerate}
+    
+    \item Sejam
+    $$U=\begin{bmatrix}
+    1 & 2 & 3\\
+    0 & 0 & 4\\
+    \end{bmatrix}\text{ e }c=\begin{bmatrix}
+    5\\
+    8\\
+    \end{bmatrix}\text{.}$$
+    
+    Use a eliminação de Gauss-Jordan para reduzir as matrizes $\begin{bmatrix}
+    U & 0\\
+    \end{bmatrix}$ e $\begin{bmatrix}
+    U & c\\
+    \end{bmatrix}$ para $\begin{bmatrix}
+    R & 0\\
+    \end{bmatrix}$ e $\begin{bmatrix}
+    R & d
+    \end{bmatrix}$. Resolva $Rx=0$ e $Rx=d$.
+    
+    \textbf{Resolução:}
+
+    Fazendo a eliminação de Gauss-Jordan:
+    
+    \begin{align*}
+        \begin{bmatrix}
+        1 & 2 & 3 & \bigm| & 5\\
+        0 & 0 & 4 & \bigm| & 8\\
+        \end{bmatrix}\xrightarrow{L_1-\sfrac{3}{4}L_2}\begin{bmatrix}
+        1 & 2 & 0 & \bigm| & -1\\
+        0 & 0 & 4 & \bigm| & 8\\
+        \end{bmatrix}\xrightarrow{L_2/4}\begin{bmatrix}
+        1 & 2 & 0 & \bigm| & -1\\
+        0 & 0 & 1 & \bigm| & 2\\
+        \end{bmatrix}=\begin{bmatrix}
+        R & d
+        \end{bmatrix}
+    \end{align*}
+    
+    Assim, podemos notar que apenas a segunda coluna de $R$ é livre, o que implica que o núcleo de $U$ possui o vetor $(a,1,b)$, onde $\begin{cases}a+2=0\\b=0\end{cases}\iff\begin{cases}a=-2\\b=0\end{cases}\Rightarrow N(U)=\spn\{(-2,1,0)\}$, que são as soluções de $Rx=0$.
+    
+    Para solucionar, $Rx=d$, selecionamos uma solução particular $(c,1,d)$. Daí, $\begin{cases}c+2=-1\\d=2\end{cases}\iff\begin{cases}c=-3\\d=2\end{cases}$, o que implica que as soluções da equação são da forma $(-3,1,2)+x_n$, sendo $x_n$ elemento qualquer de $N(R)=N(U)$.
+    
+    \item Suponha que $Ax=b$ e $Cx=b$ tenham as mesmas soluções (completas) para todo $b$. Podemos concluir que $A=C$?
+    
+    \textbf{Resolução:}
+    
+    Sim, $A=C$.
+    
+    Para provar, tome $\textbf{x}^\prime$ qualquer. Assim, $A\textbf{x}^\prime=\textbf{b}^\prime$ para um certo $\textbf{b}^\prime$. Pela suposição do problema, $\textbf{x}^\prime$ é também solução de $C\textbf{x}=\textbf{b}^\prime$, ou seja, $C\textbf{x}^\prime=\textbf{b}^\prime$. Assim, $A\textbf{x}^\prime-C\textbf{x}^\prime=\textbf{b}^\prime-\textbf{b}^\prime=0\Rightarrow(A-C)\textbf{x}^\prime=0$ para $\textbf{x}^\prime$ qualquer, e, portanto, $N(A-C)=\mathbb{R}^n\Rightarrow(A-C)=\textbf{0}_{n\times n}$, pelo Teorema do Posto. Portanto, $A=C$.
+    
+    \item Ache o maior número possível de vetores linearmente independentes dentre os vetores:
+    
+    $$\begin{bmatrix}
+    1\\-1\\0\\0
+    \end{bmatrix}\text{, }\begin{bmatrix}
+    1\\0\\-1\\0
+    \end{bmatrix}\text{, }\begin{bmatrix}
+    1\\0\\0\\-1
+    \end{bmatrix}\text{, }\begin{bmatrix}
+    0\\1\\-1\\0
+    \end{bmatrix}\text{, }\begin{bmatrix}
+    0\\1\\0\\-1
+    \end{bmatrix}\text{ e }\begin{bmatrix}
+    0\\0\\1\\-1
+    \end{bmatrix}$$
+    
+    \textbf{Resolução:}
+    
+    Façamos dos vetores colunas de uma matriz e façamos sua redução:
+    
+    \begin{align*}
+        \begin{bmatrix}
+        1 & 1 & 1 & 0 & 0 & 0\\
+        -1 & 0 & 0 & 1 & 1 & 0\\
+        0 & -1 & 0 & -1 & 0 & 1\\
+        0 & 0 & -1 & 0 & -1 & -1\\
+        \end{bmatrix}&\xrightarrow{L_2+L_1}\begin{bmatrix}
+        1 & 1 & 1 & 0 & 0 & 0\\
+        0 & 1 & 1 & 1 & 1 & 0\\
+        0 & -1 & 0 & -1 & 0 & 1\\
+        0 & 0 & -1 & 0 & -1 & -1\\
+        \end{bmatrix}\xrightarrow{L_3+L_2}\\\begin{bmatrix}
+        1 & 1 & 1 & 0 & 0 & 0\\
+        0 & 1 & 1 & 1 & 1 & 0\\
+        0 & 0 & 1 & 0 & 1 & 1\\
+        0 & 0 & -1 & 0 & -1 & -1\\
+        \end{bmatrix}&\xrightarrow{L_4+L_3}\begin{bmatrix}
+        1 & 1 & 1 & 0 & 0 & 0\\
+        0 & 1 & 1 & 1 & 1 & 0\\
+        0 & 0 & 1 & 0 & 1 & 1\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+        \end{bmatrix}\xrightarrow{L_2-L_3}\\\begin{bmatrix}
+        1 & 1 & 1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 1 & 0 & -1\\
+        0 & 0 & 1 & 0 & 1 & 1\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+        \end{bmatrix}&\xrightarrow{L_1-L_2}\begin{bmatrix}
+        1 & 0 & 1 & -1 & 0 & 1\\
+        0 & 1 & 0 & 1 & 0 & -1\\
+        0 & 0 & 1 & 0 & 1 & 1\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+        \end{bmatrix}\xrightarrow{L_1-L_3}\\&\begin{bmatrix}
+        1 & 0 & 0 & -1 & -1 & 0\\
+        0 & 1 & 0 & 1 & 0 & -1\\
+        0 & 0 & 1 & 0 & 1 & 1\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+        \end{bmatrix}
+    \end{align*}
+    
+    Como a matriz reduzida tem três colunas com pivô, $3$ é o número máximo de vetores L.I. dentre os vetores dados.
+    
+    \item Ache uma base para o plano $x-2y+3z=0$ em $\mathbb{R}^3$. Encontre então uma base para a interseção desse plano com o plano $xy$. Ache ainda uma base para todos os vetores perpendiculares a esse plano.
+    
+    \textbf{Resolução:}
+    
+    Como se trata de um plano, precisamos apenas de dois elementos para a base. Assim, $(1,2,1)$ e $(-1,1,1)$, duas soluções linearmente independentes, são o bastante para gerar o plano. Base: $\{(1,2,1),(-1,1,1)\}$.
+    
+    A interseção do plano $x-2y+3z=0$ com $z=0$ é equivalente à reta $\begin{cases}x-2y=0\\z=0\end{cases}$, que pode ser gerada pela base $\{(2,1,0)\}$. Base: $\{(2,1,0)\}$.
+    
+    Para os vetores perpendiculares ao plano, já temos o vetor diretor $(1,-2,3)$, que já gera todos os seus múltiplos, também perpendiculares ao plano dado. Base: $(1,-2,3)$.
+    
+    \item Ache (na sua forma mais simples) a matriz que é o produto das matrizes de posto 1 $\textbf{u}\textbf{v}^T$ e $\textbf{w}\textbf{z}^T$? Qual seu posto?
+    
+    \textbf{Resolução:}
+    
+    Sejam $\textbf{u}$, $\textbf{v}$, $\textbf{w}$ e $\textbf{z}$ iguais a $(u_1,\dots, u_n)$, $(v_1,\dots, v_m)$, $(w_1,\dots,w_m)$ e $(z_1,\dots,z_p)$ respectivamente. Daí:
+    
+    \begin{align*}
+        \textbf{u}\textbf{v}^T&=\begin{bmatrix}
+        \horzbar \hspace{-0.2cm} & u_1\textbf{v}^T & \hspace{-0.2cm} \horzbar\\
+        \horzbar \hspace{-0.2cm} & \vdots & \hspace{-0.2cm} \horzbar\\
+        \horzbar \hspace{-0.2cm} & u_n\textbf{v}^T & \hspace{-0.2cm} \horzbar\\
+        \end{bmatrix}\\
+        \textbf{w}\textbf{z}^T&=\begin{bmatrix}
+        \vert & \vert & \vert\\
+        z_1\textbf{w} & \cdots & z_p\textbf{w}\\
+        \vert & \vert & \vert\\
+        \end{bmatrix}\\
+        \therefore \textbf{u}\textbf{v}^T\textbf{w}\textbf{z}^T &=\begin{bmatrix}
+        u_1z_1\textbf{v}^T\textbf{w} & \cdots & u_1z_p\textbf{v}^T\textbf{w}\\
+        \vdots & \ddots & \vdots\\
+        u_nz_1\textbf{v}^T\textbf{w} & \cdots & u_nz_p\textbf{v}^T\textbf{w}\\
+        \end{bmatrix}\\
+        &=\textbf{v}^T\textbf{w}\begin{bmatrix}
+        u_1z_1 & \cdots & u_1z_p\\
+        \vdots & \ddots & \vdots\\
+        u_nz_1 & \cdots & u_nz_p\\
+        \end{bmatrix}\\
+        &=(\textbf{v}\cdot\textbf{w})\textbf{u}\textbf{z}^T
+    \end{align*}
+    
+    Assim, a matriz resultante é múltipla da matriz de posto 1 $\textbf{u}\textbf{z}^T$, o que torna a matriz resultante também de posto 1.
+
+    \item Suponha que a coluna $j$ de $B$ é uma combinação linear das colunas anteriores de $B$. Mostre que a coluna $j$ de $AB$ é uma combinação linear das colunas anteriores de $AB$. Conclua que $\text{posto}(AB)\leq\text{posto}(B)$.
+    
+    \textbf{Resolução:}
+    
+    Sejam $A$ e $B$ matrizes $n\times m$ e $m\times p$ respectivamente. Daí, podemos dizes que elas são da forma:
+    
+    \begin{align*}
+        A&=\begin{bmatrix}
+        \horzbar \hspace{-0.2cm} & \textbf{a}_1^T & \hspace{-0.2cm} \horzbar\\
+        \horzbar \hspace{-0.2cm} & \vdots & \hspace{-0.2cm} \horzbar\\
+        \horzbar \hspace{-0.2cm} & \textbf{a}_n^T & \hspace{-0.2cm} \horzbar\\
+        \end{bmatrix}\\
+        B&=\begin{bmatrix}
+        \vert & \vert & \vert & \vert & \vert\\
+        \textbf{b}_1 & \cdots & \textbf{b}_j & \cdots & \textbf{b}_p\\
+        \vert & \vert & \vert & \vert & \vert\\
+        \end{bmatrix}\\
+        \therefore AB&=\begin{bmatrix}
+        \vert & \vert & \vert & \vert & \vert\\
+        A\textbf{b}_1 & \cdots & A\textbf{b}_j & \cdots & A\textbf{b}_p\\
+        \vert & \vert & \vert & \vert & \vert\\
+        \end{bmatrix}
+    \end{align*}
+    
+    Porém, se $\textbf{b}_j=\sum_{i=1}^{j-1}\alpha_i\textbf{b}_i$, então, pela linearidade de matrizes, $A\textbf{b}_j=\sum_{i=1}^{j-1}\alpha_iA\textbf{b}_i$, o que significa que a $j$-ésima coluna de $AB$ é combinação linear das anteriores.
+    
+    Então, se $(p-\text{posto}(B))$ colunas de $B$ podem ser expressas a partir de de colunas anteriores de $B$, ao menos $p-\text{posto}(B)$ colunas de $AB$ podem ser expressas da mesma forma com colunas anteriores de $AB$. Logo, $\text{posto}(AB)\leq p-(p-\text{posto}(B))\iff\text{posto}(AB)\leq\text{posto}(B)$.
+    
+    \item O item anterior nos dá $\text{posto}(B^TA^T)\leq\text{posto}(A^T)$. É possível concluir que $\pst{AB}\leq\pst{A}$?
+    
+    \textbf{Resolução:}
+    
+    Sim, é possível. Note que $\pst{X}$ corresponde tanto à quantidade de linhas linearmente independentes quanto à quantidade de colunas linearmente independentes de $X$. Assim, $\pst{X}=\pst{X^T}$. Portanto,
+    \begin{align*}
+        \pst{AB}=\pst{B^TA^T}&\leq\pst{A^T}=\pst{A}\\
+        \therefore \pst{AB}&\leq\pst{A}\\
+    \end{align*}
+    
+    \item Suponha que $A$ e $B$ são matrizes quadradas e $AB=I$. Prove que $\pst{A}=n$. Conclua que $B$ precisa ser a inversa (de ambos os lados) de $A$. Então, $BA=I$.
+    
+    \textbf{Resolução:}
+    
+    Primeiro, definiremos as inversas de uma matriz. Uma matriz $Y_{n\times n}$ é a \textit{inversa à esquerda} de $X_{n\times n}$ se $YX=I$. Similarmente, $Y$ é \textit{inversa à direita} se $XY=I$.
+    
+    Para matrizes $X_{n\times n}$ de posto $n$, é perceptível que existem matrizes de eliminação $R$ e $C$ tais que $RX=I$ e $XC=I$. Assim, chamaremos essas matrizes, respectivamente, de inversas à esquerda e à direita \textit{canônicas} da matrix $X$ de posto $n$.
+    
+    Provaremos agora um resultado importante:
+    
+    $$\begin{cases}X^2=X\\XY=I\end{cases}\Rightarrow X=I$$
+    
+    De fato, $X=XI=XXY=X^2Y=XY=I\Rightarrow X=I$.
+    
+    Pelos itens anteriores, temos que $\begin{cases}\pst{AB}\leq\pst{A}\\\pst{AB}\leq\pst{B}\end{cases}$. Porém, como $\pst{AB}=\pst{I}=n$, e $\begin{cases}\pst{A}\leq n\\\pst{B}\leq n\end{cases}$ (o posto não ultrapassa a quantidade de colunas), temos que $\pst{A}=\pst{B}=n$.
+    
+    Seja $C_B$ a inversa à direita canônica de $B$. Note que $(BA)^2=B(AB)A=BIA=BA$ e que $BABC_B=B(AB)C_B=BIC_B=BC_B=I$. Assim, pelo resultado já provado:
+    
+    $$\begin{cases}(BA)^2=BA\\BA(BC_B)=I\end{cases}\Rightarrow BA=I$$
+    
+    Além disso, podemos provar que $B$ é igual às inversas canônicas já definidas:
+    
+    \begin{align*}
+        C_A&=IC_A=BAC_A=BI=B\\
+        R_A&=R_AI=R_AAB=IB=B
+    \end{align*}
+    
+    Portanto, $A^{-1}$ tal que $A^{-1}A=I=AA^{-1}$ é único.
+    
+    \item (\textit{Bônus}) Dado um espaço vetorial real $V$, definimos o conjunto
+    $$V^*:=\{f:V\rightarrow\mathbb{R}\text{ }|\text{ }f\text{ é linear}\}\text{.}$$
+    
+    Ou seja, $V^*$ é o conjunto de todas as funções lineares entre $V$ e $\mathbb{R}$. Relembramos que uma função $f:E\rightarrow F$, onde $E$ e $F$ são espaços vetoriais, é dita \textit{linear} se para todos $\textbf{v}$, $\textbf{w}$ $\in$ $E$ e $\alpha$ $\in$ $\mathbb{R}$ temos $f(\textbf{v}+\textbf{w})=f(\textbf{v})+f(\textbf{w})$ e $f(\alpha\textbf{v})=\alpha f(\textbf{v})$. Chamamos $V^*$ de \textit{espaço dual} de $V$.
+    
+    \begin{enumerate}
+        \item Mostre que $V^*$ é um espaço vetorial.
+        \item Agora, seja $V=\mathbb{R}^n$. Mostre que existe uma bijeção $\varphi:V^*\rightarrow V$ tal que, para toda $f$ $\in$ $V^*$ e para todo $\textbf{v}$ $\in$ $V$, tenhamos
+        $$f(\textbf{v})=\langle\varphi(f),\textbf{v}\rangle\text{.}$$
+        
+        \textit{Dica:} Utilize a dimensão finita de $\mathbb{R}^n$ para expandir $\textbf{v}$ como uma combinação linear dos vetores da base canônica e aplique a linearidade de $f$.
+    \end{enumerate}
+    
+    Em dimensão infinita, esse resultado é conhecido como Teorema da Representação de Riesz.
+    
+    \textbf{Resolução:}
+    \begin{enumerate}
+        \item Sejam $f$, $g$ $\in$ $V^*$. Definimos $(f+g)(\textbf{v})=f(\textbf{v})+g(\textbf{v})$ e $(\alpha f)(\textbf{v})=\alpha f(\textbf{v})$ $\forall$ $\textbf{v}$ $\in$ $V$.
+        
+        Sejam $\textbf{u}$, $\textbf{v}$ vetores quaisquer de $V$. Veja que $(f+g)(\textbf{u}+\textbf{v})=f(\textbf{u}+\textbf{v})+g(\textbf{u}+\textbf{v})=f(\textbf{u})+f(\textbf{v})+g(\textbf{u})+g(\textbf{v})=(f+g)(\textbf{u})+(f+g)(\textbf{v})$ e que $(f+g)(\alpha\textbf{u})=f(\alpha\textbf{u})+g(\alpha\textbf{u})=\alpha f(\textbf{u})+\alpha g(\textbf{u})=\alpha(f+g)(\textbf{u})$, ou seja, $(f+g)$ $\in$ $V^*$.
+        
+        Além disso, $(\alpha f)(\textbf{u}+\textbf{v})=\alpha f(\textbf{u}+\textbf{v})=\alpha f(\textbf{u})+\alpha f(\textbf{v})=(\alpha f)(\textbf{u})+(\alpha f)(\textbf{v})$ e $(\alpha f)(\beta\textbf{u})=\alpha f(\beta\textbf{u})=\alpha\beta f(\textbf{u})=\beta(\alpha f)(\textbf{u})\Rightarrow (\alpha f)$ $\in$ $V^*$.
+        
+        Logo, $V^*$ é um espaço vetorial.
+        
+        \item Seja $\varphi: f\rightarrow\begin{bmatrix}
+        f(e_1)\\
+        \vdots\\
+        f(e_n)
+        \end{bmatrix}$, sendo $\{e_1, \dots, e_n\}$ a base canônica de $\mathbb{R}^n$.
+        
+        Digamos que $\textbf{v}$ seja um vetor qualquer da forma $\sum_{i=1}^n \alpha_ie_i$.
+        
+        Por um lado, $f(\textbf{v})=f(\sum \alpha_ie_i)=\sum \alpha_if(e_i)$.
+        
+        Por outro lado, $\langle\varphi(f),\textbf{v} \rangle=\langle\begin{bmatrix}
+        f(e_1)\\
+        \vdots\\
+        f(e_n)
+        \end{bmatrix},\begin{bmatrix}
+        \alpha_1\\
+        \vdots\\
+        \alpha_n
+        \end{bmatrix}\rangle=\sum_{i=1}^n \alpha_if(e_i)$.
+        
+        Assim, $f(\textbf{v})=\langle\varphi(f),\textbf{v}\rangle$ para a $\varphi$ definida. Falta provar que $\varphi$ é uma bijeção.
+        
+        Para isso, basta notar que $\varphi(f)=\varphi(g)$ implica que, $\forall$ $\textbf{v}$ $\in$ $V$, $\langle\varphi(f), \textbf{v}\rangle=\langle\varphi(g),\textbf{v}\rangle\iff f(\textbf{v})=g(\textbf{v})$ $\forall$ $\textbf{v}$ $\in$ $V$, ou seja, $f$ e $g$ são a mesma função linear. Isso prova que $\varphi$ é injetiva.
+        
+        Além disso, para $f(\sum\alpha_ie_i)=\sum x_i\alpha_ie_i$, temos $\varphi(f)=(x_1,x_2,x_3,\dots,x_n)$ para quaiquer $x_i$ reais. Como podemos escolher $x_i$ tais que $\varphi(f)$ seja qualquer vetor de $\mathbb{R}^n$, $\varphi$ é sobrejetiva.
+        
+        Dessa forma, $\varphi$ é bijetiva.
+    \end{enumerate}
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

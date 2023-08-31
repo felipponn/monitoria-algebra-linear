@@ -1,0 +1,239 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 4 (RESOLUÇÃO)}
+\author{Luís Felipe Marques}
+\date{Novembro de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Seja $A=\begin{bmatrix}
+    1 & b\\
+    b & 1\\
+    \end{bmatrix}$.
+    
+    \begin{enumerate}
+        \item Ache $b$ tal que $A$ tenha um autovalor negativo.
+        
+        \item Como podemos concluir que $A$ precisa ter um pivô negativo?
+        
+        \item Como podemos concluir que $A$ não pode ter dois autovalores negativos?
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+
+    \begin{enumerate}
+        \item Analisando o polinômio característico:
+        
+        $$p_A(x)=x^2-2x+1-b^2=0\iff (x-1)^2=b^2\iff x=1\pm b$$
+        
+        Assim, para $|b|>1$, como $b=2$, temos um dos autovalores de $A$ será $1-2=-1<0$.
+        
+        \item
+        
+        $$\begin{bmatrix}
+        1 & b\\
+        b & 1\\
+        \end{bmatrix}\xrightarrow{L_2-bL_1}\begin{bmatrix}
+        1 & b\\
+        0 & 1-b^2\\
+        \end{bmatrix}$$
+        
+        Ou seja, usando $|b|>1$ do item anterior, temos que $1-b^2<0$.
+        
+        \item Note que a soma dos autovalores é igual a $\text{Tr } A=2$. Assim, o autovalor de maior módulo positivo.
+    \end{enumerate}
+    
+    \item Em quais das seguintes classes as matrizes $A$ e $B$ abaixo pertencem: invertível, ortogonal, projeção, permutação, diagonalizável, Markov?
+    
+    $$A=\begin{bmatrix}
+    0 & 0 & 1\\
+    0 & 1 & 0\\
+    1 & 0 & 0\\
+    \end{bmatrix}\text{ e }B=\frac{1}{3}\begin{bmatrix}
+    1 & 1 & 1\\
+    1 & 1 & 1\\
+    1 & 1 & 1\\
+    \end{bmatrix}\text{.}$$
+    
+    Quais das seguintes fatorações são possíveis para $A$ e $B$? $LU$, $QR$, $S\Lambda S^{-1}$ ou $Q\Lambda Q^T$?
+    
+    \textbf{Resolução:}
+
+    Podemos notar que $A$ é invertível ($\det A=-1\neq0$), ortogonal ($A^T=A^{-1}$), permutativa ($A^2=I$), diagonalizável (simétrica) e de Markov (cada coluna tem soma $1$). Além disso, $B$ é de projeção ($B^2=B$), de Markov e diagonalizável (é simétrica).
+    
+    Na matriz $A$, podemos fazer as fatorações $QR$, $S\Lambda S^{-1}$ e $Q\Lambda Q^T$, enquanto a matriz $B$ pode ser fatorada em $LU$ e $Q\Lambda Q^T$.
+    
+    \item Complete a matriz $A$ abaixo para que seja de Markov e ache o autovetor estacionário. Sua conclusão é válida para qualquer matriz simétrica de Markov $A$? Por quê?
+    
+    $$A=\begin{bmatrix}
+    0.7 & 0.1 & 0.2\\
+    0.1 & 0.6 & 0.3\\
+    * & * & *\\
+    \end{bmatrix}$$
+    
+    \textbf{Resolução:}
+    
+    $$A=\begin{bmatrix}
+        0.7 & 0.1 & 0.2\\
+        0.1 & 0.6 & 0.3\\
+        0.2 & 0.3 & 0.5\\
+    \end{bmatrix}$$
+    
+    Note que o vetor estacionário é $\textbf{v}=(1,1,1)$, já que $A\textbf{v}=\textbf{v}$. Podemos concluir que toda matriz simétrica de Markov será duplamente de Markov, o que garante que $1$ sempre será autovalor para o autovetor de entradas unitárias.
+    
+    \item Dizemos que $\mathcal{M}$ é um grupo de matrizes invertíveis se $A$, $B$ $\in$ $\mathcal{M}$ implica $AB$ $\in$ $\mathcal{M}$ e $A^{-1}$ $\in$ $\mathcal{M}$. Quais dos conjuntos abaixo é um grupo?
+    
+    \begin{enumerate}
+        \item O conjunto das matrizes positivas definidas;
+        
+        \item o conjunto das matrizes ortogonais;
+        
+        \item o conjunto $\{e^{tC};\text{ }t\text{ }\in\text{ }\mathbb{R}\}$, para uma matriz $C$ fixa;
+        
+        \item o conjunto das matrizes com determinante igual a $1$.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Não. Note que $A=\begin{bmatrix}
+            1 & 0\\
+            0 & 4
+        \end{bmatrix}$ e $B=\begin{bmatrix}
+            3 & 1\\
+            1 & 3
+        \end{bmatrix}$ são positivas definidas, mas $AB=\begin{bmatrix}
+            3 & 1\\
+            4 & 12\\
+        \end{bmatrix}$, que não é positiva definida (não é simétrica).
+        
+        \item Sim. Note que se $A$ $\in$ $\mathcal{M}$ ($A^{-1}=A^T$), então $A^{-1}$ $\in$ $\mathcal{M}$ ($(A^{-1})^T=(A^{T})^{-1}=(A^{-1})^{-1}=A$) e, se $B$ também está em $\mathcal{M}$, então $AB$ $\in$ $\mathcal{M}$ ($(AB)^{-1}=B^{-1}A^{-1}=B^TA^T=(AB)^T$).
+        
+        \item Sim. Sejam $A$, $B$ $\in$ $\mathcal{M}$, $A=e^{aC}$, $B=e^{bC}$. Logo, $A^{-1}=e^{(-a)C}\in\mathcal{M}$ e $AB=e^{(a+b)C}\in\mathcal{M}$.
+        
+        \item Sim, já que se $\det A=1$, $\det (A^{-1})=1$, e $\det(AB)=\det A\cdot\det B=1$.
+    \end{enumerate}
+    
+    \item Sejam $A$ e $B$ matrizes simétricas e positivas definidas. Prove que os autovalores de $AB$ são positivos. Podemos dizer que $AB$ é simétrica e positiva definida?
+    
+    \textbf{Resolução:}
+    
+    Seja $\lambda$ um autovalor de $AB$, relativo ao autovetor $x$.
+    
+    $$ABx=\lambda x\Rightarrow(ABx)^T=\lambda x^T\Rightarrow(ABx)^TBx=\lambda x^TBx\Rightarrow (Bx)^TABx=\lambda x^TBx$$
+    
+    Como $A$ é positiva, $(Bx)^TABx>0$, e, como $B$ é positiva, $x^TBx>0\Rightarrow$ $\lambda>0$.
+    
+    Não podemos dizer que $AB$ é simétrica (ver questão anterior).
+    
+    \item Ache a forma quadrática associada à matriz $A=\begin{bmatrix}1 & 5\\
+    7 & 9\end{bmatrix}$. Qual o sinal dessa forma quadrática? Positivo, negativo ou ambos?
+    
+    \textbf{Resolução:}
+    
+    $$q(x,y)=\begin{bmatrix}x & y\end{bmatrix}\begin{bmatrix}1 & 5\\
+    7 & 9\end{bmatrix}\begin{bmatrix}x\\
+    y\end{bmatrix}=x^2+5xy+7xy+9y^2=(x+3y)^2+6xy$$
+    
+    Note que o sinal será positivo para $(x,y)=(1,1)$, e negativo para $(x,y)=(-1,1)$, por exemplo.
+
+    \item Prove os seguintes fatos:
+    
+    \begin{enumerate}
+        \item Se $A$ e $B$ são similares, então $A^2$ e $B^2$ também o são.
+        \item $A^2$ e $B^2$ podem ser similares sem $A$ e $B$ serem similares.
+        \item $\begin{bmatrix}3 & 0\\
+        0 & 4\end{bmatrix}$ é similar à $\begin{bmatrix}3 & 1\\
+        0 & 4\end{bmatrix}$.
+        \item $\begin{bmatrix}3 & 0\\
+        0 & 3\end{bmatrix}$ não é similar à $\begin{bmatrix}3 & 1\\
+        0 & 3\end{bmatrix}$.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Existe $M$ invertível tal que $A=MBM^{-1}$. Logo, $A^2=MBM^{-1}MBM^{-1}=MB^2M^{-1}$, ou seja, a matriz de similaridade é a mesma.
+        
+        \item Seja $A=\textbf{0}$ e $B=\begin{bmatrix}0 & 1\\
+        0 & 0\end{bmatrix}$. $A^2=B^2=\textbf{0}\Rightarrow A^2\sim B^2$, mas $A\not\sim B$.
+        
+        \item Note que $\begin{bmatrix}3 & 0\\
+        0 & 4\end{bmatrix}=\begin{bmatrix}1 & -1\\
+        0 & 1\end{bmatrix}\begin{bmatrix}3 & 1\\
+        0 & 4\end{bmatrix}\begin{bmatrix}1 & 1\\
+        0 & 1\end{bmatrix}$.
+        
+        \item Note que $3$ é autovalor nas duas matrizes, mas
+        
+        $$2=\dim N\left(\begin{bmatrix}0 & 0\\
+        0 & 0\end{bmatrix}\right)\neq\dim N\left(\begin{bmatrix}0 & 1\\
+        0 & 0\end{bmatrix}\right)=1$$
+        
+        Assim, as matrizes não podem ser similares, por terem autodecomposições em quantidades diferentes de autovetores.
+    \end{enumerate}
+    
+    \item Ache os valores singulares (como na decomposição SVD) da matriz $A=\begin{bmatrix}1 & 1\\
+    1 & 0\end{bmatrix}$.
+    
+    \textbf{Resolução:}
+    
+    $$A^TA=\begin{bmatrix}2 & 1\\
+    1 & 1\end{bmatrix}\Rightarrow p_{A^TA}(x)=x^2-3x+1$$
+    
+    $$\Rightarrow\lambda_{1,2}=\frac{3\pm\sqrt{5}}{2}$$
+    
+    $$\Rightarrow\sigma_{1,2}=\sqrt{\frac{3\pm\sqrt{5}}{2}}$$
+    
+    \item Suponha que as colunas de $A$ sejam $\textbf{w}_1, \dots,\textbf{w}_n$ que são vetores ortogonais com comprimentos $\sigma_1,\dots, \sigma_n$. Calcule $A^TA$. Ache a decomposição SVD de $A$.
+    
+    \textbf{Resolução:}
+    
+    Pela ortogonalidade das colunas, $A^TA$ será matriz diagonal de entrada $\sigma^2_1,\dots, \sigma_n^2$. Temos ainda que $A^TA=V\Sigma^2V^T$, o que nos diz que $\Sigma$ é a matriz diagonal de entradas $\sigma_1,\dots,\sigma_n$, e que $V=I$.
+    
+    Assim, como $A=U\Sigma V^T$, e já conhecemos $\Sigma$ e $V$, sabemos que $U$ será igual a $AD$, onde $D$ é matriz diagonal de entradas $\frac{1}{\sigma_i}$.
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,228 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\newcommand{\ezvecbi}[2]{\begin{bmatrix}
+#1\\
+#2\\
+\end{bmatrix}}
+\newcommand{\ezvectri}[3]{\begin{bmatrix}
+#1\\
+#2\\
+#3\\
+\end{bmatrix}}
+\newcommand{\ezvecqua}[4]{\begin{bmatrix}
+#1\\
+#2\\
+#3\\
+#4\\
+\end{bmatrix}}
+\newcommand*{\horzbar}{\rule[0.5ex]{2.5ex}{0.5pt}}
+\DeclareMathOperator{\spn}{span}
+\newcommand{\pst}[1]{\text{posto}(#1)}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 6}
+\author{Luís Felipe Marques}
+\date{Setembro de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Seja $A$ uma matriz $m\times n$ com posto $r$. Suponha que existem $\textbf{b}$ tais que $A\textbf{x}=\textbf{b}$ não tenha solução.
+    
+    \begin{enumerate}
+        \item Escreva todas as desigualdades ($<$ e $\leq$) que os números $m$, $n$ e $r$ precisam satisfazer.
+        
+        \item Como podemos concluir que $A^T\textbf{x}=0$ tem solução fora $\textbf{x}=0$?
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+
+    \begin{enumerate}
+        \item Como $C(A)\subsetneq \mathbb{R}^m$, temos que $\dim C(A)<\dim \mathbb{R}^m\Rightarrow r<m$.
+        
+        Além disso, como $r$ é também $\pst{A^T}$, temos $r\leq n$.
+        
+        \item Pelo Teorema do Núcleo e da Imagem, $\dim N(A^T)+\dim C(A^T)=m$. Como já vimos que $\dim C(A^T)=r<m$, $\dim N(A^T)>0$, o que implica que esse núcleo não é trivial.
+    \end{enumerate}
+    
+    \item Sem calcular $A$ ache uma bases para os quatro espaços fundamentais:
+    
+    $$A=\begin{bmatrix}
+    1 & 0 & 0\\
+    6 & 1 & 0\\
+    9 & 8 & 1\\
+    \end{bmatrix}\begin{bmatrix}
+    1 & 2 & 3 & 4\\
+    0 & 1 & 2 & 3\\
+    0 & 0 & 1 & 2
+    \end{bmatrix}$$
+    
+    \textbf{Resolução:}
+
+    Sejam $B$ e $C$ tais que:
+    
+    $$A=\underbrace{\begin{bmatrix}
+    1 & 0 & 0\\
+    6 & 1 & 0\\
+    9 & 8 & 1\\
+    \end{bmatrix}}_{B}\underbrace{\begin{bmatrix}
+    1 & 2 & 3 & 4\\
+    0 & 1 & 2 & 3\\
+    0 & 0 & 1 & 2
+    \end{bmatrix}}_{C}$$
+
+    \begin{itemize}
+        \item $N(A)$
+        
+        Para que $A\textbf{x}=\textbf{0}$, $\begin{cases}C\textbf{x}=\textbf{b}\\B\textbf{b}=\textbf{0}\end{cases}\Rightarrow\textbf{b}\in N(B)$. Note que $B\sim I\Rightarrow N(B)=\{\textbf{0}\}\Rightarrow\textbf{b}=\textbf{0}\Rightarrow N(A)=N(C)$. Como é perceptível que $\pst{C}=3$, temos que $\dim N(C)=1$, então basta achar $a$, $b$ e $c$ tais que $C\ezvecqua{a}{b}{c}{1}=\ezvecqua{0}{0}{0}{0}$, ou
+        
+        $$\begin{cases}c+2=0\\b+2c+3=0\\a+2b+3c+4=0\end{cases}\iff(a,b,c)=(0,1,-2)$$
+        
+        Portanto, $N(A)=\spn\{(0,1,-2,1)\}$.
+        
+        \item $C(A)$
+        
+        Note que as colunas de $BC$ serão combinações lineares das colunas de $B$ (note também que nenhuma coluna "se perderá", já que nenhuma coluna de $C$ está no núcleo de $B$). Portanto, o espaço-coluna de $BC$ será constituído por combinações lineares das colunas de $B$. Assim, $C(A)=\spn\{(1,6,9),(0,1,8),(0,0,1)\}$.
+        
+        \item $N(A^T)$
+        
+        $$A^T=C^TB^T=\begin{bmatrix}
+        1 & 0 & 0\\
+        2 & 1 & 0\\
+        3 & 2 & 1\\
+        4 & 3 & 2\\
+        \end{bmatrix}\begin{bmatrix}
+        1 & 6 & 9\\
+        0 & 1 & 8\\
+        0 & 0 & 1\\
+        \end{bmatrix}$$
+        
+        De forma semelhante ao caso de $N(A)$, temos $\begin{cases}B^T\textbf{x}=\textbf{b}\\C^T\textbf{b}=\textbf{0}\end{cases}\iff \textbf{b}\in N(C^T)$. Note que $C^T\sim \begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & 1\\
+        0 & 0 & 0\\
+        \end{bmatrix}\Rightarrow\pst{C^T}=3\Rightarrow\dim{N(C^T)}=0\Rightarrow N(C^T)=\{\textbf{0}\}\Rightarrow \textbf{b}=\textbf{0}\Rightarrow N(A^T)=N(B^T)$. Como $B^T\sim\begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & 1\\
+        \end{bmatrix}$, $\pst{B^T}=3\Rightarrow\dim{N(B^T)}=0\Rightarrow N(B^T)=\{\textbf{0}\}$. Daí, $N(A^T)=\{\textbf{0}\}$.
+        
+        \item $C(A^T)$
+        
+        Novamente, como $A^T=C^TB^T$, o espaço-coluna de $A^T$ será constituído de combinações lineares de combinações lineares das colunas de $C^T$ (lembrando novamente que as colunas de $B^T$ não "eliminam" nenhuma coluna de $C^T$).
+        
+        Portanto, $C(A^T)=\spn{(1,2,3,4),(0,1,2,3),(0,0,1,2)}$.
+        \end{itemize}
+    
+    \item Explique porque $v=(1,0,-1)$ não pode ser uma linha de $A$ e estar também no seu núcleo.
+    
+    \textbf{Resolução:}
+    
+    Digamos que $v$ seja a primeira linha de $A$. Perceba que a primeira coordenada de $Av$ será igual a $\langle v,v\rangle=1^2+0^2+(-1)^2=2$. Portanto, $Av$ não poderá ser vetor nulo.
+    
+    \item A equação $A^T\textbf{x}=\textbf{w}$ tem solução quando $\textbf{w}$ está em qual dos quatro subespaços? Quando a solução é única (condição sobre algum dos quatro subespaços)?
+    
+    \textbf{Resolução:}
+    
+    Note que $A^T\textbf{x}$ será uma combinação linear das colunas de $A^T$. Portanto, $A^T\textbf{x}=\textbf{w}\in C(A^T)$. Assim, $\textbf{w}$ está no espaço-linha de $A$.
+    
+    Lembre-se que, se $A^T\textbf{y}=\textbf{w}$, então $\textbf{x}_n+\textbf{y}$ é solução para $A^T\textbf{x}=\textbf{w}$ para todo $\textbf{x}_n$ $\in$ $N(A^T)$. Assim, a solução é única quando $N(A^T)$ é trivial $\iff$ $A^T$ é invertível.
+    
+    \item Seja $M$ o espaço de todas as matrizes $3\times3$. Seja
+    $$A=\begin{bmatrix}1 & 0 & -1\\-1 & 1 & 0\\0 & -1 & 1\\\end{bmatrix}$$
+    
+    e note que $A\begin{bmatrix}1\\1\\1\\\end{bmatrix}=\begin{bmatrix}0\\0\\0\\\end{bmatrix}$.
+    
+    \begin{enumerate}
+        \item Quais matrizes $X$ $\in$ $M$ satisfazem $AX=0$?
+        
+        \item Quais matrizes $Y$ $\in$ $M$ podem ser escritas como $Y=AX$, para algum $X$ $\in$ $M$?
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Note que $A\sim \begin{bmatrix}
+            1 & 0 & -1\\
+            0 & 1 & -1\\
+            0 & 0 & 0\\
+        \end{bmatrix}\Rightarrow\dim N(A)=1$. Como já sabemos que $A(1,1,1)=(0,0,0)$, temos que $N(A)=\spn\{(1,1,1)\}$. Para que $AX=0$, temos que ter as colunas de $X$ no núcleo de $A$. Assim, $X$ é da forma
+        
+        $$\begin{bmatrix}
+            a & b & c\\
+            a & b & c\\
+            a & b & c\\
+        \end{bmatrix}$$
+        
+        para $a$, $b$, $c$ reais quaisquer.
+        
+        \item Novamente, nos atentamos aos subespaços fundamentais de $A$. Em $Y=AX$, as colunas de $Y$ serão combinações lineares das colunas de $A$. Como já vimos que $\dim C(A)=2$, e temos que $(1,-1,0)$ e $(0,1,-1)$ são linearmente independentes, temos que $C(A)=\spn\{(1,-1,0),(0,1,-1)\}$. Logo, $Y$ será da forma
+        
+        $$\begin{bmatrix}
+            (u_1) & (u_2) & (u_3)\\
+            (-u_1+v_1) & (-u_2+v_2) & (-u_3+v_3)\\
+            (-v_1) & (-v_2) & (-v_3)\\
+        \end{bmatrix}$$
+        
+        para $u_1$, $v_1$, $u_2$, $v_2$, $u_3$, $v_3$ reais quaisquer.
+    \end{enumerate}
+    
+    \item Sejam $A$ e $B$ matrizes $m\times n$ com os mesmos quatro subespaços fundamentais. Se ambas estão na sua forma escalonada reduzida, prove que $F$ e $G$ são iguais, onde:
+    
+    \begin{align*}
+        A=\begin{bmatrix}I & F\\0 & 0\\\end{bmatrix}\text{ e }B=\begin{bmatrix}I & G\\0 & 0\\\end{bmatrix}\text{.}
+    \end{align*}
+    
+    \textbf{Resolução:}
+    
+    Para que $A$ e $B$ tenham os mesmos espaços fundamentais, suas formas escalonadas reduzidas devem ter blocos de mesmos tamanhos, ou seja, $F$ e $G$ são matrizes $r\times(n-r)$.
+    
+    Agora, analisemos os núcleos de $A$ e $B$: $A\textbf{x}_{n\times1}=0$ implica que $\textbf{x}$ é da forma $\begin{bmatrix}y_A\\z_A\\\end{bmatrix}$, para $y_A$ $\in$ $\mathbb{R}^r$ e $z_A$ $\in$ $\mathbb{R}^{n-r}$, e $A\textbf{x}=A\begin{bmatrix}y_A\\z_A\\\end{bmatrix}=\begin{bmatrix}y_A+Fz_A\\0\\\end{bmatrix}=0\iff Fz_A=-y_A$. Analogamente, para o núcleo de $B$, $\textbf{x}$ deve ser da forma $(y_B, z_B)$ com $Gz_B=-y_B$.
+    
+    Assim, $F$ e $G$ são matrizes tais que $F\textbf{x}=\textbf{b}$ e $G\textbf{x}=\textbf{b}$ possuem as mesmas soluções (completas) para todo $\textbf{b}$ (já que $F\textbf{x}=\textbf{b}\iff\ezvecbi{-\textbf{b}}{\textbf{x}}\in N(A)\iff\ezvecbi{-\textbf{b}}{\textbf{x}}\in N(B)\iff G\textbf{x}=\textbf{b}$). Como já visto no exercício 3 da lista 5, isso implica que $F=G$ (basta verificar que $F\textbf{x}=\textbf{b}=G\textbf{x}$ para $\textbf{x}$ qualquer e um certo $\textbf{b}$ dependente da escolha de $\textbf{x}$, o que implica que $(F-G)\textbf{x}=\textbf{0}$ para qualquer $\textbf{x}$, propriedade exclusiva da matriz nula $\Rightarrow (F-G)=0\iff F=G$).
+    
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

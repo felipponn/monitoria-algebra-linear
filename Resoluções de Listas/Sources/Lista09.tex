@@ -1,0 +1,351 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\newcommand{\ezvecbi}[2]{\begin{bmatrix}
+#1\\
+#2\\
+\end{bmatrix}}
+\newcommand{\ezvectri}[3]{\begin{bmatrix}
+#1\\
+#2\\
+#3\\
+\end{bmatrix}}
+\newcommand{\ezvecqua}[4]{\begin{bmatrix}
+#1\\
+#2\\
+#3\\
+#4\\
+\end{bmatrix}}
+\newcommand*{\horzbar}{\rule[0.5ex]{2.5ex}{0.5pt}}
+\DeclareMathOperator{\spn}{span}
+\newcommand{\pst}[1]{\text{posto}(#1)}
+\newcommand{\proj}{\text{proj}}
+\newcommand{\cis}[1]{\text{cis }(#1)}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 9}
+\author{Luís Felipe Marques}
+\date{Novembro de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item 
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Note que a MA de 0 é 1, o que significa que sua MG também é 1. Assim, existe apenas um vetor (restringindo-se à independência linear) $\textbf{v}$ tal que $B\textbf{v}=0\textbf{v}=\textbf{0}\Rightarrow N(B)=\spn \{\textbf{v}\}\Rightarrow \dim N(B)=1\Rightarrow \pst{B}=2$.
+        
+        \item Primeiro, lembre que o determinante é igual ao produto dos autovalores. Assim, sendo $\textbf{v}$ o autovetor de $B$ associado a $0$, então $B^TB\textbf{v}=B^T\textbf{0}=\textbf{0}=0\textbf{v}\Rightarrow$ $0$ é autovalor de $B^TB$. Logo, $\det B^TB=0$.
+        
+        \item Como não podemos aplicar o mesmo raciocínio do item anterior para autovalores não-nulos, não podemos determinar outros autovalores de $B^TB$ além de $0$.
+        
+        \item Seja $\alpha$ autovalor de $B$, com $\textbf{v}$ autovetor associado. Então, $B\textbf{v}=\alpha\textbf{v}\Rightarrow B^2\textbf{v}=\alpha B\textbf{v}=\alpha^2\textbf{v}$. Logo, $\alpha^2$ será autovalor de $B^2$. Além disso, $B^2\textbf{v}=\alpha^2\textbf{v}\Rightarrow B^2\textbf{v}+\textbf{v}=\alpha^2\textbf{v}+\textbf{v}\Rightarrow (B^2+I)\textbf{v}=(\alpha^2+1)\textbf{v}$. Ou seja, $\alpha^2+1$ será autovalor de $B^2+I$ $\Rightarrow$ $\{1, 2, 5\}$ são autovalores de $B^2+I$. Logo, os autovalores de $(B^2+I)^{-1}$ serão $1$, $\sfrac{1}{2}$ e $\sfrac{1}{5}$. 
+    \end{enumerate}
+    
+    \item 
+    
+    \textbf{Resolução:}
+
+    Usaremos polinômio característico.
+    
+    \begin{enumerate}
+        \item $p_A(x)=\det \begin{bmatrix}
+            1-x & 2 & 3\\
+            0 & 4-x & 5\\
+            0 & 0 & 6-x\\
+        \end{bmatrix}=(1-x)(4-x)(6-x)$.
+        
+        $p_A(x)=0\iff x \in \{1,4,6\}$, seus autovalores.
+        
+        \item $p_B(x)=\det \begin{bmatrix}
+            -x & 0 & 1\\
+            0 & 2-x & 0\\
+            3 & 0 & -x\\
+        \end{bmatrix}=x^2(2-x)-3(2-x)=(2-x)(x^2-3)$.
+        
+        $p_B(x)=0\iff x \in \{2,\sqrt{3},-\sqrt{3}\}$, autovalores de $B$.
+        
+        \item $p_C(x)=\det \begin{bmatrix}
+            2-x & 2 & 2\\
+            2 & 2-x & 2\\
+            2 & 2 & 2-x\\
+        \end{bmatrix}=(2-x)^3+16-12(2-x)=-x^3+6x^2=x^2(6-x)$. Daí, podemos ver que $0$ é autovalor de MA igual a $2$. Além disso, $6$ também é autovalor.
+    \end{enumerate}
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Tomando o polinômio característico $p_A(x)=x^2-2x-4$, vemos que $\alpha_1=1+\sqrt{5}$ e $\alpha_2=1-\sqrt{5}$ são autovalores de $A$. Para achar os autovetores, analisemos núcleos.
+    
+    Para $A-\alpha_1I=\begin{bmatrix}-1-\sqrt{5} & 4\\ 1 & 1-\sqrt{5}\end{bmatrix}$, note que as linhas são LD, logo basta tomar algum vetor ortogonal a alguma das linhas, como $\textbf{v}_1=(\sqrt{5}-1,1)$.
+    
+    Para $A-\alpha_2I=\begin{bmatrix}\sqrt{5}-1 & 4\\ 1 & 1+\sqrt{5}\end{bmatrix}$, note que as linhas são LD, logo basta tomar algum vetor ortogonal a alguma das linhas, como $\textbf{v}_2=(\sqrt{5}+1,-1)$.
+    
+    Assim, para $S=\begin{bmatrix}a\textbf{v}_1 & b\textbf{v}_2\end{bmatrix}$ ($a$, $b$ números reais não-nulos), e $\Sigma=\begin{bmatrix}\alpha_1 & 0\\
+    0 & \alpha_2\end{bmatrix}$, temos que $A=S\Sigma S^{-1}$ e $A^{-1}=S\Sigma^{-1}S^{-1}$.
+    
+    Assim, as matrizes que diagonalizam $A$ e $A^{-1}$ serão da forma $S=\begin{bmatrix}a\textbf{v}_1 & b\textbf{v}_2\end{bmatrix}$, com $a$ e $b$ números reais não-nulos quaisquer.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Analisando o polinômio característico $p_A(x)=x^2-0.7x-0.3$, vemos que $1$ e $-0.3$ são autovalores de $A$, correspondentes respectivamente, aos autovetores $(9,4)$ e $(1,-1)$. Assim, sendo $S=\begin{bmatrix}9 & 1\\
+    4 & -1\end{bmatrix}$, e $\Sigma=\begin{bmatrix}1 & 0\\
+    0 & -0.3\end{bmatrix}$
+    
+    $$A=S\Sigma S^{-1}\text{,}$$
+    
+    notando que $S^{-1}=\frac{1}{-13}\begin{bmatrix}-1 & -1\\-4 & 9\end{bmatrix}$.
+    
+    Note que $\lim_{k\to\infty} \Sigma^k=\lim_{k\to\infty} \begin{bmatrix}1^k & 0\\0 & (-0.3)^k\end{bmatrix}=\begin{bmatrix}1 & 0\\0 & 0\end{bmatrix}$.
+    
+    Como $A^k=S\Sigma^kS^{-1}$, \begin{align*}
+        \lim_{k\to\infty} A^k&=\lim_{k\to\infty} S\Sigma^k S^{-1}=\\-\frac{1}{13}\begin{bmatrix}9 & 1\\
+    4 & -1\end{bmatrix}\begin{bmatrix}1 & 0\\0 & 0\end{bmatrix}\begin{bmatrix}-1 & -1\\
+    -4 & 9\end{bmatrix}&=-\frac{1}{13}\begin{bmatrix}9 & 1\\4 & -1\end{bmatrix}\begin{bmatrix}-1 & -1\\0 & 0\end{bmatrix}=\frac{1}{13}\begin{bmatrix}9 & 9\\ 4 & 4\end{bmatrix}
+    \end{align*}
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Analisemos o polinômio característico $p_{\theta}(x)=x^2-2\cos\theta x+1$.
+    \begin{align*}
+        p_{\theta}(x)=0\iff x&=\frac{2\cos{\theta}\pm \sqrt{4\cos^2\theta-4}}{2}\\
+        &=\cos{\theta}\pm \sqrt{\cos^2\theta -1}=\cos{\theta}\pm i\cdot \text{sen }\theta \\
+        &=\cis(\pm \theta)
+    \end{align*}
+    
+    O que mostra que $\cis(\pm \theta)$ são os autovalores de $Q(\theta)$.
+    
+    Sendo $\lambda_1=\cis(\theta)$ e $\lambda_2=\cis(-\theta)$, temos que $B_1=Q(\theta)-\lambda_1I=\begin{bmatrix}-i\text{sen }\theta & -\text{sen }\theta\\
+    \text{sen }\theta & -i\text{sen }\theta\end{bmatrix}$ e $B_2=Q(\theta)-\lambda_2I=\begin{bmatrix}i\text{sen }\theta & -\text{sen }\theta\\
+    \text{sen }\theta & i\text{sen }\theta\end{bmatrix}$. Note que $\pst{B_1}=\pst{B_2}=1$, então basta achar um vetor do núcleo de cada para determinar todo o núcleo. Assim, $N(B_1)=\spn\{(1, -i)\}$ e $N(B_2)=\spn\{(1, i)\}$.
+    
+    Assim, $(1,i)$ e $(1,-i)$ são os autovetores de $Q(\theta)$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Note que $\{\textbf{x}_1,\dots,\textbf{x}_n\}$ é uma base. Assim, tome um vetor qualquer de $\mathbb{R}^n$ $y=\sum_{i=1}^n\alpha_i\textbf{x}_i$.
+    
+    Assim, temos paralelamente:
+    
+    \begin{align*}
+        Ay=\sum_{i=1}^n\alpha_iA\textbf{x}_i=\sum_{i=1}^n\alpha_i\lambda_i\textbf{x}_i\\
+        By=\sum_{i=1}^n\alpha_iB\textbf{x}_i=\sum_{i=1}^n\alpha_i\lambda_i\textbf{x}_i
+    \end{align*}
+    
+    Assim, $Ay=By$ para todo $y$ $\in$ $\mathbb{R}^n$. Assim, escolhendo $y=\textbf{e}_1,\dots,\textbf{e}_n$, base canônica, temos que cada coluna de $A$ é igual à equivalente de $B$. Logo, $A=B$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Temos o seguinte:
+    
+    \begin{align*}
+        S=\begin{bmatrix}1 & 1\\
+        -i & i\end{bmatrix}\\
+        \Lambda=\begin{bmatrix}\cis(\theta) & 0\\
+        0 & \cis(-\theta)\end{bmatrix}
+    \end{align*}
+    
+    tal que $Q(\theta)=S\Lambda S^{-1}$. Assim, $Q(\theta)^n=S\Lambda^nS^{-1}=\begin{bmatrix}\cis(\theta)^n & 0\\
+    0 & \cis(-\theta)^n
+    \end{bmatrix}S^{-1}$. Por Moivre, $\cis(x)^n=\cis(nx)$, então $Q(\theta)^n=S\begin{bmatrix}\cis(n\theta) & 0\\
+    0 & \cis(-n\theta)\end{bmatrix}S^{-1}=Q(n\theta)$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Podemos ver que $A=\begin{bmatrix}\sfrac{1}{2} & \sfrac{1}{2}\\
+    1 & 0\end{bmatrix}$.
+    
+    \begin{enumerate}
+        \item Analisemos o polinômio característico: $p_A(x)=x^2-\sfrac{1}{2}x-\sfrac{1}{2}$. $p_A(x)=0\iff x=\sfrac{1}{4}\pm \sfrac{3}{4}$.
+        
+        Assim, os autovalores são $1$ e $-\sfrac{1}{2}$. Assim, $N(A-I)=N\left(\begin{bmatrix}-\sfrac{1}{2} & \sfrac{1}{2}\\1 & -1\end{bmatrix}\right)=\spn\{(1,1)\}$ e $N(A+\sfrac{1}{2}I)=N\left(\begin{bmatrix}1 & \sfrac{1}{2}\\
+        1 & \sfrac{1}{2}\end{bmatrix}\right)=\spn\{(1,-2)\}$.
+        
+        Logo, os autovetores são $(1,1)$ e $(1,-2)$.
+        
+        \item Diagonalizando $A=S\Lambda S^{-1}$, temos:
+        \begin{align*}
+            S = \begin{bmatrix}1 & 1\\
+            1 & -2\end{bmatrix}\\
+            \Lambda = \begin{bmatrix}1 & 0\\
+            0 & -\sfrac{1}{2}\end{bmatrix}\\
+            S^{-1}=\sfrac{1}{3}\begin{bmatrix}2 & 1\\
+            1 & -1\end{bmatrix}
+        \end{align*}
+        
+        Assim, $\lim A^n=\lim S\Lambda^nS^{-1}=S(\lim \begin{bmatrix}1^n & 0\\
+        0 & (-\sfrac{1}{2})^n\end{bmatrix})S^{-1}$. Como $\lim 1^n=1$ e $\lim (-\sfrac{1}{2})^n=0$, temos que $\lim A^n=S\begin{bmatrix}1 & 0\\
+        0 & 0\end{bmatrix}S^{-1}=\begin{bmatrix}\sfrac{2}{3} & \sfrac{1}{3}\\
+        \sfrac{2}{3} & \sfrac{1}{3}\end{bmatrix}$.
+        
+        \item Como $(G_n, G_{n-1})=A(G_{n-1}, G_{n-2})$, temos que $(G_n, G_{n-1})=A^{n-1}(G_1, G_0)$.
+        
+        Se tomarmos $\lim G_n=c$, temos que que 
+        \begin{align*}
+            (c,c)=\lim (G_n, G_{n-1})=\lim A^{n-1}(G_1, G_0)=(\lim A^n) (G_1, G_0)=\\
+            \begin{bmatrix}\sfrac{2}{3} & \sfrac{1}{3}\\
+        \sfrac{2}{3} & \sfrac{1}{3}\end{bmatrix}\ezvecbi{1}{0}=\ezvecbi{\sfrac{2}{3}}{\sfrac{2}{3}}\Rightarrow c=\frac{2}{3}
+        \end{align*}
+        
+        Assim, provamos que $\lim G_n = \frac{2}{3}$.
+    \end{enumerate}
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Sendo $u(t)=(u_1(t), u_2(t))$, temos que o sistema representa:
+    
+    \begin{align*}
+        u'(t)=\underbrace{\begin{bmatrix}8 & 3\\
+        2 & 7\end{bmatrix}}_Au(t)
+    \end{align*}
+    
+    Assim, $e^{-At}u'(t)=e^{-At}Au(t)\Rightarrow e^{-At}u'(t)-e^{-At}Au(t)=0$. Como $(e^{-At}u(t))'=e^{-At}u'(t)-e^{-At}Au(t)$, temos que a derivada de $e^{-At}u(t)$ é $0$, logo $e^{-At}u(t)$ é uma constante $k$. Fazendo $t=0$, temos que $(5,10)=u(0)=k$. Assim, $u(t)=e^{At}(5,10)$.
+    
+    Por outro lado, podemos ver que o polinômio característico de $A$ é $p_A(x)=x^2-15x+50$, que possui raízes $5$ e $10$, autovalores de $A$. Note que $N(A-5I)=N\left(\begin{bmatrix}
+            3 & 3\\
+            2 & 2
+    \end{bmatrix}\right)=\spn\{(1,-1)\}$ e que $N(A-10I)=N\left(\begin{bmatrix}
+            -2 & 3\\
+            2 & -3
+    \end{bmatrix}\right)=\spn\{(3,2)\}$. Logo, $(1,-1)$ e $(3,2)$ são os autovetores de $A$ correspondentes respectivamente a $5$ e $10$.
+    
+    Fazendo $S=\begin{bmatrix}
+            1 & 3\\
+            -1 & 2\\
+    \end{bmatrix}$ e $\Lambda=\begin{bmatrix}
+            5 & 0\\
+            0 & 10
+    \end{bmatrix}$, temos que $A=S\Lambda S^{-1}$.
+    
+    Perceba que
+    
+    \begin{align*}
+        e^{At}&=\sum_{k=0}^{\infty}\frac{(At)^k}{k!}\\
+        &=\sum_{k=0}^{\infty}\frac{t^kS\Lambda^kS^{-1}}{k!}\\
+        &=S\left(\sum_{k=0}^{\infty}\frac{t^k\Lambda^k}{k!}\right)S^{-1}\\
+        &=S\begin{bmatrix}
+                \sum_{k=0}^{\infty} \frac{(5t)^k}{k!} & 0\\
+                0 & \sum_{k=0}^{\infty} \frac{(10t)^k}{k!}
+        \end{bmatrix}S^{-1}\\
+        &=\sfrac{1}{5}\begin{bmatrix}
+            1 & 3\\
+            -1 & 2\\
+    \end{bmatrix}\begin{bmatrix}
+            e^{5t} & 0\\
+            0 & e^{10t}
+    \end{bmatrix}\begin{bmatrix}
+            2 & -3\\
+            1 & 1\\
+    \end{bmatrix}\\
+        &=\sfrac{1}{5}\begin{bmatrix}
+                e^{5t} & 3e^{10t}\\
+                -e^{5t} & 2e^{10t}
+        \end{bmatrix}\begin{bmatrix}
+            2 & -3\\
+            1 & 1\\
+    \end{bmatrix}\\
+        &=\sfrac{1}{5}\begin{bmatrix}
+                2e^{5t}+3e^{10t} & -3e^{5t}+3e^{10t}\\
+                -2e^{5t}+2e^{10t} & 3e^{5t}+2e^{10t}
+        \end{bmatrix}
+    \end{align*}
+    
+    Assim,
+    
+    $$u(t)=e^{At}(5,10)=\ezvecbi{-4e^{5t}+9e^{10t}}{4e^{5t}+6e^{10t}}=\ezvecbi{u_1(t)}{u_2(t)}$$
+    
+    \item
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Note que $D(f_1(x))=2e^{2x}\text{sen }x+e^{2x}\cos{x}=2f_1(x)+f_2(x)$, $D(f_2(x))=2e^{2x}\cos{x}-e^{2x}\text{sen }x=2f_2(x)-f_1(x)$ e $D(f_3(x))=2e^{2x}=2f_3(x)$. Em termos algébricos, $D_{\mathcal{B}}(1,0,0)_{\mathcal{B}}=(2,1,0)_{\mathcal{B}}$, $D_{\mathcal{B}}(0,1,0)_{\mathcal{B}}=(-1,2,0)_{\mathcal{B}}$ e $D_{\mathcal{B}}(0,0,1)_{\mathcal{B}}=(0,0,2)_{\mathcal{B}}$. Assim, podemos ver que
+        
+        $$D_{\mathcal{B}}=\begin{bmatrix}
+                2 & -1 & 0\\
+                1 & 2 & 0\\
+                0 & 0 & 2\\
+        \end{bmatrix}$$
+        
+        \item Podemos ver que o polinômio característico de $D_{\mathcal{B}}$ é $p(x)=(2-x)^3+(2-x)=(2-x)(4-4x+x^2+1)=(2-x)(x^2-4x+5)$, que possui raízes $2$, $2+i$ e $2-i$, respectivamente os autovalores $\lambda_1$, $\lambda_2$ e $\lambda_3$ de $D_{\mathcal{B}}$.
+        
+        Note que
+        
+        \begin{align*}
+            N(D_{\mathcal{B}}-\lambda_1I)=N\left(\begin{bmatrix}
+                    0 & -1 & 0\\
+                    1 & 0 & 0\\
+                    0 & 0 & 0
+            \end{bmatrix}\right)=\spn\{(0,0,1)_{\mathcal{B}}\}\\
+            N(D_{\mathcal{B}}-\lambda_2I)=N\left(\begin{bmatrix}
+                    -i & -1 & 0\\
+                    1 & -i & 0\\
+                    0 & 0 & -i
+            \end{bmatrix}\right)=\spn\{(1,-i,0)_{\mathcal{B}}\}\\
+            N(D_{\mathcal{B}}-\lambda_3I)=N\left(\begin{bmatrix}
+                    i & -1 & 0\\
+                    1 & i & 0\\
+                    0 & 0 & i
+            \end{bmatrix}\right)=\spn\{(1,i,0)_{\mathcal{B}}\}
+        \end{align*}
+        
+        Assim, as funções que são autovetores são $u(x)=e^{\lambda_1x}$, $v(x)=e^{2x}\text{sen }x-ie^{2x}\cos{x}=-ie^{2x}\cis{x}=-ie^{\lambda_2x}$ e $w(x)=e^{2x}\text{sen }x+ie^{2x}\cos{x}=ie^{2x}\cis{-x}=ie^{\lambda_3x}$.
+    \end{enumerate}
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,456 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 4 (RESOLUÇÃO)}
+\author{Luís Felipe Marques}
+\date{Agosto de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Sejam $S$ e $T$ dois subespaços de um espaço vetorial $V$.
+    
+    \begin{enumerate}
+        \item Defina $S+T=\{s+t;s\in S\text{ e }t\in T\}$. Mostre que $S+T$ é um subespaço vetorial.
+        
+        \item Defina $S\cup T=\{x;x\in S\text{ ou } x\in T\}$. Argumente que $S\cup T$ não é necessariamente um subespaço vetorial.
+        
+        \item Se $S$ e $T$ são retas no $\mathbb{R}^3$, o que é $S+T$ e $S\cup T$?
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+
+    \begin{enumerate}
+        \item Devemos mostrar que $A=S+T$ é um subespaço vetorial. Para isso devemos ter:
+        
+        \begin{enumerate}
+            \item $x$, $y$ $\in A$ $\Rightarrow$ $x+y$ $\in$ $A$;
+            \item $x$ $\in$ $A$ $\Rightarrow$ $\alpha x$ $\in$ $A$ $\forall$ $\alpha$ $\in$ $\mathbb{R}$.
+        \end{enumerate}
+        
+        Sejam $x=s_1+t_1$ e $y=s_2+t_2$, para $s_1$, $s_2$ $\in$ $S$ e $t_1$, $t_2$ $\in$ $T$. Então, $x+y=(s_1+s_2)+(t_1+t_2)$. Como $S$ é subespaço, $s_1+s_2$ $\in$ $S$, e o mesmo vale para $t_1$ e $t_2$ para $T$, o que implica que $x+y$ é da forma $s_3+t_3$, ou seja, pertence a $S+T$.
+        
+        Além disso, $\alpha x=\alpha(s_1+t_1)=\alpha s_1 + \alpha t_1$. Novamente, como $S$ e $T$ são subespaços, $\alpha s_1$ $\in$ $S$ e $\alpha t_1$ $\in$ $T$. Portanto, $x$ é da forma $s_4+t_4$, ou seja, pertence a $S+T$.
+        
+        Daí, $S+T$ é também um subespaço.
+        
+        \item Tome, por exemplo, $V=\mathbb{R}^2$, $S=\left\{\begin{bmatrix}
+        a\\
+        0
+        \end{bmatrix};\text{ }\forall\text{ } a \in \mathbb{R}\right\}$, $T=\left\{\begin{bmatrix}
+        0\\
+        b
+        \end{bmatrix};\text{ }\forall\text{ } b \in \mathbb{R}\right\}$. Daí, podemos escolher $s\in\begin{bmatrix}
+        1\\
+        0
+        \end{bmatrix}\in S$ e $t=\begin{bmatrix}
+        0\\
+        1
+        \end{bmatrix}\in T$. Daí, para $S\cup T$ ser subespaço, $s+t$ deve também pertencer a $S\cup T$. Entretanto, $s+t=\begin{bmatrix}
+        1\\
+        1
+        \end{bmatrix}\not\in S\cup T$, já que não é nem da forma $\begin{bmatrix}
+        a\\
+        0
+        \end{bmatrix}$ nem da forma $\begin{bmatrix}
+        0\\
+        b
+        \end{bmatrix}$. Portanto, $S\cup T$ não é sempre um subespaço.
+        
+        \item Como $S+T$ representa as combinações lineares de vetores obtidas por uma componente em $S$ e outra em $T$, caso as retas sejam distintas, teremos como resultado todo o plano definido por essas duas retas. Caso $S$ e $T$ representem a mesma reta, teremos apenas essa reta como resultado.
+        
+        Por outro lado, como $S\cup T$ não é fechado para a soma vetorial, estamos restritos às próprias retas.
+    \end{enumerate}
+    
+    \item Como o núcleo $N(C)$ é relacionado aos núcleos $N(A)$ e $N(B)$, onde $C=\begin{bmatrix}
+    A\\
+    B
+    \end{bmatrix}$?
+    
+    \textbf{Resolução:}
+
+    Seja $\textbf{x}$ um vetor. Assim, $C\textbf{x}=\begin{bmatrix}
+    A\\
+    B
+    \end{bmatrix}\textbf{x}=\begin{bmatrix}
+    A\textbf{x}\\
+    B\textbf{x}
+    \end{bmatrix}$. Portanto, $C\textbf{x}$ é igual a $\textbf{0}$ se, e somente se, $\begin{cases}A\textbf{x}=\textbf{0}\\B\textbf{x}=\textbf{0}\end{cases}\iff\begin{cases}x\in N(A)\\x\in N(B)\end{cases}$. Ou seja, $N(C)=N(A)\cap N(B)$.
+    
+    \item Considere a matriz
+    
+    $$A=\begin{bmatrix}
+    1 & 5 & 7 & 9\\
+    0 & 4 & 1 & 7\\
+    2 & -2 & 11 & -3\\
+    \end{bmatrix}\text{.}$$
+    
+    \begin{enumerate}
+        \item Ache a sua forma escalonada reduzida.
+        
+        \item Qual é o posto dessa matriz?
+        
+        \item Ache uma solução especial para a equação $Ax=0$.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item \begin{align*}
+            \begin{bmatrix}
+    1 & 5 & 7 & 9\\
+    0 & 4 & 1 & 7\\
+    2 & -2 & 11 & -3\\
+    \end{bmatrix}&\xrightarrow{L_3-2L_1}\begin{bmatrix}
+    1 & 5 & 7 & 9\\
+    0 & 4 & 1 & 7\\
+    0 & -12 & -3 & -21\\
+    \end{bmatrix}\xrightarrow{L_3+3L_2}\\
+    \begin{bmatrix}
+    1 & 5 & 7 & 9\\
+    0 & 4 & 1 & 7\\
+    0 & 0 & 0 & 0\\
+    \end{bmatrix}&\xrightarrow{L_1-\sfrac{5}{4}L_2}\begin{bmatrix}
+    1 & 0 & \sfrac{23}{4} & \sfrac{1}{4}\\
+    0 & 4 & 1 & 7\\
+    0 & 0 & 0 & 0\\
+    \end{bmatrix}\xrightarrow{\sfrac{1}{4}L_2}\begin{bmatrix}
+    1 & 0 & \sfrac{23}{4} & \sfrac{1}{4}\\
+    0 & 1 & \sfrac{1}{4} & \sfrac{7}{4}\\
+    0 & 0 & 0 & 0\\
+    \end{bmatrix}
+        \end{align*}
+        
+        \item Como $A$ possui $2$ linhas não-nulas quando reduzida por linhas, seu posto é $2$.
+        
+        \item Em particular, se $\Tilde{A}$ é a forma escalonada reduzida por linhas de $A$, e $\Tilde{A}\textbf{x}=\textbf{0}\Rightarrow A\textbf{x}=\textbf{0}$, já que existe uma matriz de eliminação $E_{3\times3}$ tal que $EA=\Tilde{A}\Rightarrow A = E^{-1}\tilde{A}$. Logo, podemos escolher um $\textbf{x}=\begin{bmatrix}
+        1\\
+        1\\
+        x\\
+        y
+        \end{bmatrix}$, de tal forma que:
+        $$\begin{cases}\sfrac{23}{4}x+\sfrac{1}{4}y=-1\\
+        \sfrac{1}{4}x+\sfrac{7}{4}y=-1\end{cases}\iff \begin{cases}x=-\sfrac{3}{20}\\
+        y=-\sfrac{11}{20}\end{cases}\Rightarrow \textbf{x}=\begin{bmatrix}
+        1\\
+        1\\
+        -\sfrac{3}{20}\\
+        -\sfrac{11}{20}
+        \end{bmatrix}$$
+    \end{enumerate}
+    
+    \item Ache a matrizes $A_1$ e $A_2$ (não triviais) tais que posto$(A_1B) = 1$ e posto$(A_2B) = 0$ para $B=\begin{bmatrix}
+    1 & 1\\
+    1 & 1\\
+    \end{bmatrix}$.
+    
+    \textbf{Resolução:}
+    
+    Seja $A=\begin{bmatrix}
+    a & b\\
+    c & d\\
+    \end{bmatrix}\Rightarrow AB = \begin{bmatrix}
+    a+b & a+b\\
+    c+d & c+d\\
+    \end{bmatrix}$. Assim, podemos fazer $a = b=c=1$, $d=-1$ para que $A_1B=\begin{bmatrix}
+    2 & 2\\
+    0 & 0
+    \end{bmatrix}$, com posto $1$. Para $A_2$, fazemos $a=c=1$ e $b=d=-1$ $\Rightarrow$ $A_2B=\begin{bmatrix}
+    0 & 0\\
+    0 & 0\\
+    \end{bmatrix}$, com posto $0$.
+    
+    \item Verdadeiro ou Falso:
+    
+    \begin{enumerate}
+        \item O espaço das matrizes simétricas é subespaço.
+        \item O espaço das matrizes anti-simétricas é um subespaço.
+        \item O espaço das matrizes não-simétricas ($A^T\neq A$) é um subespaço.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Verdadeiro.
+        
+        Sejam $A$ e $B$ matrizes simétricas. Daí, $(A+B)^T=A^T+B^T=A+B$, o que prova que a soma de matrizes simétricas é também simétrica. Por outro lado $(\alpha A)^T=\alpha A^T$, ou seja, um múltiplo de matriz simétrica é também simétrico. Logo, combinações lineares de matrizes simétricas são simétricas, o que prova o espaço formado por elas é um subespaço vetorial.
+        
+        \item Verdadeiro.
+        
+        Sejam $A$ e $B$ matrizes anti-simétricas. Daí, $(A+B)^T=A^T+B^T=-A-B=-(A+B)$, ou seja, $A+B$ é anti-simétrica. Além disso, $(\alpha A)^T=-\alpha A^T$. Isso prova que o espaço das matrizes anti-simétricas é um subespaço vetorial.
+        
+        \item Falso.
+        
+        Note $\textbf{0}^T = \textbf{0}$, ou seja, $\textbf{0}$ é simétrica, e não faz parte desse subespaço, o que o torna impede de ser um subespaço vetorial, já que não possui elemento neutro.
+    \end{enumerate}
+    
+    \item Se $A$ é $4\times 4$ e inversível, descreva todos os vetores no núcleo da matriz $B=\begin{bmatrix}
+    A & A\\
+    \end{bmatrix}$ (que é $4\times 8$).
+    
+    \textbf{Resolução:}
+    
+    Para que $B\textbf{x}=\textbf{0}$, $x\in \mathbb{R}^8$. Assim, $\textbf{x}$ pode ser expresso como $\begin{bmatrix}
+    a\\
+    b
+    \end{bmatrix}$, $a,b$ $\in$ $\mathbb{R}^4$. Dessa forma, se expressarmos $A=\begin{bmatrix}
+    v_1^T\\
+    v_2^T\\
+    v_3^T\\
+    v_4^T
+    \end{bmatrix}$, sendo $v_i^T$ os vetores-linha de $A$, temos que $B\textbf{x}=\begin{bmatrix}
+    v_1\cdot a +v_1\cdot b\\
+    v_2\cdot a +v_2\cdot b\\
+    v_3\cdot a +v_3\cdot b\\
+    v_4\cdot a +v_4\cdot b\\
+    \end{bmatrix}=\begin{bmatrix}
+    v_1\cdot( a + b)\\
+    v_2\cdot( a + b)\\
+    v_3\cdot( a + b)\\
+    v_4\cdot( a + b)\\
+    \end{bmatrix}=A(a+b)$. Como $A$ é inversível, $A(a+b)=\textbf{0}\iff A^{-1}A(a+b)=A^{-1}\textbf{0}\iff a+b=\textbf{0}\iff b=-a$.
+    Ou seja, todo vetor $v$ $\in$ $N(B)$ pode ser descrito como $\begin{bmatrix}
+    x_1 & x_2 & x_3 & x_4 & -x_1 & -x_2 & -x_3 & -x_4\\
+    \end{bmatrix}^T$, sendo $x_1$, $x_2$, $x_3$, $x_4$ números reais quaisquer.
+
+    \item Mostre por contra-exemplos que as seguintes afirmações são falsas em geral:
+    
+    \begin{enumerate}
+        \item $A$ e $A^T$ tem os mesmos núcleos.
+        \item $A$ e $A^T$ tem as mesmas variáveis livres.
+        \item Se $R$ é a forma escalonada de $A$, então $R^T$ é a forma escalonada de $A$.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Seja $A=\begin{bmatrix}
+        1 & 2\\
+        3 & 6\\
+        \end{bmatrix}$. $A\begin{bmatrix}
+        a\\
+        b
+        \end{bmatrix}=\begin{bmatrix}
+        a+2b\\
+        3a+6b
+        \end{bmatrix}\Rightarrow N(A)=\left\{\begin{bmatrix}
+        -2a\\
+        a
+        \end{bmatrix}; \text{ } \forall\text{ }a\text{ }\in\mathbb{R}\right\}$.
+        
+        Por outro lado, $A^T\begin{bmatrix}
+        a\\
+        b
+        \end{bmatrix}=\begin{bmatrix}
+        a+3b\\
+        2a+6b\\
+        \end{bmatrix}\Rightarrow N(A^T)=\left\{\begin{bmatrix}
+        -3a\\
+        a
+        \end{bmatrix};\text{ }\forall\text{ }a\text{ }\in\mathbb{R}\right\}$.
+        
+        Ou seja, temos $N(A)\neq N(A^T)$.
+        
+        \item Seja $A=\begin{bmatrix}
+        1 & 2 & -1\\
+        2 & -4 & 0\\
+        \end{bmatrix}$. $A\rightarrow\begin{bmatrix}
+        1 & 2 & -1\\
+        0 & -8 & 2
+        \end{bmatrix}$. Em $A\begin{bmatrix}
+        x\\
+        y\\
+        z
+        \end{bmatrix}=b$, temos $z$ como variável livre. Por outro lado, $A^T\rightarrow\begin{bmatrix}
+        1 & 2\\
+        0 & -8\\
+        0 & 0\\
+        \end{bmatrix}$. Em $A^T\begin{bmatrix}
+        x\\
+        y
+        \end{bmatrix}=b$, não temos variáveis livres.
+        
+        Assim, $A$ e $A^T$ têm conjuntos de variáveis livres diferentes.
+        
+        \item Seja $A=\begin{bmatrix}
+        1 & 2 & -1\\
+        2 & -4 & 0\\
+        \end{bmatrix}$.
+        \begin{align*}
+            \Rightarrow R=\begin{bmatrix}
+            1 & 2 & -1\\
+            0 & -8 & 2\\
+            \end{bmatrix}\\
+            A^T=\begin{bmatrix}
+        1 & 2\\
+        2 & -4\\
+        -1 & 0\\
+        \end{bmatrix}\\
+        \Rightarrow \Tilde{A^T}=\begin{bmatrix}
+        1 & 2\\
+        0 & -8\\
+        0 & 0
+        \end{bmatrix}\neq R^T
+        \end{align*}
+    \end{enumerate}
+    
+    \item Construa uma matriz cujo espaço coluna contenha $(1,1,5)$ e $(0,3,1)$ e cujo núcleo contenha $(1,1,2)$. 
+    
+    \textbf{Resolução:}
+    
+    É perceptível que se $(1,1,5)$ e $(0,3,1)$ forem colunas da matrizes, eles fazem parte do espaço coluna. Logo, falta definir a última coluna para garantir que $(1,1,2)$ esteja no núcleo. Seja tal matriz $A=\begin{bmatrix}
+    x & 1 & 0\\
+    y & 1 & 3\\
+    z & 5 & 1\\
+    \end{bmatrix}$. Daí,
+    
+    $$A\begin{bmatrix}
+    1\\
+    1\\
+    2\\
+    \end{bmatrix}=0\iff \begin{bmatrix}
+    x+1\\
+    y+7\\
+    z+7
+    \end{bmatrix}=0\iff \begin{cases}x=-1\\
+    y=-7\\
+    z=-7\end{cases}\Rightarrow A=\begin{bmatrix}
+    -1 & 1 & 0\\
+    -7 & 1 & 3\\
+    -7 & 5 & 1\\
+    \end{bmatrix}$$
+    
+    \item Construa uma matriz cujo núcleo contenha todos os múltiplos de $(4,3,2,1)$.
+    
+    \textbf{Resolução:}
+    
+    Seja tal matriz $A_{4\times4} = \begin{bmatrix}
+    v_1^T\\
+    v_2^T\\
+    v_3^T\\
+    v_4^T\\
+    \end{bmatrix}$, sendo $v_i$ vetores do $\mathbb{R}^4$. Seja $b=\begin{bmatrix}
+    4x\\
+    3x\\
+    2x\\
+    x
+    \end{bmatrix}$ um múltiplo qualquer de $a=(4,3,2,1)$. Dessa forma, $Ab=0\iff \begin{bmatrix}
+    v_1\cdot xa\\
+    v_2\cdot xa\\
+    v_3\cdot xa\\
+    v_4\cdot xa\\
+    \end{bmatrix}=0\iff x\begin{bmatrix}
+    v_1\cdot a\\
+    v_2\cdot a\\
+    v_3\cdot a\\
+    v_4\cdot a\\
+    \end{bmatrix}=0\iff \begin{bmatrix}
+    v_1\cdot a\\
+    v_2\cdot a\\
+    v_3\cdot a\\
+    v_4\cdot a\\
+    \end{bmatrix} = 0$. Assim, os vetores $v_i$ devem todos ser ortogonais a $a$. Podemos fazer $v_1 = (1,0,-2,0)$, $v_2 = (0,1,-1,-1)$, $v_3=(0,0,1,-2)$ e $v_4=(1,-1,0,-1)$, e assim temos:
+    
+    $$A=\begin{bmatrix}
+    1 & 0 & -2 & 0\\
+    0 & 1 & -1 & -1\\
+    0 & 0 & 1 & -2\\
+    1 & -1 & 0 & -1\\
+    \end{bmatrix}$$
+    
+    \item (\textit{Bônus}) Dado um espaço vetorial real $V$, definimos o conjunto
+    $$V^*:=\{f:V\rightarrow\mathbb{R}\text{ }|\text{ }f\text{ é linear}\}\text{.}$$
+    
+    Ou seja, $V^*$ é o conjunto de todas as funções lineares entre $V$ e $\mathbb{R}$. Relembramos que uma função $f:E\rightarrow F$, onde $E$ e $F$ são espaços vetoriais, é dita \textit{linear} se para todos $\textbf{v}$, $\textbf{w}$ $\in$ $E$ e $\alpha$ $\in$ $\mathbb{R}$ temos $f(\textbf{v}+\textbf{w})=f(\textbf{v})+f(\textbf{w})$ e $f(\alpha\textbf{v})=\alpha f(\textbf{v})$. Chamamos $V^*$ de \textit{espaço dual} de $V$.
+    
+    \begin{enumerate}
+        \item Mostre que $V^*$ é um espaço vetorial.
+        \item Agora, seja $V=\mathbb{R}^n$. Mostre que existe uma bijeção $\varphi:V^*\rightarrow V$ tal que, para toda $f$ $\in$ $V^*$ e para todo $\textbf{v}$ $\in$ $V$, tenhamos
+        $$f(\textbf{v})=\langle\varphi(f),\textbf{v}\rangle\text{.}$$
+        
+        \textit{Dica:} Utilize a dimensão finita de $\mathbb{R}^n$ para expandir $\textbf{v}$ como uma combinação linear dos vetores da base canônica e aplique a linearidade de $f$.
+    \end{enumerate}
+    
+    Em dimensão infinita, esse resultado é conhecido como Teorema da Representação de Riesz.
+    
+    \textbf{Resolução:}
+    \begin{enumerate}
+        \item Sejam $f$, $g$ $\in$ $V^*$. Definimos $(f+g)(\textbf{v})=f(\textbf{v})+g(\textbf{v})$ e $(\alpha f)(\textbf{v})=\alpha f(\textbf{v})$ $\forall$ $\textbf{v}$ $\in$ $V$.
+        
+        Sejam $\textbf{u}$, $\textbf{v}$ vetores quaisquer de $V$. Veja que $(f+g)(\textbf{u}+\textbf{v})=f(\textbf{u}+\textbf{v})+g(\textbf{u}+\textbf{v})=f(\textbf{u})+f(\textbf{v})+g(\textbf{u})+g(\textbf{v})=(f+g)(\textbf{u})+(f+g)(\textbf{v})$ e que $(f+g)(\alpha\textbf{u})=f(\alpha\textbf{u})+g(\alpha\textbf{u})=\alpha f(\textbf{u})+\alpha g(\textbf{u})=\alpha(f+g)(\textbf{u})$, ou seja, $(f+g)$ $\in$ $V^*$.
+        
+        Além disso, $(\alpha f)(\textbf{u}+\textbf{v})=\alpha f(\textbf{u}+\textbf{v})=\alpha f(\textbf{u})+\alpha f(\textbf{v})=(\alpha f)(\textbf{u})+(\alpha f)(\textbf{v})$ e $(\alpha f)(\beta\textbf{u})=\alpha f(\beta\textbf{u})=\alpha\beta f(\textbf{u})=\beta(\alpha f)(\textbf{u})\Rightarrow (\alpha f)$ $\in$ $V^*$.
+        
+        Logo, $V^*$ é um espaço vetorial.
+        
+        \item Seja $\varphi: f\rightarrow\begin{bmatrix}
+        f(e_1)\\
+        \vdots\\
+        f(e_n)
+        \end{bmatrix}$, sendo $\{e_1, \dots, e_n\}$ a base canônica de $\mathbb{R}^n$.
+        
+        Digamos que $\textbf{v}$ seja um vetor qualquer da forma $\sum_{i=1}^n \alpha_ie_i$.
+        
+        Por um lado, $f(\textbf{v})=f(\sum \alpha_ie_i)=\sum \alpha_if(e_i)$.
+        
+        Por outro lado, $\langle\varphi(f),\textbf{v} \rangle=\langle\begin{bmatrix}
+        f(e_1)\\
+        \vdots\\
+        f(e_n)
+        \end{bmatrix},\begin{bmatrix}
+        \alpha_1\\
+        \vdots\\
+        \alpha_n
+        \end{bmatrix}\rangle=\sum_{i=1}^n \alpha_if(e_i)$.
+        
+        Assim, $f(\textbf{v})=\langle\varphi(f),\textbf{v}\rangle$ para a $\varphi$ definida. Falta provar que $\varphi$ é uma bijeção.
+        
+        Para isso, basta notar que $\varphi(f)=\varphi(g)$ implica que, $\forall$ $\textbf{v}$ $\in$ $V$, $\langle\varphi(f), \textbf{v}\rangle=\langle\varphi(g),\textbf{v}\rangle\iff f(\textbf{v})=g(\textbf{v})$ $\forall$ $\textbf{v}$ $\in$ $V$, ou seja, $f$ e $g$ são a mesma função linear. Isso prova que $\varphi$ é injetiva.
+        
+        Além disso, para $f(\sum\alpha_ie_i)=\sum x_i\alpha_ie_i$, temos $\varphi(f)=(x_1,x_2,x_3,\dots,x_n)$ para quaiquer $x_i$ reais. Como podemos escolher $x_i$ tais que $\varphi(f)$ seja qualquer vetor de $\mathbb{R}^n$, $\varphi$ é sobrejetiva.
+        
+        Dessa forma, $\varphi$ é bijetiva.
+    \end{enumerate}
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,439 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 2 (RESOLUÇÃO)}
+\author{Luís Felipe Marques}
+\date{Agosto de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item Ache a matriz de eliminação $E$ que reduz a matriz de Pascal em uma menor:
+    
+    $$E\begin{bmatrix}
+    1 & 0 & 0 & 0\\
+    1 & 1 & 0 & 0\\
+    1 & 2 & 1 & 0\\
+    1 & 3 & 3 & 1\\
+    \end{bmatrix}=\begin{bmatrix}
+    1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0\\
+    0 & 1 & 1 & 0\\
+    0 & 1 & 2 & 1\\
+    \end{bmatrix}\text{.}$$
+    
+    Qual matriz $M$ reduz a matriz de Pascal à matriz identidade?
+    
+    \textbf{Resolução:}
+
+    Seja $P$ a matriz de Pascal inicial e $P^\prime$ sua forma menor. Eliminaremos a matriz aumentada $[P|I]$ para chegar a $[P^\prime|E]$.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    1 & 0 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+    1 & 1 & 0 & 0 & \bigm| & 0 & 1 & 0 & 0\\
+    1 & 2 & 1 & 0 & \bigm| & 0 & 0 & 1 & 0\\
+    1 & 3 & 3 & 1 & \bigm| & 0 & 0 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow[i=2,3,4]{L_{i}-L_1}\begin{bmatrix}
+    1 & 0 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 & \bigm| & -1 & 1 & 0 & 0\\
+    0 & 2 & 1 & 0 & \bigm| & -1 & 0 & 1 & 0\\
+    0 & 3 & 3 & 1 & \bigm| & -1 & 0 & 0 & 1\\
+    \end{bmatrix}\xrightarrow{L_4-L_3}\\
+    \begin{bmatrix}
+    1 & 0 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 & \bigm| & -1 & 1 & 0 & 0\\
+    0 & 2 & 1 & 0 & \bigm| & -1 & 0 & 1 & 0\\
+    0 & 1 & 2 & 1 & \bigm| & 0 & 0 & -1 & 1\\
+    \end{bmatrix}&\xrightarrow{L_3-L_2}\begin{bmatrix}
+    1 & 0 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 & \bigm| & -1 & 1 & 0 & 0\\
+    0 & 1 & 1 & 0 & \bigm| & 0 & -1 & 1 & 0\\
+    0 & 1 & 2 & 1 & \bigm| & 0 & 0 & -1 & 1\\
+    \end{bmatrix}\\
+    \Rightarrow E&=\begin{bmatrix}
+    1 & 0 & 0 & 0\\
+    -1 & 1 & 0 & 0\\
+    0 & -1 & 1 & 0\\
+    0 & 0 & -1 & 1\\
+    \end{bmatrix}
+    \end{align*}
+    
+    A partir disso, continuaremos eliminando $[P^\prime|E]$ até chegarmos a $[I|M]$.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    1 & 0 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 & \bigm| & -1 & 1 & 0 & 0\\
+    0 & 1 & 1 & 0 & \bigm| & 0 & -1 & 1 & 0\\
+    0 & 1 & 2 & 1 & \bigm| & 0 & 0 & -1 & 1\\
+    \end{bmatrix}&\xrightarrow[i=3,4]{L_{i}-L_2}\begin{bmatrix}
+    1 & 0 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 & \bigm| & -1 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0 & \bigm| & 1 & -2 & 1 & 0\\
+    0 & 0 & 2 & 1 & \bigm| & 1 & -1 & -1 & 1\\
+    \end{bmatrix}\xrightarrow{L_4-2L_3}\\
+    &\rightarrow\begin{bmatrix}
+    1 & 0 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 & \bigm| & -1 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0 & \bigm| & 1 & -2 & 1 & 0\\
+    0 & 0 & 0 & 1 & \bigm| & -1 & 3 & -3 & 1\\
+    \end{bmatrix}\\
+    \Rightarrow M&=\begin{bmatrix}
+    1 & 0 & 0 & 0\\
+    -1 & 1 & 0 & 0\\
+    1 & -2 & 1 & 0\\
+    -1 & 3 & -3 & 1\\
+    \end{bmatrix}
+    \end{align*}
+    \newpage
+    
+    \item Use o método de Gauss-Jordan para achar a inversa da matriz triangular inferior:
+    
+    $$U=\begin{bmatrix}
+    1 & a & b\\
+    0 & 1 & c\\
+    0 & 0 & 1\\
+    \end{bmatrix}\text{.}$$
+    
+    \textbf{Resolução:}
+
+    Basta eliminar $[U|I]$ até chegarmos a $[I|U^{-1}]$.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    1 & a & b & \bigm| & 1 & 0 & 0\\
+    0 & 1 & c & \bigm| & 0 & 1 & 0\\
+    0 & 0 & 1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{L_2-cL_3}\begin{bmatrix}
+    1 & a & b & \bigm| & 1 & 0 & 0\\
+    0 & 1 & 0 & \bigm| & 0 & 1 & -c\\
+    0 & 0 & 1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}\xrightarrow{L_1-bL_3}\\\begin{bmatrix}
+    1 & a & 0 & \bigm| & 1 & 0 & -b\\
+    0 & 1 & 0 & \bigm| & 0 & 1 & -c\\
+    0 & 0 & 1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}&\xrightarrow{L_1-aL_2}\begin{bmatrix}
+    1 & 0 & 0 & \bigm| & 1 & -a & ac-b\\
+    0 & 1 & 0 & \bigm| & 0 & 1 & -c\\
+    0 & 0 & 1 & \bigm| & 0 & 0 & 1\\
+    \end{bmatrix}\\
+    \Rightarrow U^{-1}&=\begin{bmatrix}
+    1 & -a & ac-b\\
+    0 & 1 & -c\\
+    0 & 0 & 1\\
+    \end{bmatrix}
+    \end{align*}
+    
+    \item Para quais valores de $a$ o método de eliminação não dará $3$ pivôs?
+    
+    $$\begin{bmatrix}
+    a & 2 & 3\\
+    a & a & 4\\
+    a & a & a\\
+    \end{bmatrix}\text{.}$$
+    
+    \textbf{Resolução:}
+    
+    Façamos a eliminação normal para, então, analisar os casos críticos.
+    
+    \begin{align*}
+    \begin{bmatrix}
+    a & 2 & 3\\
+    a & a & 4\\
+    a & a & a\\
+    \end{bmatrix}&\xrightarrow[L_3-L_1]{L_2-L_1}\begin{bmatrix}
+    a & 2 & 3\\
+    0 & a-2 & 1\\
+    0 & a-2 & a-3\\
+    \end{bmatrix}\xrightarrow{L_3-L_2}\begin{bmatrix}
+    a & 2 & 3\\
+    0 & a-2 & 1\\
+    0 & 0 & a-4\\
+    \end{bmatrix}\\
+    \end{align*}
+    
+    Assim, nossos candidatos a pivô são $a$, $a-2$, $a-4$. Para que assim o sejam, devemos ter $$\begin{cases}
+    a\neq0\\
+    a-2\neq0\\
+    a-4\neq0\\
+    \end{cases}\iff\begin{cases}
+    a\neq0\\
+    a\neq2\\
+    a\neq4\\
+    \end{cases}\text{.}$$ Ou seja, para $a\in\{0,2,4\}$, a matriz dada não terá $3$ pivôs em sua eliminação.
+    
+    \item Mostre (com um contra-exemplo) que $(A+B)^2 \neq A^2 + 2AB +B^2$. Calcule $(A+B)^2 = (A+B)(A+B)$ e ache a fórmula certa.
+    
+    \textbf{Resolução:}
+    
+    Sejam $A=\begin{bmatrix}
+    0 & 1 & 0\\
+    1 & 0 & 0\\
+    0 & 0 & 1\\
+    \end{bmatrix}$ e $B=\begin{bmatrix}
+    1 & 0 & 0\\
+    0 & 0 & 1\\
+    0 & 1 & 0\\
+    \end{bmatrix}$. Note que $(A+B)=\begin{bmatrix}
+    1 & 1 & 0\\
+    1 & 0 & 1\\
+    0 & 1 & 1\\
+    \end{bmatrix}\Rightarrow(A+B)^2=\begin{bmatrix}
+    2 & 1 & 1\\
+    1 & 2 & 1\\
+    1 & 1 & 2\\
+    \end{bmatrix}$. Entretanto, $A^2+2AB+B^2=I+2\begin{bmatrix}
+    0 & 0 & 1\\
+    1 & 0 & 0\\
+    0 & 1 & 0\\
+    \end{bmatrix}+I=\begin{bmatrix}
+    2 & 0 & 2\\
+    2 & 2 & 0\\
+    0 & 2 & 2\\
+    \end{bmatrix}$. Logo, $(A+B)^2\neq A^2+2AB+B^2$.
+    
+    Agora, para achar a fórmula correta, nos utilizamos da distributividade da multiplicação de matrizes:
+    
+    \begin{align*}
+    (A+B)^2=(A+B)(A+B)&=AA+AB+BA+BB\\
+    &=A^2+AB+BA+B^2\\
+    \end{align*}
+    
+    \item Verdadeiro ou falso (prove ou forneça um contra-exemplo):
+    
+    \begin{enumerate}
+        \item Se $A^2$ está bem definida, então $A$ é quadrada.
+        
+        \item Se $AB$ e $BA$ estão bem definidas, então $A$ e $B$ são quadradas.
+        
+        \item Se $AB$ e $BA$ estão bem definidas, então $AB$ e $BA$ são quadradas.
+        
+        \item Se $AB=B$, então $A=I$.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item Verdadeiro. Seja $A_{n\times m}$. Então $A_{n\times m}A_{n\times m}$ está bem definida $\iff$ $m=n$ $\iff$ $A_{n\times \textbf{n}}$ é uma matriz quadrada.
+        
+        \item Falso. Tome $A=\begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        \end{bmatrix}$ e $B=\begin{bmatrix}
+        1 & 0\\
+        0 & 1\\
+        0 & 0\\
+        \end{bmatrix}$. Assim, $AB$ e $BA$ estão bem definidas como $\begin{bmatrix}
+        1 & 0\\
+        0 & 1\\
+        \end{bmatrix}$ e $\begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & 0\\
+        \end{bmatrix}$, respectivamente.
+        
+        \item Verdadeiro. Sejam $A_{n\times m}$ e $B_{p\times q}$. Para que $A_{n\times m}B_{p\times q}=C_{n\times q}$ e $B_{p\times q}A_{n\times m}=D_{p\times m}$ estejam bem definidos, temos de ter $\begin{cases}
+        m=p\\
+        q=n\\
+        \end{cases}$. Assim, devemos ter $C_{n\times \textbf{n}}$ e $D_{\textbf{m}\times m}$, ou seja, são quadradas.
+        
+        \item Falso. Tome $A=\begin{bmatrix}
+        2 & 0\\
+        0 & 2\\
+        \end{bmatrix}$ e $B=\begin{bmatrix}
+        0 & 0\\
+        0 & 0\\
+        \end{bmatrix}$. Assim, $AB=2I\textbf{0}=\textbf{0}= B$, e $A\neq I$.
+    \end{enumerate}
+    
+    \item Escreva as matrizes $3\times3$ dadas por:
+    
+    \begin{enumerate}
+        \item $a_{ij}=\min\{i,j\}$.
+        \item $a_{ij}=(-1)^{i+j}$.
+        \item $a_{ij}=i/j$.
+    \end{enumerate}
+    
+    \textbf{Resolução:}
+    
+    \begin{enumerate}
+        \item $A=\begin{bmatrix}
+        1 & 1 & 1\\
+        1 & 2 & 2\\
+        1 & 2 & 3\\
+        \end{bmatrix}$
+        
+        \item $A=\begin{bmatrix}
+        1 & -1 & 1\\
+        -1 & 1 & -1\\
+        1 & -1 & 1\\
+        \end{bmatrix}$
+        
+        \item $A=\begin{bmatrix}
+        1 & \sfrac{1}{2} & \sfrac{1}{3}\\
+        2 & 1 & \sfrac{2}{3}\\
+        3 & \sfrac{3}{2} & 1\\
+        \end{bmatrix}$
+    \end{enumerate}
+    
+    \item Ache uma matriz não-zero $A$ tal que $A^2=0$ e uma matriz $B$ com $B^2\neq0$ e $B^3=0$.
+    
+    \textbf{Resolução:}
+    
+    Tome $A=\begin{bmatrix}
+    0 & 2\\
+    0 & 0\\
+    \end{bmatrix}$. Assim, $$A^2=\begin{bmatrix}
+    0\cdot0+2\cdot0 & 0\cdot2+2\cdot0\\
+    0\cdot0+0\cdot0 & 0\cdot2+0\cdot0\\
+    \end{bmatrix}=\begin{bmatrix}
+    0 & 0\\
+    0 & 0\\
+    \end{bmatrix}=\textbf{0}\text{.}$$
+    Agora, considere $B=\begin{bmatrix}
+    0 & 2 & 2\\
+    0 & 0 & 2\\
+    0 & 0 & 0\\
+    \end{bmatrix}$. Temos que 
+    \begin{align*}
+        B^2=\begin{bmatrix}
+    0\cdot0+2\cdot0+2\cdot0 & 0\cdot2+2\cdot0+2\cdot0 & 0\cdot2+2\cdot2+2\cdot0\\
+    0\cdot0+0\cdot0+2\cdot0 & 0\cdot2+0\cdot0+2\cdot0 & 0\cdot2+0\cdot2+2\cdot0\\
+    0\cdot0+0\cdot0+0\cdot0 & 0\cdot2+0\cdot0+0\cdot0 & 0\cdot2+0\cdot2+0\cdot0\\
+    \end{bmatrix}=\begin{bmatrix}
+    0 & 0 & 4\\
+    0 & 0 & 0\\
+    0 & 0 & 0\\
+    \end{bmatrix}\\ \Rightarrow B^3=\begin{bmatrix}
+    0\cdot0+0\cdot0+4\cdot0 & 0\cdot2+0\cdot0+4\cdot0 & 0\cdot2+0\cdot2+4\cdot0\\
+    0\cdot0+0\cdot0+0\cdot0 & 0\cdot2+0\cdot0+0\cdot0 & 0\cdot2+0\cdot2+0\cdot0\\
+    0\cdot0+0\cdot0+0\cdot0 & 0\cdot2+0\cdot0+0\cdot0 & 0\cdot2+0\cdot2+0\cdot0\\
+    \end{bmatrix}=\begin{bmatrix}
+    0 & 0 & 0\\
+    0 & 0 & 0\\
+    0 & 0 & 0\\
+    \end{bmatrix}=\textbf{0}\text{.}
+    \end{align*}
+    
+    \item Ache as inversas de
+    
+    $$\begin{bmatrix}
+    3 & 2 & 0 & 0\\
+    4 & 3 & 0 & 0\\
+    0 & 0 & 6 & 5\\
+    0 & 0 & 7 & 6\\
+    \end{bmatrix}\text{ e }\begin{bmatrix}
+    0 & 0 & 0 & 2\\
+    0 & 0 & 3 & 0\\
+    0 & 5 & 0 & 0\\
+    1 & 0 & 0 & 0\\
+    \end{bmatrix}$$
+    
+    \textbf{Resolução:}
+    
+    Sejam as matrizes $A$ e $B$, respectivamente. Faremos primeiramente a eliminação $[A|I]\rightarrow[I|A^{-1}]$.
+    
+    \begin{align*}
+        \begin{bmatrix}
+        3 & 2 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+        4 & 3 & 0 & 0 & \bigm| & 0 & 1 & 0 & 0\\
+        0 & 0 & 6 & 5 & \bigm| & 0 & 0 & 1 & 0\\
+        0 & 0 & 7 & 6 & \bigm| & 0 & 0 & 0 & 1\\
+        \end{bmatrix}&\xrightarrow{L_2-\sfrac{4}{3}L_1}\begin{bmatrix}
+        3 & 2 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+        0 & \sfrac{1}{3} & 0 & 0 & \bigm| & \sfrac{-4}{3} & 1 & 0 & 0\\
+        0 & 0 & 6 & 5 & \bigm| & 0 & 0 & 1 & 0\\
+        0 & 0 & 7 & 6 & \bigm| & 0 & 0 & 0 & 1\\
+        \end{bmatrix}\xrightarrow{L_4-\sfrac{7}{6}L_3}\\
+        \begin{bmatrix}
+        3 & 2 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+        0 & \sfrac{1}{3} & 0 & 0 & \bigm| & \sfrac{-4}{3} & 1 & 0 & 0\\
+        0 & 0 & 6 & 5 & \bigm| & 0 & 0 & 1 & 0\\
+        0 & 0 & 0 & \sfrac{1}{6} & \bigm| & 0 & 0 & \sfrac{-7}{6} & 1\\
+        \end{bmatrix}&\xrightarrow{L_3-30L_4}\begin{bmatrix}
+        3 & 2 & 0 & 0 & \bigm| & 1 & 0 & 0 & 0\\
+        0 & \sfrac{1}{3} & 0 & 0 & \bigm| & \sfrac{-4}{3} & 1 & 0 & 0\\
+        0 & 0 & 6 & 0 & \bigm| & 0 & 0 & 36 & -30\\
+        0 & 0 & 0 & \sfrac{1}{6} & \bigm| & 0 & 0 & \sfrac{-7}{6} & 1\\
+        \end{bmatrix}\xrightarrow{L_1-6L_2}\\
+        \begin{bmatrix}
+        3 & 0 & 0 & 0 & \bigm| & 9 & -6 & 0 & 0\\
+        0 & \sfrac{1}{3} & 0 & 0 & \bigm| & \sfrac{-4}{3} & 1 & 0 & 0\\
+        0 & 0 & 6 & 0 & \bigm| & 0 & 0 & 36 & -30\\
+        0 & 0 & 0 & \sfrac{1}{6} & \bigm| & 0 & 0 & \sfrac{-7}{6} & 1\\
+        \end{bmatrix}&\xrightarrow[\begin{cases}x_1=3\\x_2=\sfrac{1}{3}\\x_3=6\\x_4=\sfrac{1}{6}\end{cases} ]{L_i/x_i}\begin{bmatrix}
+        1 & 0 & 0 & 0 & \bigm| & 3 & -2 & 0 & 0\\
+        0 & 1 & 0 & 0 & \bigm| & -4 & 3 & 0 & 0\\
+        0 & 0 & 1 & 0 & \bigm| & 0 & 0 & 6 & -5\\
+        0 & 0 & 0 & 1 & \bigm| & 0 & 0 & -7 & 6\\
+        \end{bmatrix}\\
+        \Rightarrow A^{-1}&=\begin{bmatrix}
+        3 & -2 & 0 & 0\\
+        -4 & 3 & 0 & 0\\
+        0 & 0 & 6 & -5\\
+        0 & 0 & -7 & 6\\
+        \end{bmatrix}
+    \end{align*}
+    
+    Note que se dividirmos $A$ e $A^{-1}$ em 4 subamatrizes $2\times 2$, cada submatriz em $A$ tem seu equivalente em $A^{-1}$ como a inversa da submatriz (com exceção das submatrizes zero).
+    
+    Agora, faremos $[B|I]\rightarrow[I|B^{-1}]$.
+    
+    \begin{align*}
+        \begin{bmatrix}
+        0 & 0 & 0 & 2 & \bigm| & 1 & 0 & 0 & 0\\
+        0 & 0 & 3 & 0 & \bigm| & 0 & 1 & 0 & 0\\
+        0 & 5 & 0 & 0 & \bigm| & 0 & 0 & 1 & 0\\
+        1 & 0 & 0 & 0 & \bigm| & 0 & 0 & 0 & 1\\
+        \end{bmatrix}&\xrightarrow{P_{14}}\begin{bmatrix}
+        1 & 0 & 0 & 0 & \bigm| & 0 & 0 & 0 & 1\\
+        0 & 0 & 3 & 0 & \bigm| & 0 & 1 & 0 & 0\\
+        0 & 5 & 0 & 0 & \bigm| & 0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 2 & \bigm| & 1 & 0 & 0 & 0\\
+        \end{bmatrix}\xrightarrow{P_{23}}\\
+        \begin{bmatrix}
+        1 & 0 & 0 & 0 & \bigm| & 0 & 0 & 0 & 1\\
+        0 & 5 & 0 & 0 & \bigm| & 0 & 0 & 1 & 0\\
+        0 & 0 & 3 & 0 & \bigm| & 0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 2 & \bigm| & 1 & 0 & 0 & 0\\
+        \end{bmatrix}&\xrightarrow[\begin{cases}x_1=1\\x_2=5\\x_3=3\\x_4=2\\\end{cases} ]{L_i/x_i}\begin{bmatrix}
+        1 & 0 & 0 & 0 & \bigm| & 0 & 0 & 0 & 1\\
+        0 & 1 & 0 & 0 & \bigm| & 0 & 0 & \sfrac{1}{5} & 0\\
+        0 & 0 & 1 & 0 & \bigm| & 0 & \sfrac{1}{3} & 0 & 0\\
+        0 & 0 & 0 & 1 & \bigm| & \sfrac{1}{2} & 0 & 0 & 0\\
+        \end{bmatrix}\\
+        \Rightarrow B^{-1}&=\begin{bmatrix}
+        0 & 0 & 0 & 1\\
+        0 & 0 & \sfrac{1}{5} & 0\\
+        0 & \sfrac{1}{3} & 0 & 0\\
+        \sfrac{1}{2} & 0 & 0 & 0\\
+        \end{bmatrix}
+    \end{align*}
+    
+    Note que a inversa de uma matriz diagonal secundária é também diagonal secundária, porém com os elementos inversos e em ordem reversa. 
+    
+\end{enumerate}
+
+ 
+\end{document}

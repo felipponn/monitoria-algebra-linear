@@ -1,0 +1,251 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{minted}
+\usepackage{xfrac}
+
+\newcommand{\ezvecbi}[2]{\begin{bmatrix}
+#1\\
+#2\\
+\end{bmatrix}}
+\newcommand{\ezvectri}[3]{\begin{bmatrix}
+#1\\
+#2\\
+#3\\
+\end{bmatrix}}
+\newcommand{\ezvecqua}[4]{\begin{bmatrix}
+#1\\
+#2\\
+#3\\
+#4\\
+\end{bmatrix}}
+\newcommand*{\horzbar}{\rule[0.5ex]{2.5ex}{0.5pt}}
+\DeclareMathOperator{\spn}{span}
+\newcommand{\pst}[1]{\text{posto}(#1)}
+\newcommand{\proj}{\text{proj}}
+
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+\title{Álgebra Linear - Lista de Exercícios 8}
+\author{Luís Felipe Marques}
+\date{Outubro de 2022}
+ 
+\begin{document}
+ 
+\maketitle
+
+\begin{enumerate}
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Sendo os pontos da forma $(t, b)$, então as equações que devem ser satisfeitas são: $7=C-D$, $7=C+D$ e $21=C+2D$. Dessa forma,
+    
+    \begin{align*}
+        \begin{bmatrix}
+            1 & -1\\
+            1 & 1\\
+            1 & 2\\
+        \end{bmatrix}\begin{bmatrix}
+            C\\
+            D\\
+        \end{bmatrix}=\begin{bmatrix}
+            7\\
+            7\\
+            21\\
+        \end{bmatrix}
+    \end{align*}
+    
+    que podemos reescrever como $A\textbf{x}=\textbf{b}$, que não tem solução. Entretanto, podemos achar $\hat{\textbf{x}}$, solução por mínimos quadrados do sistema, através da equação $A^TA\hat{\textbf{x}}=A^T\textbf{b}$, ou seja:
+    
+    \begin{align*}
+        \begin{bmatrix}
+            3 & 2\\
+            2 & 6\\
+        \end{bmatrix}\begin{bmatrix}
+            \hat{C}\\
+            \hat{D}\\
+        \end{bmatrix}=\begin{bmatrix}
+            35\\
+            42\\
+        \end{bmatrix}
+    \end{align*}
+    
+    que possui solução $(\hat{C},\hat{D})=(9,4)$. Assim, $\textbf{p}=A\hat{\textbf{x}}=(5,13,17)$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+
+    Note que o vetor $p$ é a projeção de $\textbf{b}$ ($p=P\textbf{b}$) no espaço-coluna de $A$. Assim, $p\in C(A)$. Assim, sendo $v$ um vetor qualquer de $C(A)$, $v\cdot e=v\cdot \textbf{b}-v\cdot p=v\cdot \textbf{b}-v\cdot P\textbf{b}=v\cdot \textbf{b}-P^Tv\cdot\textbf{b}=v\cdot \textbf{b}-Pv\cdot\textbf{b}=v\cdot \textbf{b}-v\cdot\textbf{b}=0$, já que $P=A(A^TA)^{-1}A^T\Rightarrow P^T=P$ e $Pv=v$, ou seja, $e\perp v\Rightarrow e\in C(A)^{\perp}\Rightarrow e\in N(A^T)$. Note que $\pst{A^TA}=2$, logo $2\geq\pst{A^T}\leq\pst{A^TA}=2\Rightarrow\pst{A^T}=2\Rightarrow C(A^T)=\mathbb{R}^2\Rightarrow \hat{\textbf{x}}\in C(A^T)$. Por outro lado, como $N(A)=C(A^T)^{\perp}$, $N(A)=\{(0,0)\}$.  
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Esses pontos de forma $b=Dt+C$ podem ser expressas na equação matricial:
+    
+    \begin{align*}
+        \underbrace{\begin{bmatrix}
+            -2 & 1\\
+            -1 & 1\\
+            0 & 1\\
+            1 & 1\\
+            2 & 1\\
+        \end{bmatrix}}_A\underbrace{\begin{bmatrix}
+            D\\
+            C\\
+        \end{bmatrix}}_{\textbf{x}}=\underbrace{\begin{bmatrix}
+            4\\
+            2\\
+            -1\\
+            0\\
+            0\\
+        \end{bmatrix}}_{\textbf{b}}
+    \end{align*}
+    
+    A solução por mínimos quadrados $\hat{\textbf{x}}$ é obtida por $A^TA\hat{\textbf{x}}=A^T\textbf{b}$, que corresponde a:
+    
+    \begin{align*}
+        \begin{bmatrix}
+            10 & 0\\
+            0 & 5\\
+        \end{bmatrix}\begin{bmatrix}
+            \hat{D}\\
+            \hat{C}\\
+        \end{bmatrix}=\begin{bmatrix}
+            -10\\
+            5\\
+        \end{bmatrix}
+    \end{align*}
+    
+    que possui solução $(\hat{D},\hat{C})=(-1,1)$, o que mostra que a reta que minimiza os quadrados das distâncias aos pontos estudados é a reta descrita por $y=-x+1$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Primeiro, façamos a normalização dos vetores, usando a fórmula $u_i=v_i-\sum_{1\leq j<i}\proj_{u_j}(v_i)$, sendo $\proj_r(s)=\frac{s\cdot r}{r\cdot r}r$. Logo, $u_1=v_1=(1,-1,0,0)$, $u_2=v_2-\proj_{u_1}(v_2)=(0,1,-1,0)-\frac{-1}{2}(1,-1,0,0)=(\sfrac{1}{2},\sfrac{1}{2},-1,0)$, e $u_3=v_3-\proj_{u_1}(v_3)-\proj_{u_2}(v_3)=(0,0,1,-1)-\frac{0}{2}(1,-1,0,0)-\frac{-1}{\sfrac{3}{2}}(\sfrac{1}{2},\sfrac{1}{2},-1,0)=(\sfrac{1}{3},\sfrac{1}{3},\sfrac{1}{3},-1)$.
+    
+    Agora, basta normalizar os vetores, fazendo $e_i=\frac{u_i}{\|u_i\|}$, logo $e_1=(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}},0,0)$, $e_2=(\frac{1}{\sqrt{6}},\frac{1}{\sqrt{6}},-\frac{\sqrt{2}}{\sqrt{3}},0)$ e $e_3=(\frac{1}{2\sqrt{3}},\frac{1}{2\sqrt{3}},\frac{1}{2\sqrt{3}},-\frac{\sqrt{3}}{2})$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Sendo $x=\underbrace{(1,\dots,1)}_n$, temos que cada entrada de $Ax$ será a soma de cada linha correspondente, logo $Ax=0$. Assim, $x$ é um vetor não-nulo $v$ tal que $Av=0v$, ou seja, $0$ é autovalor de $A$. Como $\det A$ é igual ao produto dos autovalores, $\det A=0$.
+    
+    No caso em que cada linha de $A$ soma 1, note que cada linha de $I$ também soma 1, logo cada linha de $A-I$ soma 0, o que recai no caso anterior. Logo, $\det (A-I)=0$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Façamos eliminação, supondo que $a$, $b$ e $c$ são números distintos:
+    
+    \begin{align*}
+        \begin{vmatrix}
+            1 & a & a^2\\
+            1 & b & b^2\\
+            1 & c & c^2\\
+        \end{vmatrix}&=\begin{vmatrix}
+            1 & a & a^2\\
+            0 & b-a & b^2-a^2\\
+            0 & c-a & c^2-a^2\\
+        \end{vmatrix}\\
+        &=\begin{vmatrix}
+            1 & a & a^2\\
+            0 & b-a & b^2-a^2\\
+            0 & 0 & c^2-a^2-(b^2-a^2)\frac{c-a}{b-a}\\
+        \end{vmatrix}\\
+        &=\begin{vmatrix}
+            1 & a & a^2\\
+            0 & b-a & b^2-a^2\\
+            0 & 0 & c^2-a^2-(b+a)(c-a)\\
+        \end{vmatrix}\\
+        &=\begin{vmatrix}
+            1 & a & a^2\\
+            0 & b-a & b^2-a^2\\
+            0 & 0 & c^2-bc+ab-ac\\
+        \end{vmatrix}\\
+        &=\begin{vmatrix}
+            1 & a & a^2\\
+            0 & b-a & b^2-a^2\\
+            0 & 0 & (c-b)(c-a)\\
+        \end{vmatrix}
+    \end{align*}
+    
+    Como se trata de uma matriz triangular, o determinante será $(b-a)(c-b)(c-a)$. Note que se nem todos dentre $a$, $b$ e $c$ sejam distintos, temos linhas iguais, que tornam o determinante nulo, algo que se encaixa na fórmula já encontrada.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Note que a matriz é equivalente a $\begin{bmatrix}
+        e_2 & e_3 & e_4 & e_1\\
+    \end{bmatrix}$, ou seja, corresponde à permutação $(2,3,4,1)$. Perceba que $(2,3,4,1)\rightarrow(2,3,1,4)\rightarrow(2,1,3,4)\rightarrow(1,2,3,4)$, ou seja, tal permutação está a 3 trocas da identidade. Logo, o determinante procurado será igual a $(-1)^3=-1$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Seja $A_k=\begin{bmatrix}
+        1 & 1 & 1 & 1\\
+        1 & 2 & 3 & 4\\
+        1 & 3 & 6 & 10\\
+        1 & 4 & 10 & k\\
+    \end{bmatrix}$ e seja $D_{ij}$ o determinante de $A_k$ eliminando a linha $i$ e a coluna $j$. Assim, $\det A_k=-D_{41}+4D_{42}-10D_{43}+kD_{44}$, logo $\det A_{20}-\det A_{19}=(20-19)D_{44}=D_{44}$. Como $D_{44}=1\cdot2\cdot6+1\cdot3\cdot1+1\cdot1\cdot3-1\cdot2\cdot1-1\cdot1\cdot6-1\cdot3\cdot3=1$, temos que $A_{19}=A_{20}-1=0$.
+    
+    \item 
+    
+    \textbf{Resolução:}
+    
+    Aplicando os cofatores na primeira linha, temos que $\det A=D_{11}-D_{12}+4D_{13}\begin{vmatrix}
+        2 & 2\\
+        2 & 5\\
+    \end{vmatrix}-\begin{vmatrix}
+        1 & 2\\
+        1 & 5\\
+    \end{vmatrix}+4\begin{vmatrix}
+        1 & 2\\
+        1 & 2\\
+    \end{vmatrix}=6-3+4\cdot0=3$.
+    
+    Como $D_{13}=0$, o determinante não muda quando mudamos $4$ para $100$.
+    
+\end{enumerate}
+
+ 
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
